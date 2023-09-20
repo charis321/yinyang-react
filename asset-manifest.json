@@ -1,13 +1,16 @@
 {
   "files": {
-    "main.css": "/yinyang-react/static/css/main.073c9b0a.css",
-    "main.js": "/yinyang-react/static/js/main.7ed6426c.js",
+    "main.css": "/yinyang-react/static/css/main.eb274805.css",
+    "main.js": "/yinyang-react/static/js/main.a9d73fc8.js",
+    "static/media/bg.jpg": "/yinyang-react/static/media/bg.91a0443d5bb1e7f4d47d.jpg",
+    "static/media/sign_3.png": "/yinyang-react/static/media/sign_3.e4753bac52c66e019576.png",
+    "static/media/table_bg.jpg": "/yinyang-react/static/media/table_bg.a0a9a27d36ed6203e096.jpg",
     "index.html": "/yinyang-react/index.html",
-    "main.073c9b0a.css.map": "/yinyang-react/static/css/main.073c9b0a.css.map",
-    "main.7ed6426c.js.map": "/yinyang-react/static/js/main.7ed6426c.js.map"
+    "main.eb274805.css.map": "/yinyang-react/static/css/main.eb274805.css.map",
+    "main.a9d73fc8.js.map": "/yinyang-react/static/js/main.a9d73fc8.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.7ed6426c.js"
+    "static/css/main.eb274805.css",
+    "static/js/main.a9d73fc8.js"
   ]
 }
