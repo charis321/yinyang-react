@@ -1,10 +1,10 @@
 
 import './App.css';
-
+import GuaArea from './Compoments/GuaArea'
 function App() {
   return (
     <div className="App">
-      <h1>App Test</h1>
+      <GuaArea></GuaArea>
     </div>
   );
 }

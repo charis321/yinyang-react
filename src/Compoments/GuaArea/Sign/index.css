@@ -1,0 +1,16 @@
+.sign{
+    width: 15px;
+    min-width: 15px;
+    max-width: 15px;
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    margin: -2px;
+    transform-origin: center;
+    transition: 1s all ease-in;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/images/sign_3.png");
+    -webkit-filter: drop-shadow(1px 1px 3px #000);
+    filter: drop-shadow(1px 1px 3px #000);
+}

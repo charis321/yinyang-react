@@ -1,0 +1,47 @@
+.container{
+    
+    position: absolute;
+    width: 100px;
+    height: 200px;
+    background-image: url('../../../../public/images/table_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column-reverse;
+    top: 10px;
+    left:10px;
+    padding: 50px;
+    box-shadow: 2px 2px 5px 1px #333;
+}
+.yang{
+    width: 100px;
+    height: 10px;
+    margin-top: 20px;
+}
+.yin{
+    width: 40px;
+    height: 10px;
+    margin-top: 20px;
+    position: relative;
+}
+.yin::before{
+    content: "";
+    width: 40px;
+    height: 10px;
+    position: absolute;
+    left: 60px;
+}
+.yin.normal::before{
+    background: #000;
+}
+.yin.variety::before{
+    background: red;
+}
+
+.normal{
+background: #000;
+}
+.variety{
+background: red;
+}
+  

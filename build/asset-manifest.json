@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/yinyang-react/static/css/main.52b1f067.css",
+    "main.js": "/yinyang-react/static/js/main.d9d2d07a.js",
+    "static/media/bg.jpg": "/yinyang-react/static/media/bg.91a0443d5bb1e7f4d47d.jpg",
+    "static/media/sign_3.png": "/yinyang-react/static/media/sign_3.e4753bac52c66e019576.png",
+    "static/media/table_bg.jpg": "/yinyang-react/static/media/table_bg.a0a9a27d36ed6203e096.jpg",
+    "index.html": "/yinyang-react/index.html",
+    "main.52b1f067.css.map": "/yinyang-react/static/css/main.52b1f067.css.map",
+    "main.d9d2d07a.js.map": "/yinyang-react/static/js/main.d9d2d07a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.52b1f067.css",
+    "static/js/main.d9d2d07a.js"
+  ]
+}
