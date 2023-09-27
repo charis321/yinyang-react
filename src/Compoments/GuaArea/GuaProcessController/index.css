@@ -1,6 +1,11 @@
 .controller-container {
-    margin-top: 100px;
+
+    display: flex;
+    bottom: 20%;
+    position: fixed;
 }
 .controller-container button{
-    font-size: 2em;
+
+    font-size: 2em;    
+    padding: 10px 20px;
 }

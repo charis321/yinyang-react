@@ -1,0 +1,44 @@
+.yao{
+    width: 100px;
+    height: 10px;
+    background-color: #000;
+    margin-top: 20px;
+    
+}
+
+.yang{
+    width: 100px;
+    height: 10px;
+    margin-top: 20px;
+}
+.yin{
+    width: 40px;
+    height: 10px;
+    margin-top: 20px;
+    position: relative;
+ }
+.yin::before{
+    content: "";
+    width: 40px;
+    height: 10px;
+    position: absolute;
+    left: 60px;
+}
+.yao.normal{
+    background: #000;
+}
+.yao.alter{
+    background: red;
+ }
+.alter.yin::before{
+    background-color: red;
+}
+.normal.yin::before{
+    background-color: #000;
+}
+
+ .gua-block{
+    display: flex;
+    flex-direction: column-reverse;
+ }
+  
