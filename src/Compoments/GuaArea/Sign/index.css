@@ -1,14 +1,12 @@
 .sign{
-    /* width: 20px;
-    min-width: 2px;
-    
-    height: 220px; */
     margin: 0px;
     transform-origin: center;
     
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("../../../../public/images/sign_3.png");
+    background-image: url("../../../../public/images/sign_beta_2.png");
+    
+
     -webkit-filter: drop-shadow(1px 1px 3px #000);
     filter: drop-shadow(1px 1px 3px #000);
     position: absolute;
@@ -17,12 +15,17 @@
 .sign:hover,.sign:active{
     -webkit-filter: drop-shadow(1px 1px 3px #fff);
     filter: drop-shadow(1px 1px 3px #fff);
-    z-index: 100;
+    z-index: 5;
 }
 .tian {
     width: 20px!important;
     height: 200px!important;
     transform: rotateZ(90deg);
+    pointer-events: none;
+}
+
+.banish {
+    transform: rotateZ(30deg)!important;
 }
 
 .sign.draggable{

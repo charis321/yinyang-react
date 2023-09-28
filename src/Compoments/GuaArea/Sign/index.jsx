@@ -49,18 +49,22 @@ export default class Sign extends Component {
     document.onmousemove = this.elementDrag(e.target);
   }
   
-  closeDragElement=(e)=>{
-   
-    console.log(e)
+  closeDragElement=()=>{
+    const {touchIndex} = this.props
     let {sign} = this.state
-    sign.left= this.state.pos5
-    sign.top = this.state.pos6
-      this.setState({
-        sign
-      })
-      document.onmouseup = null;
-      document.onmousemove = null;
+    let nowTouching = touchIndex.now
+    if(nowTouching!=='none'&&(touchIndex[nowTouching].touchable)){
+      this.props.getDragged(this.state.sign, touchIndex.now, sign.place)
+    }else{
+      
+      sign.left= this.state.pos5
+      sign.top = this.state.pos6
+      this.setState({sign})
     }
+   
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
   elementDrag=(target)=>{
     return (e)=>{
       let {pos1,pos2,pos3,pos4,sign} = this.state

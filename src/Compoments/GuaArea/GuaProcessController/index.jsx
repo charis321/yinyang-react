@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import './index.css'
 export default class GuaProcessController extends Component {
-    
+    state = {
+        controllersIndex: [
+            {index: 0, name: "start-btn", content: '開始'},
+            {index: 1, name: "next-btn" ,  content: '下一步'},
+        ]
+    }
     componentDidMount(){
         const { handleArea} = this.props
         handleArea(this, "GuaProcessController")
@@ -10,26 +15,30 @@ export default class GuaProcessController extends Component {
         const {setStage} = this.props
         setStage(true)
     }
-    handleSplit=(resolve)=>{
-        resolve()
+    listen = (stageName)=>{
+        const {controllers} = this.state
     }
-    handlePick=(side)=>{
-        const {setStage} = this.props
-        return ()=>{
-            setStage(true,{side})
-        }
-    }
+
     render() {
-        const {game} = this.props
-        const controllers= []
+    
+        const {controllersIndex} = this.state
+        const {controllers} = this.props
         
        
         return (
             <div className='controller-container'>
-                    <button className='btn-left'  onClick={this.handlePick('left')}  key={2}>left</button>
-                    <button className='btn-start' onClick={this.handleNext} key={1}>開始</button>
-                    <button className='btn-right' onClick={this.handlePick('right')} key={3}>right</button>
-                    {/* <button className='btn-split' onClick={this.handleSplit} key={2}>完成</button> */}
+                {
+                 controllersIndex.map(crtlObj=>{
+                    if(controllers[crtlObj.name]){
+                        const html = 
+                            <button className={crtlObj.name} key={crtlObj.index} onClick={this.handleNext}>
+                                {crtlObj.content}
+                            </button>
+                        
+                         return html
+                    }
+                 })   
+                }
             </div>
             
         )

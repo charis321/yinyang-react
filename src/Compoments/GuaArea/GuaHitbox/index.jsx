@@ -2,19 +2,32 @@ import React, { Component } from 'react'
 import './index.css'
 export default class GuaHitbox extends Component {
   
-
+  state = {
+    
+  }
   setPlace=(place)=>{
-    const place_data = this.props.placeIndex[place]
+    const {placeIndex, touchIndex} = this.props
+    const place_data = placeIndex[place]
     return {
       left:  `${place_data[0]-place_data[2]/2}%`,
       top:   `${place_data[1]-place_data[3]/2}%`,
       width: `${place_data[2]}%`,
       height:`${place_data[3]}%`,
-      backgroundColor: this.props.touchIndex[place]? "rgba(255, 255, 255, 0.5)":''
+      pointerEvents: touchIndex[place].touchable?"auto":"none",
+      backgroundColor: touchIndex[place].isTouched&&touchIndex[place].touchable? "rgba(255, 255, 255, 0.5)":'',
+      animation: `${touchIndex[place].touchable?"emphasize":"none"} 2s infinite`
     }
   }
   handleTouch=(place,isTouched)=>{
-    if(!this.props.isDragging) return 
+    return ()=>{
+      if(this.props.isDragging){
+         this.props.getTouch(place,isTouched)
+      }
+       
+    }
+    
+    
+ 
     // this.props.getTouch(place,isTouched)
   }
   render() {

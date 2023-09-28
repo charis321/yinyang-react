@@ -5,7 +5,12 @@
     position: fixed;
 }
 .controller-container button{
-
+    border-radius: 5px;
     font-size: 2em;    
     padding: 10px 20px;
+    border: 0;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+button:hover{
+    transform: translateY(10%);
 }

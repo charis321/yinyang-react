@@ -3,11 +3,14 @@
   font-family: 'cwTeXKai', serif;
   box-sizing: border-box;
   touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 h1,h2,ul,li{
   list-style: none;
   margin: 0;
   padding: 0;
+  white-space: pre-line;
 }
 html{
   margin: 0;

@@ -4,7 +4,7 @@ import GuaResultBoardcast from './GuaResultBoardcast'
 import GuaMainArea from './GuaMainArea'
 import GuaProcessController from './GuaProcessController'
 import GuaDict from './GuaDict'
-import GuaHitbox from './GuaHitbox'
+
 import {defineYao}from'../GuaArea/Logic'
 import './index.css'
 export default class GuaArea extends Component {
@@ -15,7 +15,7 @@ export default class GuaArea extends Component {
     curr_stage: "startStage",
     
     yaos_list: [],
-    broadcast_text: "請按開始",
+    broadcast_text: "",
     stageIndex: [
       'initialStage',
       'startStage',
@@ -33,47 +33,27 @@ export default class GuaArea extends Component {
     ],
     stageText:{
       "initialStage":"請按【開始】",
-      "startStage":"準備五十支籌策",
-      "tianStage": "放一支籌策到上方",
-      "splitStage":"將籌策分成兩堆",
-      "choseStage":"選擇一邊, 移開一支籌策",
-      "divideStage":"以四支為單位",
-      "defineStage": "*****",
+      "startStage":"準備五十支籌策\n 【大衍之數五十，其用四十有九】---《繫辭》",
+      "tianStage": "放一支籌策到上方\n【大衍之數五十，其用四十有九】---《繫辭》",
+      "splitStage":"將籌策分成兩堆\n 【分而為二以象兩】---《繫辭》",
+      "choseStage":"選擇一邊, 移開一支籌策\n 【掛一以象三】---《繫辭》",
+      "divideStage":"以四為單位分為一小堆，最後剩下的餘數拿出來\n【揲之以四以象四時，歸奇於扐以象閏】---《繫辭》",
+      "defineStage": "此為--------",
       "finalStage": "---------",
-    }
+    },
+    controllers: {
+      "start-btn": false ,
+      "next-btn" : false ,
+   }
   }
   area = {}
   initialState=async()=>{
     const base_state = {
       loop: 0,
       curr_stage_index: 0,
-      curr_stage: "startStage",
-      broadcast_text: "請按開始",
-      stageIndex: [
-        'initialStage',
-        'startStage',
-        'tianStage',
-        'splitStage', //[turn 1]
-        'choseStage', 
-        'divideStage',
-        'splitStage', //[turn 2]
-        'choseStage',
-        'divideStage',
-        'splitStage', //[turn 3]
-        'choseStage',
-        'divideStage',
-        'defineStage',
-      ],
-      stageText:{
-        "initialStage":"請按【開始】",
-        "startStage":"準備五十支籌策",
-        "tianStage": "放一支籌策到上方",
-        "splitStage":"將籌策分成兩堆",
-        "choseStage":"選擇一邊, 移開一支籌策",
-        "divideStage":"以四支為單位",
-        "defineStage": "*****",
-        "finalStage": "---------",
-      }
+      curr_stage: "initialtStage",
+      broadcast_text: "請按【開始】",
+      yaos_list: [],
     }
     this.setState(base_state)
   }
@@ -83,6 +63,7 @@ export default class GuaArea extends Component {
   handleArea = (instance, name)=>{
     this.area[name] = instance;
   }
+ 
   ////////////////////////////////////////////////////////// stage manger
   initialStage = async(data)=>{
     console.log("initial")
@@ -90,7 +71,12 @@ export default class GuaArea extends Component {
     this.sendNewBroadcast(this.state.stageText['initialStage'])
 
     await this.area["GuaMainArea"].resetSigns()
-    
+    this.setState({
+      controllers:{
+        "start-btn": true ,
+        "next-btn" : false ,
+      }
+   })
   }
   startStage = async(data)=>{
     console.log("start")
@@ -100,6 +86,12 @@ export default class GuaArea extends Component {
     await this.area["GuaMainArea"].createSigns(50)
     //console.log(2,this.area["GuaMainArea"].state.signs)
     await this.area["GuaMainArea"].sortSigns("main")
+    this.setState({
+      controllers:{
+        "start-btn": false ,
+        "next-btn" : true ,
+      }
+   })
     // console.log(2,this.area["GuaMainArea"].state.signs)
     //this.area["GuaMainArea"].createSigns(50)  
   }
@@ -107,16 +99,23 @@ export default class GuaArea extends Component {
     console.log("tian")
     this.setState({curr_stage:"tianStage"})
     this.sendNewBroadcast(this.state.stageText['tianStage'])
-    await this.area["GuaMainArea"].moveSigns([1], "tian");
-    await this.area["GuaMainArea"].sortSigns("tian");
-    await this.area["GuaMainArea"].sortSigns("main");
+    this.setState({
+      controllers:{
+        "start-btn": false ,
+        "next-btn" : true ,
+      }
+   })
+    await this.area["GuaMainArea"].tianSigns()
+    // await this.area["GuaMainArea"].moveSigns([1], "tian");
+    // await this.area["GuaMainArea"].sortSigns("tian");
+    // await this.area["GuaMainArea"].sortSigns("main");
   }
   splitStage = async(data)=>{
     console.log("split")
     this.setState({curr_stage:"splitStage"})
     this.sendNewBroadcast(this.state.stageText['splitStage'])
     
-    const result = await this.area["GuaMainArea"].splitSigns();  
+    await this.area["GuaMainArea"].splitSigns();  
     // controller.changeBtn("next");
   }
   choseStage = async(data)=>{
@@ -138,12 +137,12 @@ export default class GuaArea extends Component {
   defineStage=(data)=>{
     console.log("define")
     this.setState({curr_stage:"defineStage"})
-    this.sendNewBroadcast(this.state.stageText['defineStage'])
     
-    const result = this.area["GuaMainArea"].defineSigns();
-    const new_yaos_list = [...this.state.yaos_list, defineYao(result)]
-    
-    this.setState({yaos_list: new_yaos_list},()=>{console.log(this.state)})
+    const result =  this.area["GuaMainArea"].defineSigns();
+    const new_yao =  defineYao(result)
+    const new_yaos_list = [...this.state.yaos_list, new_yao]
+    this.sendNewBroadcast(`此為: ${new_yao.name}`)
+    this.setState({yaos_list: new_yaos_list})
     // controller.changeBtn("next game");
   }
   finalStage = (data)=>{
@@ -164,14 +163,11 @@ export default class GuaArea extends Component {
     finalStage  : this.finalStage
   }
   ////////////////////////////////////////////////////////////
-  componentDidMount(){
-    this.initialState();
-    this.setStage(false)
-  }
+  
   setStage = async(isNext=true, data={})=>{
     if(isNext) await this.next()
     console.log(`current stage: ${this.state.curr_stage_index}, loop: ${this.state.loop}`)
-    const {curr_stage_index, loop, stageIndex} = this.state
+    const {curr_stage_index, stageIndex} = this.state
     await this.stageController[stageIndex[curr_stage_index]](data)
   }
   next= async()=>{
@@ -187,22 +183,56 @@ export default class GuaArea extends Component {
     
     this.setState({curr_stage_index, loop})
   }
+  componentDidMount(){
+    this.initialState();
+    this.setStage(false)
+  }
+  shouldComponentUpdate(newProps, newState){
+    // const {curr_stage} = this.state
+
+    // if(curr_stage==="tianStage"&&newState)
+    // console.log(newProps,newState)
+    return true
+  }
+
 
   render() {
+    const chinese_number=["零","壹","貳","參","肆","伍","陸","柒","捌","玖"]
+    const turn =Math.max(Math.floor(this.state.curr_stage_index/3), 0)
     return (
       <div className='gua-container'>
-        <div className="gua-broadcast" style={{height: "10vh"}}>
-          <h1>{this.state.loop + this.state.broadcast_text}</h1>
+        <div className="gua-broadcast" >
+          <h1>{this.state.broadcast_text}</h1>
         </div>
         
         <GuaMainArea curr_stage_index={this.state.curr_stage_index} handleArea={this.handleArea}></GuaMainArea>
         <GuaProcessController game={this.state} 
-                              stageController={this.stageController} 
+                              stageController={this.stageController}
+                              controllers={this.state.controllers}
                               handleArea={this.handleArea}
                               setStage={this.setStage}></GuaProcessController>
         <GuaResultBoardcast yaos_list={this.state.yaos_list} handleArea={this.handleArea}></GuaResultBoardcast>
-        <GuaDict handleArea={this.handleArea}></GuaDict>
+        
+        <div className="gua-state-info">
+          <h1>{"進行次數: "+ this.state.loop}</h1>
+          <h1>{"現在階段: "+ this.state.curr_stage}</h1>
+          <h1>{chinese_number[turn]+"巡"}</h1>
+        </div>
+        <div className='gua-menu-bar'>
+          <ul>
+            <li>
+              <button>返回主頁</button>
+            </li>
+            <li>
+              <GuaDict handleArea={this.handleArea}></GuaDict>
+            </li>
+            <li>
+              <button onClick={this.initialState}>重新開始</button>
+            </li>
+          </ul>
+        </div>
       </div>
+      
     )
   }
 }

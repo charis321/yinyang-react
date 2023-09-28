@@ -12,14 +12,48 @@
 }
 .zone{
     position: absolute;
-    pointer-events:  auto;
-    outline: 3px solid red;
+    filter: blur(80%);
+    transition: all 0.5s ease-in-out;
+    /* outline: 3px solid red; */
     z-index: 100;
+    animation: emphasize 3s infinite;
 }
-
+@keyframes emphasize {
+    0% {
+        background-color: rgba(25, 25, 25, 0);
+    }
+    50% {
+        background-color: rgba(25, 25, 25, 0.3);
+    }
+    100% {
+        background-color: rgba(25, 25, 25, 0);
+    }
+} 
 .tian-zone{
     width: 50%;
     height: 10%;
     left: 25%;
 }
-
+/* .tian-zone::before{
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: calc(50% - 20px);
+    top: 80%;
+    background-image: url('../../../../public/images/arrow.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: shift 2s infinite;
+}
+@keyframes shift {
+    0% {
+        top: 80%;
+    }
+    50% {
+        top: 100%;
+    }
+    100% {
+        top: 80%;
+    }
+} */

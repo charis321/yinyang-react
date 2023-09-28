@@ -44,11 +44,11 @@ export default class GuaResultBoardcast extends Component {
             >
         <h2 className='description-title'>{title}</h2>
         <div className='flex-row'>
-            <div className='gua-block'>
+          <div className='gua-block'>
             <h2 className='gua-label'>{gua.name}</h2>
             {gua_content}
-            </div>
-          <div className='gua-block'>
+          </div>
+          <div className='gua-block'style={{display: isFulled?"flex":"none"}}>
             <h2 className='gua-label'>{alter_gua.name}</h2>
             {alter_gua_content}  
           </div>

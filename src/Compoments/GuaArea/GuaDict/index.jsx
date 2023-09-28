@@ -3,7 +3,7 @@ import {gua_data_set, half_gua_set} from '../data'
 import './index.css'
 export default class GuaDict extends Component {
     state = {
-        isClosed : true
+        isClosed : true, 
     }
     // updateGalleryShow=(index)=>{
     //     return ()=>{
@@ -31,7 +31,7 @@ export default class GuaDict extends Component {
         
     // }
     componentWillMount(){
-        this.createGuaGallery()
+       this.setState({gallery:this.createGuaGallery()})
     }
     createGuaGallery=()=>{
         let new_dataset = [{name:'',index:10000,icon:''},...half_gua_set]
@@ -46,7 +46,7 @@ export default class GuaDict extends Component {
             }
             new_dataset = [...new_dataset, ...tmp]        
         }
-        this.new_dataset = new_dataset
+        return new_dataset
    }
    
     
@@ -60,11 +60,12 @@ export default class GuaDict extends Component {
         
         return (
             <div className='gua-dict-container'>
-                <div className='gua-dict-btn' onClick={this.handleToggle} ></div>
+                <button className='gua-dict-btn' onClick={this.handleToggle} >圖鑑</button>
                 <div className='gua-dict-block' hidden={this.state.isClosed}>
+                    <h2>六十四卦</h2>
                     <div className="gua-gallery" >
                         {
-                            this.new_dataset.map((dataObj,i)=>{
+                            this.state.gallery.map((dataObj,i)=>{
                                 const {name, icon ,index} = dataObj
                                 return <div className={'gua-gallery-item'+(index<64&&index>=0?"":" label")}
                                             key={i} >
@@ -75,6 +76,7 @@ export default class GuaDict extends Component {
                         }
                     </div>
                     <div className="gua-gallery-show"></div>
+                    <button className='close-btn' onClick={this.handleToggle}>X</button>
                 </div>
             </div>
     )
