@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/earlyaccess/cwtexkai.css');
+/* @import url('https://fonts.googleapis.com/earlyaccess/cwtexkai.css'); */
 *{
-  font-family: 'cwTeXKai', serif;
+  font-family: 'DFKai-SB';
   box-sizing: border-box;
   touch-action: none;
   user-select: none;
@@ -10,7 +10,14 @@ h1,h2,ul,li{
   list-style: none;
   margin: 0;
   padding: 0;
+  
   white-space: pre-line;
+}
+h1{
+  font-size: 1.5rem;
+}
+h2{
+  font-size: 1.5rem;
 }
 html{
   margin: 0;

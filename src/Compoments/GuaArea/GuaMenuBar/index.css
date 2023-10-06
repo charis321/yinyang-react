@@ -1,0 +1,39 @@
+.gua-menu-bar {
+    /* width: 30%;
+    max-width: 400px;
+    max-height: 100px;
+    width: 320px; */
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    padding: 5px;
+    border: 2px double #999;
+    border-radius: 50px;
+    background-color: #ddd;
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
+    z-index: 110;
+}
+.gua-menu-bar ul,
+.gua-menu-bar ul li{
+    display: flex;
+}
+
+.gua-menu-bar ul li .gua-menu-item{
+
+    font-size: 1.2rem;
+    border: 2px solid #ddd;
+    box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.3);
+    padding: 0.2em 0.4em;
+}
+.gua-menu-bar ul li:first-child .gua-menu-item{
+    border-radius: 50px 0 0 50px;
+}
+.gua-menu-bar ul li:last-child .gua-menu-item{
+    margin-left: 10px;
+    border-radius: 0 50px 50px 0;
+}
+
+
+.gua-menu-bar.closed{
+    transform: translateX(-100%);
+}

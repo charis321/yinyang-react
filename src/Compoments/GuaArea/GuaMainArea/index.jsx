@@ -9,19 +9,20 @@ export default class GuaMainArea extends Component {
     isSpliting: false,
     isDividing: false,
     isDragging: true,
+    isChosed:  false,
     spliterIndex: -1,
     canNext: false, 
 
     signShrink: false,
-    signWidth:  20,
-    signHeight: 200,
-    spliterWidth: 20*3,
+    signWidth:  1,
+    signHeight: 3,
+    spliterWidth: 1*3,
     placeIndex: {
-      tian  : [50, 10, 20 , 10],
+      tian  : [50, 10, 50 , 20],
       main  : [50, 50, 100, 25],
-      left  : [20, 50, 50 , 25],
-      right : [80, 50, 50 , 25],
-      banish: [80, 98, 50, 25]
+      left  : [20, 40, 50 , 25],
+      right : [80, 40, 50 , 25],
+      banish: [90, 80, 50 , 40]
     },
     touchIndex: {
       tian:  {place: "tian"  , touchable:false, isTouched:false},
@@ -58,14 +59,16 @@ export default class GuaMainArea extends Component {
   sortSigns = (place)=>{
     const new_signs = [...this.state.signs]
     const {signWidth,
-           signHeight,
-           isSpliting,
-           isDividing, 
-           placeIndex,
-           spliterIndex,
-           spliterWidth} = this.state
+          signHeight,
+          isDragging,
+          isSpliting,
+          isDividing, 
+          isChosed,
+          placeIndex,
+          spliterIndex,
+          spliterWidth} = this.state
     
-    const splitIndex ={
+    const splitableIndex ={
       tian  :  false,
       main  :  true,
       left  :  true,
@@ -77,12 +80,12 @@ export default class GuaMainArea extends Component {
     let curr_left_offset = 0
     let localIndex = 0
     let base_left_offset = (signWidth*localSigns_n/2)/2
-    const spliter_n = splitIndex[place]?(Math.round(this.countSigns(place)/4) - 1): 0
+    const spliter_n = splitableIndex[place]?(Math.round(this.countSigns(place)/4) - 1): 0
     
     if(isDividing){
       base_left_offset += (spliter_n*spliterWidth/6)/2
     } 
-    if(isSpliting){
+    if(isSpliting&&spliterIndex!==-1){
       base_left_offset += spliterWidth
     }
     let tmp = 0
@@ -98,14 +101,27 @@ export default class GuaMainArea extends Component {
         if(localIndex%4 === 3
           &&isDividing
           &&localIndex!==(localSigns_n-1)
-          &&splitIndex[place]){
+          &&splitableIndex[place]){
           curr_left_offset += (spliterWidth/3)/2
           tmp++
         }
         localIndex++
       }
     })
-    console.log(place,tmp,spliter_n)
+    ///////////////////////////// checkpoint
+    if((this.props.curr_stage==='tianStage'&&this.countSigns('tian')===0)
+      ||(this.props.curr_stage==='splitStage'&&spliterIndex===-1)
+      ||(this.props.curr_stage==='choseStage'&&!isChosed)){
+        this.props.changeNextBtn(false)
+    }else{
+        this.props.changeNextBtn(true)
+        const {touchIndex} = this.state
+        touchIndex["tian"].touchable = false
+        touchIndex["banish"].touchable = false
+        this.setState(touchIndex)
+    }
+
+    
     this.setState({signs:new_signs})
   }
   moveSigns = (signsIndex, place_to, place_from="main")=>{
@@ -131,15 +147,11 @@ export default class GuaMainArea extends Component {
       }
     })
     let new_spliter_idx = -1;
-    this.setState({
-      signs: new_sign,
-      // signWidth: 20,
-      // signHeight: 200
-    })
-    new_spliter_idx = Math.floor(Math.random()*6) - 3 + Math.floor(this.countSigns('main')/2)
     touchIndex["tian"].touchable = false
+    // new_spliter_idx = Math.floor(Math.random()*6) - 3 + Math.floor(this.countSigns('main')/2)
+    
     this.setState({
-      // signs: new_signs, 
+      signs: new_sign, 
       spliterIndex: new_spliter_idx,
       isSpliting: true,
       isDragging: false,
@@ -150,16 +162,17 @@ export default class GuaMainArea extends Component {
    
   }
   pickSigns =  ()=>{
+    
     const {touchIndex} = this.state
     touchIndex["banish"].touchable = true
     this.setState({
       isDividing: false,
       isSpliting: false,
-      isDragging: true,
+      isChosed: false,
       // signWidth: 8,
       // signHeight: 80,
       touchIndex
-    },()=>{
+    },async()=>{
       const {spliterIndex} = this.state
       const totalIndex = Array(this.countSigns('main')).fill(1).map((_,i)=>i)
       const leftIndex = totalIndex.slice(0,spliterIndex+1)
@@ -168,6 +181,8 @@ export default class GuaMainArea extends Component {
       this.moveSigns(rightIndex,'right')
       this.sortSigns('left')
       this.sortSigns('right')
+      await this.delay(0.1)
+      this.setState({isDragging: true})
     })
 
   }
@@ -184,25 +199,33 @@ export default class GuaMainArea extends Component {
       isSpliting: false
     }, async()=>{
       this.sortSigns('left')
+      await this.delay(1)
       this.sortSigns('right') 
-      await this.delay(3)
-      this.setState({isDragging:true})
+      await this.delay(1)
+      
+      
+      //await this.delay(2) 
+    })
+  }
+  modSigns = (data)=>{
+    let new_signs = [...this.state.signs]
+    
+      
       //await this.delay(2) 
 
-      // const left_n = this.countSigns('left')
-      // const right_n = this.countSigns('right')
-      // const trimLeft = (left_n%4===0)? 4 : (left_n%4)
-      // const trimRight = (right_n%4===0)? 4 : (right_n%4)
-  
-      // const totallLeft  = Array(trimLeft ).fill(1).map((_,i)=>trimLeft-i-1 )
-      // const totallRight = Array(trimRight).fill(1).map((_,i)=>trimRight-i-1)
-      
-      // this.moveSigns(totallLeft ,"banish","left")
-      // this.moveSigns(totallRight,"banish","right")
-      // this.sortSigns("left")
-      // this.sortSigns("right")
-      // this.sortSigns("banish")
-    })
+    const left_n = this.countSigns('left')
+    const right_n = this.countSigns('right')
+    const trimLeft = (left_n%4===0)? 4 : (left_n%4)
+    const trimRight = (right_n%4===0)? 4 : (right_n%4)
+
+    const totallLeft  = Array(trimLeft ).fill(1).map((_,i)=> left_n -trimLeft +i)
+    const totallRight = Array(trimRight).fill(1).map((_,i)=> right_n-trimRight+i)
+    
+    this.moveSigns(totallLeft ,"banish","left")
+    this.moveSigns(totallRight,"banish","right")
+    this.sortSigns("left")
+    this.sortSigns("right")
+    this.sortSigns("banish")
     
   }
   defineSigns=()=>{
@@ -213,11 +236,14 @@ export default class GuaMainArea extends Component {
         signObj.bias = ''
       }
     })
+    const {touchIndex} = this.state
+    touchIndex["banish"].touchable = false
     this.setState({
       signs:new_sign,
       isDividing: true,
       isDragging: false,
-      isSpliting: false
+      isSpliting: false,
+      touchIndex
     },()=>{
       this.sortSigns('main')
     })
@@ -225,7 +251,6 @@ export default class GuaMainArea extends Component {
     return n
   }
   setSpliter=(index)=>{
-    console.log(index)
     const spliterIndex = this.countSigns('main')===index+1?index-1:index
     this.setState({spliterIndex},()=>{this.sortSigns('main')})
   }
@@ -245,9 +270,9 @@ export default class GuaMainArea extends Component {
       isDragging: true,
       spliterIndex: -1,
 
-      signWidth:  window.innerWidth>=768? 20: 10,
-      signHeight: window.innerWidth>=768? 200: 100,
-      spliterWidth: window.innerWidth>=768? 60: 30,
+      signWidth:  window.innerWidth>=1000? 20: 15,
+      signHeight: window.innerWidth>=1000? 200: 150,
+      spliterWidth: window.innerWidth>=1000? 60: 45,
 
       touchIndex: {
         tian:  {place: "tian"  , touchable:false, isTouched:false},
@@ -276,16 +301,26 @@ export default class GuaMainArea extends Component {
     this.setState({touchIndex})
   }
   getDragged=(sign,place_to,place_from)=>{
-    
-    this.moveSigns([sign.localIndex], place_to, place_from)
-    this.sortSigns(place_to)
-    this.sortSigns(place_from)
+    if(!this.state.isChosed){
+      this.setState({isChosed: true},()=>{
+        this.moveSigns([sign.localIndex], place_to, place_from)
+        this.sortSigns(place_to)
+        this.sortSigns(place_from)
+      })
+    }else{
+      this.moveSigns([sign.localIndex], place_to, place_from)
+      this.sortSigns(place_to)
+      this.sortSigns(place_from)
+    }
   }
+
   delay=async(second)=>{
     return new Promise((resolve)=>{
       setTimeout(resolve, second*1000);
    });
   }
+  
+
   render() {
     
     return (
@@ -297,6 +332,7 @@ export default class GuaMainArea extends Component {
                           touchIndex={this.state.touchIndex}
                           isSpliting={this.state.isSpliting}
                           isDragging={this.state.isDragging}
+                          isDividing={this.state.isDividing}
                           setSpliter={this.setSpliter}
                           getDragged={this.getDragged}
                           signWidth={this.state.signWidth}

@@ -1,8 +1,9 @@
 .controller-container {
 
     display: flex;
-    bottom: 20%;
+    bottom: 10%;
     position: fixed;
+    z-index: 10;
 }
 .controller-container button{
     border-radius: 5px;
@@ -10,7 +11,8 @@
     padding: 10px 20px;
     border: 0;
     box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.3);
+    
 }
-button:hover{
+button:active{
     transform: translateY(10%);
 }

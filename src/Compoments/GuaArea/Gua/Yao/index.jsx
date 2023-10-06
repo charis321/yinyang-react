@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './index.css'
 /*
     爻(yao) :
@@ -17,15 +17,14 @@ import './index.css'
         }
         
 */
-export default class Yao extends Component {
-    state = {
-        yaoObj: this.props.yaoObj
-    }
-    render() {
-        const {type, isAlter, size} = this.state.yaoObj
-        const classes = `yao ${type?"yang":"yin"} ${isAlter?"alter":"normal"}`
-        return (
-        <div className={classes}></div>
+export default function Yao(props){
+    const {n,type, isAlter} = props.yaoObj
+    const classes = `yao ${type?"yang":"yin"} ${isAlter?"alter":"normal"}`
+
+    return (
+        <div className={classes}>
+            <span className='yao_n'>{n}</span>
+        </div>
     )
-  }
+  
 }

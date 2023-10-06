@@ -22,28 +22,38 @@ export const defineYao=(n)=>{
 
 export const defineGua=(yaos_list)=>{
     if(yaos_list.length!==6)return -1
-    
-        
+
+    let alter_yao = []     
     let index = 0
     yaos_list.map((yaoObj,i)=>{
-        index+= (yaoObj.type?1:0) * (2**i)
+        index+= (yaoObj.type?1:0) * (2**(5-i))
+        if(yaoObj.isAlter) alter_yao.push(i)
     })
-   
-    return gua_data_set[index]
+    const result = gua_data_set[index]
+    result['yaos_list'] = yaos_list 
+    result['alter_yao'] = alter_yao
+
+    return result
 }
 export const defineAlterGua=(yaos_list)=>{
-  if(yaos_list.length!==6)return -1
-    let result = [];
-    yaos_list.map(yaoObj=>{
-        let new_yao = {}
-        if(yaoObj.isAlter){
-            new_yao.type = !yaoObj.type
-            new_yao.isAlter = false
-        }else{
-            new_yao = {...yaoObj}
-        }
-        result.push(new_yao)
+    if(yaos_list.length!==6)return -1
+      
+    let normal_yao = []     
+    let index = 0
+    let new_yaos_list = []
+    yaos_list.map((yaoObj,i)=>{
+        let new_yaoObj = {...yaoObj}
+        new_yaoObj.type = yaoObj.isAlter?!yaoObj.type:yaoObj.type
+        index+= (new_yaoObj.type?1:0) * (2**(5-i))
+        new_yaoObj.n = yaoObj.n%2===0?8:7
+        new_yaoObj.isAlter = false
+        if(!yaoObj.isAlter) normal_yao.push(i)
+        
+        new_yaos_list.push(new_yaoObj)
     })
+    const result = gua_data_set[index]
+    result['yaos_list'] = new_yaos_list 
+    result['normal_yao'] = normal_yao
     return result
     
 }
@@ -79,21 +89,14 @@ export const defineAlterGua=(yaos_list)=>{
 
     }
  */
-export const desciptionGua=(guaObj)=>{
+export const descriptionGua=(guaObj)=>{
     const {yaos_list} = guaObj
-    const alter_guaObj = defineAlterGua(guaObj)
-    let final_desciption = {};
     let alter_n = 0
     yaos_list.map(yaoObj=>{
         alter_n += yaoObj.isAlter?1:0
     })
-    let {action, main, support}=defineAction();
-    final_desciption={
-        name: `${guaObj.name}卦 之 ${alter_guaObj.name}卦`,
-        info: action,
-        main: main,
-        support: support
-    }
+    const final_desciption= desciptionGua_logic_set[alter_n];
+  
     return final_desciption
 }
 export const desciptionGua_logic_set = [
@@ -103,7 +106,7 @@ export const desciptionGua_logic_set = [
     describe: "以本卦卦辭斷",
     action: {
       main: "normal",
-      supper: "null",
+      support: "null",
       isUseYao: false,
       isUseAlterYao: false
     },
@@ -114,7 +117,7 @@ export const desciptionGua_logic_set = [
     describe: "以本卦變爻爻辭斷",
     action: {
       main: "normal",
-      supper: "null",
+      support: "null",
       isUseYao: false,
       isUseAlterYao: true
     },
@@ -124,10 +127,11 @@ export const desciptionGua_logic_set = [
     name: "二爻變",
     describe: "以本卦兩個爻辭斷，但以上者為主",
     action: {
-      main: "normal",
-      supper: "top-half-gua",
+      main: "top",
+      support: "down",
       isUseYao: true,
       isUseAlterYao: true
+      
     },
   },
   {
@@ -137,8 +141,9 @@ export const desciptionGua_logic_set = [
       "以本卦與變卦卦辭斷；本卦為貞（體），變卦為悔（用），三爻變表示發展的正反態勢各半，是最複雜的狀況，稱之為「貞悔相爭」",
     action: {
       main: "normal alter",
-      supper: "null",
+      support: "null",
       isUseYao: false,
+      isUseAlterYao: true
     },
   },
   {
@@ -147,8 +152,9 @@ export const desciptionGua_logic_set = [
     describe: "以變卦之兩不變爻爻辭斷，但以下者為主",
     action: {
       main: "alter",
-      supper: "null",
+      support: "null",
       isUseYao: false,
+      isUseAlterYao: true
     },
   },
   {
@@ -157,8 +163,9 @@ export const desciptionGua_logic_set = [
     describe: "以變卦之不變爻爻辭斷",
     action: {
       main: "normal",
-      supper: "null",
+      support: "null",
       isUseYao: false,
+      isUseAlterYao: true
     },
   },
   {
@@ -167,8 +174,9 @@ export const desciptionGua_logic_set = [
     describe: "以變卦之卦辭斷，乾坤兩卦則以「用」辭斷",
     action: {
       main: "normal",
-      supper: "null",
+      support: "null",
       isUseYao: false,
+      isUseAlterYao: true
     },
   },
 ];

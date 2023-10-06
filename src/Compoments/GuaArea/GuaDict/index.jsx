@@ -1,10 +1,16 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import {gua_data_set, half_gua_set} from '../data'
 import './index.css'
-export default class GuaDict extends Component {
-    state = {
-        isClosed : true, 
-    }
+export default function GuaDict (props){
+    
+    const [isClosed,setIsClosed ] = useState(true)
+    const [isShowing,setIsShowing ] = useState(false)
+    const [nowShowing,setNowShowing ] = useState("")
+    const [gallery,setGallery] = useState([])
+
+    useEffect(()=>{
+        setGallery(createGuaGallery)
+    },[])
     // updateGalleryShow=(index)=>{
     //     return ()=>{
             
@@ -30,10 +36,9 @@ export default class GuaDict extends Component {
     //     }
         
     // }
-    componentWillMount(){
-       this.setState({gallery:this.createGuaGallery()})
-    }
-    createGuaGallery=()=>{
+    
+    
+    function createGuaGallery(){
         let new_dataset = [{name:'',index:10000,icon:''},...half_gua_set]
         for(let i=0;i<8;i++){
             let tmp = []
@@ -46,39 +51,79 @@ export default class GuaDict extends Component {
             }
             new_dataset = [...new_dataset, ...tmp]        
         }
+        
         return new_dataset
-   }
-   
+    }
+    
+    
+    function getGuaContent(){
+        if(nowShowing==='') return ''
+        const mode = 'zhouyi_gua'
+        const guaObj = props.data[mode][nowShowing]
+        let gallery_content= 
+            <div>
+                <h1>{guaObj['icon'] + guaObj['name']}</h1>
+                <strong>{guaObj['gua_explain'].title}</strong>
+                {   
+                   guaObj['gua_explain'].content.map((explain,i)=>{
+                         return  <p key={i}>{explain}</p>           
+                   }) 
+                }
+                {  
+                    guaObj['yao_explain'].map((obj,i)=>{
+                        return (<div key={i}>
+                                    <strong>{obj.title}</strong>
+                                    <p>{obj.content}</p>
+                                </div>
+                            )
+                    })
+                }
+            </div>  
+        
+        return gallery_content
+    }
     
 
-    handleToggle = ()=>{
-        const {isClosed} = this.state
-        this.setState({isClosed:!isClosed})
+    const handleToggle = ()=>{
+        setIsClosed(isClosed=>!isClosed)
     }
-
-    render() {
+    const handleToggleShow = ()=>{
+        setIsShowing(isShowing=>!isShowing)
+    }
+    const handleItemClick=(name)=>{
+        return ()=>{
+            if(name==='') return 
+            setNowShowing(name)
+            setIsShowing(true)
+        }
+    }
+              
         
-        return (
-            <div className='gua-dict-container'>
-                <button className='gua-dict-btn' onClick={this.handleToggle} >圖鑑</button>
-                <div className='gua-dict-block' hidden={this.state.isClosed}>
-                    <h2>六十四卦</h2>
-                    <div className="gua-gallery" >
-                        {
-                            this.state.gallery.map((dataObj,i)=>{
-                                const {name, icon ,index} = dataObj
-                                return <div className={'gua-gallery-item'+(index<64&&index>=0?"":" label")}
-                                            key={i} >
-                                            <h2>{name}</h2>
-                                            <h2 style={{fontSize:"2em"}}>{icon}</h2>
-                                        </div>
-                            })
-                        }
-                    </div>
-                    <div className="gua-gallery-show"></div>
-                    <button className='close-btn' onClick={this.handleToggle}>X</button>
+    return (
+        <div className='gua-dict-container'>
+            <button className='gua-dict-btn' onClick={handleToggle} >圖鑑</button>
+            <div className='gua-dict-block' hidden={isClosed}>
+                <h2>六十四卦</h2>
+                <div className="gua-gallery" style={{display: isShowing?"none":"flex"}} >
+                    {
+                        gallery.map((dataObj,i)=>{
+                            const {name, icon ,index} = dataObj
+                            return <div className={'gua-gallery-item'+(index<64&&index>=0?"":" label")}
+                                        onClick={handleItemClick(name)}
+                                        key={i} >
+                                        <h2>{name}</h2>
+                                        <h2 style={{fontSize:"2em"}}>{icon}</h2>
+                                    </div>
+                        })
+                    }
+                    <button className='close-btn' onClick={handleToggle}>X</button>
                 </div>
+                <div className="gua-gallery-show"  style={{display:isShowing?"flex":"none"}}>
+                    {getGuaContent()}
+                    <button className='close-btn' onClick={handleToggleShow}>X</button>
+                </div>
+                {/* <button className='close-btn' onClick={this.handleToggle}>X</button> */}
             </div>
+        </div>
     )
-  }
 }

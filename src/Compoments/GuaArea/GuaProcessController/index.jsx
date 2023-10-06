@@ -15,9 +15,7 @@ export default class GuaProcessController extends Component {
         const {setStage} = this.props
         setStage(true)
     }
-    listen = (stageName)=>{
-        const {controllers} = this.state
-    }
+   
 
     render() {
     

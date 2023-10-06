@@ -1,24 +1,70 @@
-.container{
-    
+.result-boardcast{
+    max-width: 90%;
+    max-height: 95%;
     position: absolute;
-
+    /* min-height: 320px;  */
     background-image: url('../../../../public/images/table_bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    
     top: 10px;
-    left:10px;
-    padding: 20px;
+    left: 50px;
+    padding: 10px 50px;
     box-shadow: 2px 2px 5px 1px #333;
+    z-index: 105;
+    
+    
+
 }
 .gua-block{
+
     width:  120px;
-    margin: 10px;
-    height: 30vh;
+    margin: 10px 20px;
+    height: 30%;
+    max-width: 250px;
+    min-height: 80px;
 }
+.gua-description{
+    height: 80vh;
+    padding: 10px;
+} 
 .closed{
-    transform: translateX(-90%);
+    transform: translateX(-100%);
 }
+.description{
+    font-size: 1.5em;
+}
+.gua-describe{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.gua-describe p{
+    margin: 0;
+    padding: 0;
+}
+.gua-describe>h2{
+    font-size: 1.2rem;
+}
+
+.gua-describe-content{
+    padding: 10px;
+    border: 2px solid #000;
+}
+.description-title{
+    text-align: center;
+}
+/* #result-boardcast .close-btn{
+    width: 50px;
+    height: 100px;
+    position: absolute;
+    right: -30px;
+    border-radius: 0 10px 10px 0;
+    top: 0;
+    background-color: rgb(228, 214, 193);
+    border: 0;
+    z-index: -1;
+} */

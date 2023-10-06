@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './index.css'
-export default class GuaHitbox extends Component {
-  
-  state = {
-    
-  }
-  setPlace=(place)=>{
-    const {placeIndex, touchIndex} = this.props
+export default function GuaHitbox (props){
+
+  const setPlace=(place)=>{
+    const {placeIndex, touchIndex} = props
     const place_data = placeIndex[place]
     return {
       left:  `${place_data[0]-place_data[2]/2}%`,
@@ -18,43 +15,30 @@ export default class GuaHitbox extends Component {
       animation: `${touchIndex[place].touchable?"emphasize":"none"} 2s infinite`
     }
   }
-  handleTouch=(place,isTouched)=>{
+  const handleTouch=(place,isTouched)=>{
     return ()=>{
-      if(this.props.isDragging){
-         this.props.getTouch(place,isTouched)
+      if(props.isDragging){
+         props.getTouch(place,isTouched)
       }
-       
     }
-    
-    
- 
-    // this.props.getTouch(place,isTouched)
   }
-  render() {
+
+  
     
-    return (
-      <div className='gua-hitbox'>
-        <div className='zone tian-zone ' 
-             style={this.setPlace("tian")} 
-             onMouseEnter={this.handleTouch("tian",true)}
-             onMouseLeave={this.handleTouch('tian',false)}></div>
-        <div className='zone main-zone ' 
-             style={this.setPlace("main")} 
-             onMouseEnter={this.handleTouch("main",true)}
-             onMouseLeave={this.handleTouch('main',false)}></div>
-        <div className='zone left-zone ' 
-             style={this.setPlace("left")} 
-             onMouseEnter={this.handleTouch("left",true)}
-             onMouseLeave={this.handleTouch('left',false)}></div>
-        <div className='zone right-zone ' 
-             style={this.setPlace("right")} 
-             onMouseEnter={this.handleTouch("right",true)}
-             onMouseLeave={this.handleTouch('right',false)}></div>
-        <div className='zone banish-zone ' 
-             style={this.setPlace("banish")} 
-             onMouseEnter={this.handleTouch("banish",true)}
-             onMouseLeave={this.handleTouch('banish',false)}></div>
-      </div>
-    )
-  }
+  return (
+    <div className='gua-hitbox'>
+      <div className='zone tian-zone ' 
+            style={setPlace("tian")} 
+          //  onPointerDown={this.handleClick}
+            onPointerEnter={handleTouch("tian",true)}
+            onPointerLeave={handleTouch('tian',false)}
+            ></div>
+
+      <div className='zone banish-zone ' 
+            style={setPlace("banish")} 
+            onPointerEnter={handleTouch("banish",true)}
+            onPointerLeave={handleTouch('banish',false)}></div>
+    </div>
+  )
+  
 }

@@ -2,25 +2,21 @@
     width: 100px;
     height: 10px;
     background-color: #000;
-    margin-top: 20px;
+    margin-top: 10px;
     
 }
 
 .yang{
     width: 100px;
-    height: 10px;
-    margin-top: 20px;
 }
 .yin{
     width: 40px;
-    height: 10px;
-    margin-top: 20px;
     position: relative;
  }
 .yin::before{
     content: "";
     width: 40px;
-    height: 10px;
+    height: 100%;
     position: absolute;
     left: 60px;
 }
@@ -37,8 +33,12 @@
     background-color: #000;
 }
 
- .gua-block{
+.gua-block{
     display: flex;
     flex-direction: column-reverse;
+ }
+ .yao_n{
+    margin-left: -20px;
+    line-height: 10px;
  }
   
