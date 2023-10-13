@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/yinyang-react/home/static/css/main.72faa9fd.css",
-    "main.js": "/yinyang-react/home/static/js/main.68084a0b.js",
-    "static/media/bg_2.jpg": "/yinyang-react/home/static/media/bg_2.b15eec48bdf2fc360a12.jpg",
-    "static/media/logo.png": "/yinyang-react/home/static/media/logo.65153616174926aadb42.png",
-    "static/media/bg_2.avif": "/yinyang-react/home/static/media/bg_2.970a963352017ab13c30.avif",
-    "static/media/table_bg.avif": "/yinyang-react/home/static/media/table_bg.cca3a44687fc406c44b6.avif",
-    "index.html": "/yinyang-react/home/index.html",
-    "main.72faa9fd.css.map": "/yinyang-react/home/static/css/main.72faa9fd.css.map",
-    "main.68084a0b.js.map": "/yinyang-react/home/static/js/main.68084a0b.js.map"
+    "main.css": "/yinyang-react/static/css/main.f7d21ad1.css",
+    "main.js": "/yinyang-react/static/js/main.68084a0b.js",
+    "static/media/bg_2.jpg": "/yinyang-react/static/media/bg_2.b15eec48bdf2fc360a12.jpg",
+    "static/media/logo.png": "/yinyang-react/static/media/logo.65153616174926aadb42.png",
+    "static/media/bg_2.avif": "/yinyang-react/static/media/bg_2.970a963352017ab13c30.avif",
+    "static/media/table_bg.avif": "/yinyang-react/static/media/table_bg.cca3a44687fc406c44b6.avif",
+    "index.html": "/yinyang-react/index.html",
+    "main.f7d21ad1.css.map": "/yinyang-react/static/css/main.f7d21ad1.css.map",
+    "main.68084a0b.js.map": "/yinyang-react/static/js/main.68084a0b.js.map"
   },
   "entrypoints": [
-    "static/css/main.72faa9fd.css",
+    "static/css/main.f7d21ad1.css",
     "static/js/main.68084a0b.js"
   ]
 }
