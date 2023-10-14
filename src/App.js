@@ -13,14 +13,13 @@ function App() {
   // const device = useRWD();
   return (
     <div className="app">
-      <GuaArea></GuaArea>
-      {/* <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path="/home"  element={<Home/>}/>
-        <Route path="/about" element={<About/>}/>
-        <Route path="/gua" element={<Gua/>}/>
-        <Route path="/login" element={<Login/>}/>
-      </Routes> */}
+      <Routes>
+        <Route path='/' element={<Navigate to="home"/>}/>
+        <Route path="home"  element={<Home/>}/>
+        <Route path="about" element={<About/>}/>
+        <Route path="gua" element={<Gua/>}/>
+        <Route path="login" element={<Login/>}/>
+      </Routes>
     </div>
   );
 }
