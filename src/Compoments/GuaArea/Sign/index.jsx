@@ -89,6 +89,7 @@ export default class Sign extends Component {
       })
     }
   }
+  
 
   render() { 
     const {sign} = this.state
@@ -101,6 +102,7 @@ export default class Sign extends Component {
       height: `${signHeight}px`,
       transition: isDragging?"":(isDividing?"0.4s all ease-in":"0.1s all ease-in")
     }
+    console.log("sign")
     return (
       <div  className={`sign ${sign.place} ${sign.index===-1?"spliter":""}`} 
             style={style} 

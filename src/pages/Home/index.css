@@ -1,0 +1,34 @@
+.home-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-container main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-container .logo{
+    width: 70vw;
+    height: 30vh;
+    background-image:  url('../../../public/images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 10px;
+    animation: fadeIn 0.5s;
+}
+@media screen and (min-width: 768px) {
+    .home-container .logo{
+        width: 50vw;
+        height: 50v;
+        background-image:  url('../../../public/images/logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 10px;
+        animation: fadeIn 0.5s;
+    }
+}

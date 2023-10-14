@@ -54,7 +54,9 @@ export default class GuaMainArea extends Component {
           bias: `rotateZ(${Math.random()*8-4}deg) translateY(${Math.random()*8-4}px)`
       }
     }
-    this.setState({signs:new_signs})
+    this.setState({signs:new_signs},()=>{
+      console.log('create')
+    })
   }
   sortSigns = (place)=>{
     const new_signs = [...this.state.signs]
@@ -115,14 +117,18 @@ export default class GuaMainArea extends Component {
         this.props.changeNextBtn(false)
     }else{
         this.props.changeNextBtn(true)
-        const {touchIndex} = this.state
-        touchIndex["tian"].touchable = false
-        touchIndex["banish"].touchable = false
-        this.setState(touchIndex)
+        // const {touchIndex} = this.state
+        // touchIndex["tian"].touchable = false
+        // touchIndex["banish"].touchable = false
+        // this.setState(touchIndex,()=>{
+        //   console.log('touch')
+        // })
     }
 
     
-    this.setState({signs:new_signs})
+    this.setState({signs:new_signs},()=>{
+      console.log('sort')
+    })
   }
   moveSigns = (signsIndex, place_to, place_from="main")=>{
     const new_signs = [...this.state.signs]

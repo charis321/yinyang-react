@@ -18,9 +18,9 @@
     overflow: hidden;
     
 
-    background-image: url('../../../public/images/bg_2.jpg');
+    /* background-image: url('../../../public/images/bg_2.avif');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     position: relative;
 }
 .gua-state-info{
@@ -36,9 +36,24 @@
     display: flex;
     justify-content: space-between;
    
-}.gua-broadcast-text{
+}
+.gua-broadcast-text{
     display: flex;
     align-items: center;
+    
+}
+.gua-broadcast-text h1{
+    animation: fadeIn 0.5s;
+}
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0px);
+    }
 }
 .gua-broadcast-text::before{
     content: "";

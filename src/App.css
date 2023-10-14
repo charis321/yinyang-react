@@ -1,11 +1,29 @@
-/* @import url('https://fonts.googleapis.com/earlyaccess/cwtexkai.css'); */
+@import url('https://fonts.googleapis.com/earlyaccess/cwtexkai.css');
 *{
-  font-family: 'DFKai-SB';
+  margin: 0;
+  padding: 0;
+  font-family: "cwTeXKai", serif;
+  /* font-family: 'DFKai-SB'; */
   box-sizing: border-box;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
 }
+html,body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.app{
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../public/images/bg_2.avif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: hidden;
+}
+
 h1,h2,ul,li{
   list-style: none;
   margin: 0;
@@ -13,22 +31,17 @@ h1,h2,ul,li{
   
   white-space: pre-line;
 }
+a{
+  /* color: #000; */
+  text-decoration: none;
+}
 h1{
   font-size: 1.5rem;
 }
 h2{
   font-size: 1.5rem;
 }
-html{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  padding: 0;
 
-}
 .flex-row{
   display: flex;
   flex-direction: row;
@@ -41,8 +54,21 @@ body {
 [hidden]{
   display: none!important;
 }
-
-
+.nav{
+  position: fixed;
+  top: 0;
+  left:0;
+}
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
 
 
 

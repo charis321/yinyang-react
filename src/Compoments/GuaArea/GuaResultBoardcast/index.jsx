@@ -41,7 +41,8 @@ export default class GuaResultBoardcast extends Component {
             content = data[gua.name]['yao_explain'][gua.alter_yao[0]]
             break
           case 2:
-            content = data[gua.name]['yao_explain'][gua.alter_yao[1]]
+            content = [data[gua.name]['yao_explain'][gua.alter_yao[1]],
+                       data[gua.name]['yao_explain'][gua.alter_yao[1]]]
             break
           case 3:
             content = [ data[gua.name]['gua_explain'],
