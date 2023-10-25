@@ -1,14 +1,25 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import GuaArea from '../../Compoments/GuaArea'
-import NavBar from '../../Compoments/Header/NavBar'
 import Header from '../../Compoments/Header'
+
+import { useScreenOrientation } from '../../plugin/useRWD'
 export default function Gua() {
+  //screen.orientation.lock("landscape")
+  const screenOrientation = useScreenOrientation()
+
+  const portraitDOM = <div>
+                        <h1>請將您的手機轉為水平</h1>
+                      </div>
+
+
   return (
     <div>
       <Header></Header>
+      
       <main>
-        <GuaArea></GuaArea>
+        {
+          screenOrientation==="portrait-primary"?portraitDOM:<GuaArea></GuaArea>
+        }
       </main>
       
        

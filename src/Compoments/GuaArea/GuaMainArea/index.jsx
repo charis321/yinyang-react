@@ -117,12 +117,12 @@ export default class GuaMainArea extends Component {
         this.props.changeNextBtn(false)
     }else{
         this.props.changeNextBtn(true)
-        // const {touchIndex} = this.state
-        // touchIndex["tian"].touchable = false
-        // touchIndex["banish"].touchable = false
-        // this.setState(touchIndex,()=>{
-        //   console.log('touch')
-        // })
+        const {touchIndex} = this.state
+        touchIndex["tian"].touchable = false
+        touchIndex["banish"].touchable = false
+        this.setState(touchIndex,()=>{
+          console.log('touch')
+        })
     }
 
     

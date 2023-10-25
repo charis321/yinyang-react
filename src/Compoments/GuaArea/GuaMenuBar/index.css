@@ -3,9 +3,9 @@
     max-width: 400px;
     max-height: 100px;
     width: 320px; */
-    position: absolute;
+    position: fixed;
     bottom: 5%;
-    left: 5%;
+    left: 2%;
     padding: 5px;
     border: 2px double #999;
     border-radius: 50px;
@@ -29,11 +29,17 @@
     border-radius: 50px 0 0 50px;
 }
 .gua-menu-bar ul li:last-child .gua-menu-item{
+    width: 50px;
     margin-left: 10px;
     border-radius: 0 50px 50px 0;
 }
 
+.gua-menu-item:active{
+    transform: translateY(10%);
+}
 
 .gua-menu-bar.closed{
+    left: 50px;
     transform: translateX(-100%);
+    
 }

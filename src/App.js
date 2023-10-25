@@ -2,15 +2,15 @@
 import {Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
-// import useRWD  from './useRWD';
+
 import Home  from './pages/Home';
 import About from './pages/About';
-import Gua from './pages/Gua'
+import Gua from './pages/Gua';
 import Login from './pages/Login';
-import GuaArea from './Compoments/GuaArea';
+import Register from './pages/Register';
+import History from './pages/History';
 
 function App() {
-  // const device = useRWD();
   return (
     <div className="app">
       <Routes>
@@ -18,7 +18,9 @@ function App() {
         <Route path="home"  element={<Home/>}/>
         <Route path="about" element={<About/>}/>
         <Route path="gua" element={<Gua/>}/>
+        <Route path="history" element={<History/>}/>
         <Route path="login" element={<Login/>}/>
+        <Route path="register" element={<Register/>}/>
       </Routes>
     </div>
   );

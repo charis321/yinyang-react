@@ -63,10 +63,7 @@ export default class GuaArea extends Component {
       broadcast_text: "請按【開始】",
       yaos_list: [],
     }
-    this.setState(base_state,()=>{
-      this.initialStage()
-    })
-    
+    this.setState(base_state)
   }
   sendNewBroadcast=(text)=>{
     this.setState({broadcast_text:text})
@@ -80,8 +77,9 @@ export default class GuaArea extends Component {
     console.log("initial")
     this.setState({curr_stage:"initialStage"})
     this.sendNewBroadcast(this.state.stageText['initialStage'])
-
-    await this.area["GuaMainArea"].resetSigns()
+    
+    await this.initialState()
+    
     this.setState({
       controllers:{
         "start-btn": true ,
@@ -95,6 +93,7 @@ export default class GuaArea extends Component {
     this.setState({curr_stage:"startStage"})
     this.sendNewBroadcast(this.state.stageText['startStage'])
     //console.log(0,this.area["GuaMainArea"].state.signs)
+    await this.area["GuaMainArea"].resetSigns()
     await this.area["GuaMainArea"].createSigns(50)
     //console.log(2,this.area["GuaMainArea"].state.signs)
     await this.area["GuaMainArea"].sortSigns("main")
@@ -192,11 +191,11 @@ export default class GuaArea extends Component {
     await this.stageController[stageIndex[curr_stage_index]](data)
   }
   next= async()=>{
-    let {curr_stage_index, loop} = this.state
+    let {curr_stage_index, loop, yaos_list} = this.state
     //console.log(curr_stage_index)
-    
+    if(yaos_list.length>=6) this.initialState()
     if((curr_stage_index+1) > 15){
-      curr_stage_index = 0
+      curr_stage_index = 1
       loop++  
     }else{
       curr_stage_index++
@@ -220,14 +219,14 @@ export default class GuaArea extends Component {
     controllers['next-btn'] = bool
     this.setState({controllers})
   }
-  
+ 
 
   componentDidMount(){
-    this.initialState();
-    this.setStage(false)
+    this.initialStage();
+    
     if(Object.keys(this.data).length === 0){
       this.loadData('jiao_gua','jiao_gua.json')
-      this.loadData('zhouyi_gua','zhouyi_gua.json')
+      this.loadData('zhouyi_gua','zhouyi_gua_2.json')
     }
     
   }
@@ -265,7 +264,7 @@ export default class GuaArea extends Component {
         
         
         <GuaMenuBar data={this.data} 
-                    initialState={this.initialState}
+                    initialStage={this.initialStage}
                     handleRandom={this.getRandomGua}></GuaMenuBar>
       </div>
       

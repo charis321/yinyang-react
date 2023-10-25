@@ -1,4 +1,4 @@
-.login-container{
+.register-container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -6,28 +6,19 @@
     /* justify-content: center; */
     
 }
-.login-container main{
+.register-container main{
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.5);
 }
-.login-container::before{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    filter: blur(5px);
-    
-    z-index: -1;
-}
-.login{
-    width: 40%;
-    min-width: 200px;
-    /* min-height: 500px; */
+
+.register{
+    width: 30%;
+    min-width: 300px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     padding: 3% 5%;
@@ -46,17 +37,17 @@
         transform: translateY(0px);
     }
 }
-.login h2{
+.register h2{
     width: 100%;
     text-align: center;
-    margin: 1vh 0;
+    margin: 5% 0;
 }
-.login label{
+.register label{
     width: 100%;
     font-size: 1.2rem;
     margin-top: 10%;
 }
-.login input{
+.register input{
     font-size: 1.2rem;
     padding: 0.6rem;
     border-style: none;
@@ -66,7 +57,7 @@
     border-radius: 10px;
     margin-top: 5%;
 }
-.login button{
+.register button{
     width: 100%;
     font-size: 1.5rem;
     margin-top: 3rem;
@@ -75,6 +66,6 @@
     border-radius: 10px;
     box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
 }
-.login p{
+.register p{
     
 }

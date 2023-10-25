@@ -18,13 +18,13 @@ export default function GuaMenuBar (props){
                     <GuaDict data={props.data}  className='gua-menu-item'></GuaDict>
                 </li>
                 <li>
-                    <button   className='gua-menu-item' onClick={props.initialState}>重新開始</button>
+                    <button   className='gua-menu-item' onClick={props.initialStage}>重新開始</button>
                 </li>
                 <li>
                     <button   className='gua-menu-item' onClick={props.handleRandom}>隨機</button>
                 </li>
                 <li>
-                    <button   className='gua-menu-item' onClick={handleToggle}>#</button>
+                    <button   className='gua-menu-item' onClick={handleToggle} >#</button>
                 </li>
                 
             </ul>
