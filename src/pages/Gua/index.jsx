@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import GuaArea from '../../Compoments/GuaArea'
 import Header from '../../Compoments/Header'
 
@@ -15,14 +15,11 @@ export default function Gua() {
   return (
     <div>
       <Header></Header>
-      
       <main>
         {
           screenOrientation==="portrait-primary"?portraitDOM:<GuaArea></GuaArea>
         }
       </main>
-      
-       
     </div>
    
   )

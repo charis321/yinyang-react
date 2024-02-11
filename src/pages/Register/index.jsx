@@ -1,27 +1,124 @@
-import React, { Component } from 'react'
+import React, { useState, useReducer} from 'react'
+import {Link} from "react-router-dom"
 import Header from '../../Compoments/Header'
+import {reguser} from '../../plugin/webAPI.js'
+// import { setAuthToken } from '../../plugin/authUtils.js'
+// import { AuthContext } from "../../contexts";
 import './index.css'
 
-export default class Register extends Component {
-  render() {
-    return (
-      <div className='register-container'>
-        <Header></Header>
-        <main>
-          <form className='register'>
-            <h2>註冊</h2>
-            <label>帳號</label>
-            <input type="text" placeholder='請輸入帳號'/> 
-            <label>密碼</label>
-            <input type="password" placeholder='請輸入密碼'/> 
-            <label>再次輸入密碼</label>
-            <input type="password" placeholder='重新輸入密碼'/> 
-            <button type='button'>完成</button>
-            <p>已有帳號?在此登入</p>
-          </form>
-        </main>
-        
-      </div>
-    )
+
+
+export default function Register(props){
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordR, setPasswordR] = useState("")
+  const [warming, setWarming]  = useState("")
+  const [showPassword, setShowPassword] = useState([false, false])
+  const [, forceUpdate] = useReducer(x => x + 1, 0)
+
+  // const {setUser} = useContext(AuthContext)
+  
+  // const passwordRef = useRef(null)
+
+  const handleChange = (type)=>{
+    return e => { 
+      switch(type){
+        case "username":
+          setUsername(e.target.value)
+          break
+        case "password":
+          setPassword(e.target.value)
+          break
+        case "passwordR":
+          setPasswordR(e.target.value)
+          break
+        default:
+          break
+      }
+    }
   }
+  const handleShowPasseord = (type)=>{
+    return (e)=>{
+      if(e.keyCode === 13) return
+  
+      const tmp = showPassword
+      if(type==="password"){
+        tmp[0] = !tmp[0]
+      }else{
+        tmp[1] = !tmp[1]
+      }
+      setShowPassword(tmp)
+      forceUpdate()
+    }
+  }
+  const handleSubmit = ()=>{
+    if(isInputVaild()){
+      reguser(username, password).then((data)=>{
+        console.log(data)
+          if(data.status===1){
+            setWarming(data.msg)
+          }else{
+            setWarming(data.msg)
+          }
+      })
+     
+    }else{
+      console.log("fail")
+    }
+  }
+  const isInputVaild = ()=>{
+    return true
+  } 
+
+
+  return (
+    <div className='register-container'>
+      <Header></Header>
+      <main>
+        <form className='register'>
+          <h2>註冊</h2>
+          <span style={{color: "red"}}>{warming}</span>
+          <label>
+            帳號
+            <input type="text" placeholder='請輸入帳號' value={username} onChange={handleChange("username")}/>
+          </label>
+          <label>
+            密碼
+            <input  type={showPassword[0] ? "text" : "password"} 
+                    placeholder='請輸入密碼' 
+                    value={password} 
+                    onChange={handleChange("password")}/> 
+            <button type = "button"
+                    className = "default show-password"
+                    onClick={handleShowPasseord("password")} 
+                    style={{backgroundColor: showPassword[0]?"rgba(0, 0, 0, 0.5)":"rgba(255, 255, 255, 0.5)"}}
+                    tabIndex = "-1">
+              <img alt='查看密碼' src={process.env.PUBLIC_URL+"/images/icons/eye.svg"} />
+            </button>
+          </label>
+          
+         
+          <label>
+            再次輸入密碼
+            <input type={showPassword[1] ? "text" : "password"}  
+                    placeholder='重新輸入密碼' 
+                    value={passwordR} 
+                    onChange={handleChange("passwordR")}/> 
+            <button type = "button"
+                    className = "default show-password"
+                    onClick={handleShowPasseord("passwordR")}
+                    style={{backgroundColor: showPassword[1]?"rgba(0, 0, 0, 0.5)":"rgba(255, 255, 255, 0.5)"}}
+                    tabIndex = "-1">
+              <img alt='查看密碼' src={process.env.PUBLIC_URL+"/images/icons/eye.svg"} />
+            </button>
+          </label>
+         
+          <button className='default' type='button' tabIndex = "-1" onClick={handleSubmit}>完成</button>
+          <p>已有帳號?在此<Link to={'/login'}>登入</Link></p>
+        </form>
+      </main>
+      
+    </div>
+    )
+  
 }

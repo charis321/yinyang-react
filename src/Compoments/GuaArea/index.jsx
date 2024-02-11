@@ -7,9 +7,10 @@ import GuaProcessController from './GuaProcessController'
 import GuaMenuBar from './GuaMenuBar'
 import {defineYao}from'../GuaArea/Logic'
 import './index.css'
+import GuaDict from './GuaDict'
 
-export default class GuaArea extends Component {
-  
+
+export default class GuaArea extends Component {  
   state={
     loop: 0,
     curr_stage_index: 0,
@@ -34,6 +35,7 @@ export default class GuaArea extends Component {
       'divideStage',
       'modStage',
       'defineStage',
+      'finalStage'
     ],
     stageText:{
       "initialStage":"請按【開始】",
@@ -168,7 +170,8 @@ export default class GuaArea extends Component {
     console.log("fianl")
     this.setState({curr_stage:"finalStage"})
     this.sendNewBroadcast(this.state.stageText['finalStage'])
-    
+    this.area['GuaResultBoardcast'].handleToggle()
+    this.updateUserHistory()
     // controller.changeBtn("next game");
   }
   stageController = {
@@ -219,7 +222,11 @@ export default class GuaArea extends Component {
     controllers['next-btn'] = bool
     this.setState({controllers})
   }
- 
+  toggleGuaDict=()=>{
+    
+  }
+  updateUserHistory=()=>{
+  }
 
   componentDidMount(){
     this.initialStage();
@@ -262,8 +269,9 @@ export default class GuaArea extends Component {
                             data={this.data} 
                             handleArea={this.handleArea}></GuaResultBoardcast>
         
-        
+        {/* <GuaDict data={this.data}></GuaDict> */}
         <GuaMenuBar data={this.data} 
+                    toggleGuaDict={this.toggleGuaDict}
                     initialStage={this.initialStage}
                     handleRandom={this.getRandomGua}></GuaMenuBar>
       </div>

@@ -37,9 +37,7 @@ header .nav-btn{
     header .logo{
         display: none;
     }
-    header .nav-btn{
-        display: block;
-    }   
+      
 }
 header .nav-btn:active{
     transform: scale(90%);
@@ -64,7 +62,5 @@ header .nav-btn:active{
         background-position: center;
         
     }
-    header .nav-btn{
-        display: none;
-    }   
+    
 }

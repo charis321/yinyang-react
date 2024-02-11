@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 
 export const useDevice = ()=>{
     const [device, setDevice] = useState("mobile")
-    const handleRWD=()=>{
-        if(window.innerWidth > 768)
-            setDevice("PC");
-        else if (window.innerWidth > 576)
-            setDevice("tablet");
-        else 
-            setDevice("mobile");
+    const handleRWD = ()=>{
+      const maxLength = Math.max(window.innerWidth,window.innerHeight)
+      const minLength = Math.min(window.innerWidth,window.innerHeight)
+      if(maxLength > 1024){
+        setDevice("PC");
+      }else if (maxLength > 576 && minLength > 576){
+        setDevice("tablet");
+      }else{
+        setDevice("mobile");
+      }
     }
+    
     useEffect(()=>{ 
         window.addEventListener('resize',handleRWD);
         handleRWD()
@@ -17,7 +21,7 @@ export const useDevice = ()=>{
             window.removeEventListener('resize',handleRWD);
         })
     },[]);
-
+    // console.log(device)
     return device;
 }
 
@@ -27,6 +31,7 @@ export const useScreenOrientation = () => {
   const [orientation, setOrientation] = useState(getOrientation())
 
   const updateOrientation = (e) => {
+    console.log(orientation)
     setOrientation(getOrientation())
   }
 
@@ -41,6 +46,7 @@ export const useScreenOrientation = () => {
         updateOrientation
       )
     }
-  }, [])
+  }, [orientation])
+  
   return orientation
 }

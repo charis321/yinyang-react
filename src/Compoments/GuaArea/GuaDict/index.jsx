@@ -3,7 +3,7 @@ import {gua_data_set, half_gua_set} from '../data'
 import './index.css'
 export default function GuaDict (props){
     
-    const [isClosed,setIsClosed ] = useState(true)
+    const [isClosed,setIsClosed ] = useState(props.isClosed)
     const [isShowing,setIsShowing ] = useState(false)
     const [nowShowing,setNowShowing ] = useState("")
     const [gallery,setGallery] = useState([])
@@ -101,7 +101,6 @@ export default function GuaDict (props){
         
     return (
         <div className='gua-dict-container'>
-            <button className='gua-dict-btn' onClick={handleToggle} >圖鑑</button>
             <div className='gua-dict-block' hidden={isClosed}>
                 <h2>六十四卦</h2>
                 <div className="gua-gallery" style={{display: isShowing?"none":"flex"}} >

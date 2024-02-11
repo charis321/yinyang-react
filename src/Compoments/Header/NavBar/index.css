@@ -9,6 +9,8 @@
     background-color: rgba(0,0,0, 0.8);
     z-index: 1000;
 }
+
+
 .home-container .navbar-container{
     top: 0;
     position: relative;
@@ -62,7 +64,4 @@
         /* background-color: antiquewhite; */
         border-radius: 10px;
     }
-}
-@media  screen and (max-height: 350px) {
-   
 }

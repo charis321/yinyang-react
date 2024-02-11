@@ -7,16 +7,16 @@ export default function GuaMenuBar (props){
     const handleToggle=()=>{
         setClosed(closed => !closed)
     }
-    
+        
     return (
         <div className={`gua-menu-bar ${closed?"closed":""}`} >
             <ul>
                 <li>
                     <button className='gua-menu-item'>返回主頁</button>
                 </li>
-                <li>
-                    <GuaDict data={props.data}  className='gua-menu-item'></GuaDict>
-                </li>
+                {/* <li>
+                    <button className='gua-dict-btn' onClick={props.toggleGuaDict()} >圖鑑</button>
+                </li> */}
                 <li>
                     <button   className='gua-menu-item' onClick={props.initialStage}>重新開始</button>
                 </li>
