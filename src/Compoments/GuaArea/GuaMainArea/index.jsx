@@ -69,6 +69,7 @@ export default class GuaMainArea extends Component {
           placeIndex,
           spliterIndex,
           spliterWidth} = this.state
+    const new_state = {...this.state}
     
     const splitableIndex ={
       tian  :  false,
@@ -120,13 +121,15 @@ export default class GuaMainArea extends Component {
         const {touchIndex} = this.state
         touchIndex["tian"].touchable = false
         touchIndex["banish"].touchable = false
+        new_state.touchIndex = touchIndex
         this.setState(touchIndex,()=>{
           console.log('touch')
         })
     }
 
-    
-    this.setState({signs:new_signs},()=>{
+    new_state.signs = new_signs
+    console.log(new_state)
+    this.setState(new_state,()=>{
       console.log('sort')
     })
   }

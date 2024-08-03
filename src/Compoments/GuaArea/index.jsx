@@ -17,6 +17,7 @@ export default class GuaArea extends Component {
     curr_stage: "startStage",
     yaos_list: [],
     broadcast_text: "",
+    isBoardcastClosed: true,
     canNext: false,
     stageIndex: [
       'initialStage',
@@ -51,6 +52,7 @@ export default class GuaArea extends Component {
     controllers: {
       "start-btn": false ,
       "next-btn" : false ,
+      "result-btn": false ,
    }
   }
 
@@ -65,6 +67,7 @@ export default class GuaArea extends Component {
       broadcast_text: "請按【開始】",
       yaos_list: [],
     }
+    this.area['GuaMainArea'].resetSigns()
     this.setState(base_state)
   }
   sendNewBroadcast=(text)=>{
@@ -86,6 +89,7 @@ export default class GuaArea extends Component {
       controllers:{
         "start-btn": true ,
         "next-btn" : false ,
+        "result-btn": false
       },
       canNext: true
    })
@@ -101,8 +105,9 @@ export default class GuaArea extends Component {
     await this.area["GuaMainArea"].sortSigns("main")
     this.setState({
       controllers:{
-        "start-btn": false ,
+        "start-btn": false,
         "next-btn" : true ,
+        "result-btn": false,
       }
    })
     // console.log(2,this.area["GuaMainArea"].state.signs)
@@ -116,6 +121,7 @@ export default class GuaArea extends Component {
       controllers:{
         "start-btn": false ,
         "next-btn" : false ,
+        "result-btn": false,
       }
    })
     await this.area["GuaMainArea"].tianSigns()
@@ -163,16 +169,33 @@ export default class GuaArea extends Component {
     const new_yao =  defineYao(result)
     const new_yaos_list = [...this.state.yaos_list, new_yao]
     this.sendNewBroadcast(`此為: ${new_yao.name}`)
-    this.setState({yaos_list: new_yaos_list})
+
+    if(this.state.yaos_list.length===6){
+      console.log("isFull")
+      const controllers = {
+          "start-btn": false ,
+          "next-btn" : false ,
+          "result-btn": true
+      }
+      this.setStage({controllers, yaos_list: new_yaos_list})
+    }else{
+      this.setState({yaos_list: new_yaos_list})
+    }
+    
     // controller.changeBtn("next game");
   }
   finalStage = (data)=>{
     console.log("fianl")
-    this.setState({curr_stage:"finalStage"})
+    this.setState({curr_stage:"finalStage", isBoardcastClosed: false})
     this.sendNewBroadcast(this.state.stageText['finalStage'])
-    this.area['GuaResultBoardcast'].handleToggle()
-    this.updateUserHistory()
-    // controller.changeBtn("next game");
+    // this.updateUserHistory()
+    // // controller.changeBtn("next game");
+    const controllers = {
+      "start-btn": false ,
+      "next-btn" : false ,
+      "result-btn": false,
+    }
+    this.setState({controllers})
   }
   stageController = {
     initialStage: this.initialStage,
@@ -186,26 +209,43 @@ export default class GuaArea extends Component {
     finalStage  : this.finalStage
   }
   ////////////////////////////////////////////////////////////
-  
-  setStage = async(isNext=true, data={})=>{
-    if(isNext) await this.next()
-    console.log(`current stage: ${this.state.curr_stage_index}, loop: ${this.state.loop}`)
+  /*setStage: 直接控制stage更換 using=> isNext: Boolean
+            
+    next: 決定下一個stage為何   using=>  curr_stage_index,
+                                        yaos_list
+  */
+  setStage = async(isNext=true, target_stage_index=-1, data={})=>{
+    // console.log(`current stage: ${this.state.curr_stage_index}, loop: ${this.state.loop}`)
+
+    if(isNext) await this.next(target_stage_index)
     const {curr_stage_index, stageIndex} = this.state
-    await this.stageController[stageIndex[curr_stage_index]](data)
+    if(target_stage_index!=-1){
+      await this.stageController[stageIndex[target_stage_index]](data)
+    }else{
+      await this.stageController[stageIndex[curr_stage_index]](data)
+    }
+    
   }
-  next= async()=>{
-    let {curr_stage_index, loop, yaos_list} = this.state
-    //console.log(curr_stage_index)
-    if(yaos_list.length>=6) this.initialState()
-    if((curr_stage_index+1) > 15){
+  next= async(target_stage_index)=>{
+    let {curr_stage_index, yaos_list, loop} = this.state
+    
+   
+    if(yaos_list.length>=6 && curr_stage_index>=16) return this.initialState() 
+  
+    if((curr_stage_index+1) > 15 && yaos_list.length<6){
       curr_stage_index = 1
       loop++  
     }else{
       curr_stage_index++
     }
-    
+
+    if(target_stage_index!=-1){
+      curr_stage_index = target_stage_index
+    }
+    console.log("next",curr_stage_index)
     this.setState({curr_stage_index, loop})
   }
+
   loadData = (dataName, dataPath)=>{
     axios.get(`./${dataPath}`).then(response=>{
       this.data[dataName] = response.data
@@ -215,7 +255,8 @@ export default class GuaArea extends Component {
   }
   getRandomGua=()=>{
     const randon_n = Array(6).fill(0).map(_=>{return defineYao(Math.floor(Math.random()*4)+6)})
-    this.setState({yaos_list: randon_n})
+    this.initialState()
+    this.setState({isBoardcastClosed: false, yaos_list: randon_n}, () => this.setStage(false, 16))
   }
   changeNextBtn=(bool)=>{
     const {controllers} = this.state
@@ -241,8 +282,9 @@ export default class GuaArea extends Component {
 
 
   render() {
-    const chinese_number=["零","壹","貳","參","肆","伍","陸","柒","捌","玖"]
-    const turn =Math.max(Math.floor(this.state.curr_stage_index/4), 0)
+    const chinese_number = ["零","壹","貳","參","肆","伍","陸","柒","捌","玖"]
+    const turn = Math.max(Math.floor(this.state.curr_stage_index/4), 0)
+
     return (
       <div className='gua-container'>
         <div className="gua-broadcast" >
@@ -266,8 +308,9 @@ export default class GuaArea extends Component {
                               handleCanNext={this.handleCanNext}
                               setStage={this.setStage}></GuaProcessController>
         <GuaResultBoardcast yaos_list={this.state.yaos_list}
-                            data={this.data} 
-                            handleArea={this.handleArea}></GuaResultBoardcast>
+                            data={this.data}
+                            setStage={this.setStage} 
+                            isBoardcastClosed={this.state.isBoardcastClosed}></GuaResultBoardcast>
         
         {/* <GuaDict data={this.data}></GuaDict> */}
         <GuaMenuBar data={this.data} 

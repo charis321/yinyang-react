@@ -55,11 +55,15 @@ export default function Register(props){
     if(isInputVaild()){
       reguser(username, password).then((data)=>{
         console.log(data)
-          if(data.status===1){
-            setWarming(data.msg)
-          }else{
-            setWarming(data.msg)
-          }
+        if(data.code===400){
+          setWarming(data.msg)
+        }else{
+          setWarming(data.msg)
+        }
+      })
+      .catch((err)=>{
+        console.log(err)
+        setWarming(err.message)
       })
      
     }else{

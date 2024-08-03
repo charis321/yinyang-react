@@ -1,3 +1,14 @@
+.gua-result-boardcast-container:has(.result-boardcast.fulled:not(.closed))::before{
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0 ,0.8);
+    z-index: 100000;
+}
+
 .result-boardcast{
     max-width: 95%;
     max-height: 95%;
@@ -16,17 +27,32 @@
     z-index: 10000000;
     transition: left 0.3s ease-in;
 }
-.result-boardcast.fulled{
+
+
+.result-boardcast.fulled:not(.closed){
     position: fixed;
     width: 80%;
     height: 80%;
     left: 10%;
     top: 10%;
     transition: none;
-   
+    animation: fadeIn 0.5s ease-in;
 }
+@keyframes fadeIn {
+    0%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+
 .result-boardcast.closed{
     left: -100%;
+}
+.result-boardcast.fulled.closed{
+    transition: none;
 }
 
 
@@ -135,6 +161,22 @@
 .scroll-block::-webkit-scrollbar-track {
     box-shadow: transparent;
     display: none;
+}
+
+.restore-result{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.restore-result button{
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+}
+.restore-result button:active{
+    background: rgba(0, 0, 0 ,0.3);
 }
 
 @media screen and (min-width: 768px) and (min-height: 768px) {

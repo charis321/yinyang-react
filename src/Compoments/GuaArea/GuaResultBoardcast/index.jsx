@@ -8,15 +8,28 @@ import {defineGua, defineAlterGua, descriptionGua} from '../../GuaArea/Logic.js'
 
 export default function GuaResultBoardcast (props){
   const [isClosed, setIsClosed] = useState(true)
-  const [mode, setMode] = useState("none")
+  const [mode, setMode] = useState("zhouyi")
+
+  /* 
+    mode: 1. zhouyi 朱熹解易 (default)
+          2. jiao   焦式解易 
+  */            
   
+  useEffect(()=>{
+    setIsClosed(props.isBoardcastClosed)
+  },[props.isBoardcastClosed])
+
   const handleToggle = ()=>{  
     setIsClosed(!isClosed)
   } 
   const handleSwitchMode=(mode)=>{
-    return ()=>{
-      setMode(mode)
-    } 
+    return () => setMode(mode) 
+  }
+  const handleKeepResult=(isKeeping)=>{
+    return () => {
+      setIsClosed(true)
+      props.setStage(false, 0)
+    }
   }
 
   const createGuaContent = (yaos_list)=>{
@@ -57,26 +70,27 @@ export default function GuaResultBoardcast (props){
   
   const {yaos_list, data} = props
   const isFulled = (props.yaos_list.length===6)
-  
-  
-  let alter_gua_content="";
-  let describe_content=""; 
- 
 
+  let alter_gua_content=""
+  let describe_content=""
+  
+  let title = ''
+  
   const gua = defineGua(yaos_list)
   const alter_gua = defineAlterGua(yaos_list)
   const gua_content= createGuaContent(yaos_list)
-      
+  const isAlterGuaDisplay = isFulled&&(gua.name!==alter_gua.name)
+
   if(isFulled){
     alter_gua_content = createGuaContent(alter_gua.yaos_list)
     describe_content = getFinalDesciption(yaos_list, mode) 
+
+    title =gua.name===alter_gua.name?`${gua.name} 卦`:`${gua.name}之${alter_gua.name} 卦`
   }
-  
-  const title = isFulled?`${gua.name}之${alter_gua.name} 卦`:''
   const className = "result-boardcast scroll-block" + (isFulled?" fulled":"") + (isClosed?" closed":"")  
   return (
-    <div  className={className} onClick={isFulled?null:handleToggle}>
-      
+    <div className='gua-result-boardcast-container'>
+      <div  className={className} onClick={isFulled?null:handleToggle}>
         <div >
           <h2 className='description-title'>{title}</h2>
           <div className='flex-row'>
@@ -84,23 +98,29 @@ export default function GuaResultBoardcast (props){
               <h2 className='gua-label'>{gua.name}</h2>
               {gua_content}
             </div>
-            <div className='gua-block' style={{display: isFulled?"flex":"none"}}>
+            <div className='gua-block' style={{display: isAlterGuaDisplay?"flex":"none"}}>
               <h2 className='gua-label'>{alter_gua.name}</h2>
               {alter_gua_content}  
             </div>
           </div>
         </div>
-        <div className='decription-mode' style={ {display: isFulled?"block":"none"}}>
+        <div className='decription-mode' style={{display: isFulled?"block":"none"}}>
           <button className='zhouyi-btn' onClick={handleSwitchMode("zhouyi")}>朱熹解易</button>
           <button className='jiao-btn'  onClick={handleSwitchMode("jiao")}>焦式解易</button>
         </div>
         <div className='gua-description' style={{display: isFulled?"flex":"none"}}>
               {describe_content}   
         </div>
+        <div className='restore-result' style={{display: isFulled?"flex":"none"}}>
+        <button className='keep-result' onClick={handleKeepResult(true)}>重新開始</button>
+          {/* <button className='drop-result' onClick={handleKeepResult(false)}>捨棄</button> */}
+        </div>
+        
         <button className='show-btn' onClick={handleToggle}></button>
         <button className='close-btn' onClick={handleToggle} style={{display: isFulled?"block":"none"}}>X</button>
-     
+      </div>
     </div>
+    
   )
   
 }

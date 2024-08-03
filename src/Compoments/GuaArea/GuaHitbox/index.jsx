@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
+
 import './index.css'
 export default function GuaHitbox (props){
+  const [isTouching, setIsTouching] = useState(false);
 
   const setPlace=(place)=>{
     const {placeIndex, touchIndex} = props
@@ -15,15 +17,17 @@ export default function GuaHitbox (props){
       animation: `${touchIndex[place].touchable?"emphasize":"none"} 2s infinite`
     }
   }
-  const handleTouch=(place,isTouched)=>{
-    return ()=>{
-      if(props.isDragging){
-         props.getTouch(place,isTouched)
+  const handleTouch=(place, isTouched)=>{
+      return () => {
+        if(isTouching === !isTouched && props.isDragging){
+          setIsTouching(isTouched)
+          props.getTouch(place,isTouched)
+        }
       }
-    }
+    
   }
 
-  
+ 
     
   return (
     <div className='gua-hitbox'>

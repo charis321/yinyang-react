@@ -121,8 +121,10 @@ export default function GuaDict (props){
                     {getGuaContent()}
                     <button className='close-btn' onClick={handleToggleShow}>X</button>
                 </div>
-                {/* <button className='close-btn' onClick={this.handleToggle}>X</button> */}
+                {/* <button className='close-btn' onClick={this.handleToggle}>X</button> */} 
+                <div className="bg-mark"></div>
             </div>
+           
         </div>
     )
 }

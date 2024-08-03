@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useNavigate} from "react-router-dom";
 import Header from '../../Compoments/Header'
 import {setAuthToken} from '../../plugin/authUtils'
 import {logIn} from '../../plugin/webAPI'
@@ -11,6 +12,7 @@ export default function Login() {
   const [warming, setWarming]  = useState("")
 
   const {setUser} = useContext(authContent)
+  const navigate = useNavigate() 
   
   const handleChange = (input_type)=>{
     return (e)=>{
@@ -27,11 +29,12 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     logIn(username, password).then(data=>{
-      if(data.status===1){
+      if(data.code===400){
         setWarming(data.msg)
       }else{
         setAuthToken(data.token)
         setUser(username)
+        navigate('/home');
       }
     })
     

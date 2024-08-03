@@ -6,12 +6,9 @@ import './index.css'
 export default class About extends Component {
   render() {
     return (
-      <div>
+      <div className='page-container'>
         <Header></Header>
         <main>
-          <article className='zhouyi-gua'>
-          
-          </article>
           <GuaDict></GuaDict>
         </main>
         <footer></footer>

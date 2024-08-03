@@ -5,6 +5,7 @@ export default class GuaProcessController extends Component {
         controllersIndex: [
             {index: 0, name: "start-btn", content: '開始'},
             {index: 1, name: "next-btn" ,  content: '下一步'},
+            {index: 2, name: "result-btn", content: '完成，查看結果'}
         ]
     }
     componentDidMount(){
