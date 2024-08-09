@@ -1,13 +1,14 @@
 import { useState,useContext } from 'react'
 import {getUser, getUserHistory} from 'webAPI.js'
 import { authContent } from './auth'
+const user = getUser() 
 
-// export const useUserHistory = ()=>{
-//     const user = getUser() 
-//     const [userHistory, setUserHistory] = useState(user.history)
+export const useUserHistory = ()=>{
+    
+    const [userHistory, setUserHistory] = useState(user.history)
 
-//     return [userHistory, setUserHistory]
-// }
+    return [userHistory, setUserHistory]
+}
 
 // export const useUserHistory = async()=>{
 //     const { user } = useContext(authContent)

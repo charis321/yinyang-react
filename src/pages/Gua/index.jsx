@@ -1,6 +1,7 @@
 import React  from 'react'
 import GuaArea from '../../Compoments/GuaArea'
 import Header from '../../Compoments/Header'
+import './index.css'
 
 import { useScreenOrientation } from '../../plugin/useRWD'
 export default function Gua() {
@@ -13,7 +14,7 @@ export default function Gua() {
 
 
   return (
-    <div>
+    <div className='gua-container'>
       <Header></Header>
       <main>
         {

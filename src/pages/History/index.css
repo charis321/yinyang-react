@@ -11,6 +11,6 @@ aside{
     align-items: center;
 }
 .history-frame{
-    height: 80vh;
-    overflow-y: auto;
+    /* height: 80vh; */
+    /* overflow-y: auto; */
 }
