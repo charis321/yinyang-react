@@ -14,7 +14,7 @@ import History from './pages/History';
 import { useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState("遊客")
 
   return (
     <div className="app">

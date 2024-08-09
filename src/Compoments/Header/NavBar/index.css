@@ -37,6 +37,10 @@
     text-decoration: none;
     animation: fadeInLeft 0.5s;
 }
+.navbar-container li.logout{
+    cursor: pointer;
+}
+
 @keyframes fadeInLeft{
     0%{
         opacity: 0;

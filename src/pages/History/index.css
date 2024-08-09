@@ -10,26 +10,7 @@ aside{
     flex-direction: column;
     align-items: center;
 }
-.history-list{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    
-}
-.history-item{
-    width: 80%;
-    height: 10vh;
-    background-image: url('../../../public/images/table_bg.avif');
-    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
-    margin: 1%;
-    animation: fadeInRow 0.2s ;
-}
-@keyframes fadeInRow {
-    0%{
-        transform: rotateX(-10px);
-    }
-    100%{
-        transform: rotateX(0px);
-    }
+.history-frame{
+    height: 80vh;
+    overflow-y: auto;
 }

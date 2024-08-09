@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate} from "react-router-dom";
 import Header from '../../Compoments/Header'
-import {setAuthToken} from '../../plugin/authUtils'
+import {setAuthToken, setUserInfo} from '../../plugin/authUtils'
 import {logIn} from '../../plugin/webAPI'
 import {authContent} from '../../plugin/auth'
 import './index.css'
@@ -26,16 +26,26 @@ export default function Login() {
     }
     
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(username,password)
     logIn(username, password).then(data=>{
       if(data.code===400){
         setWarming(data.msg)
       }else{
-        setAuthToken(data.token)
-        setUser(username)
+        
+        setWarming(data.msg)
+        console.log(data.data)
+        setUserInfo(data.data)
+        setUser(data.data.username)
+        setAuthToken(data.data.token)
+        window.alert(`登入成功! ${username},歡迎回來`)
         navigate('/home');
       }
+    }).catch((err)=>{
+      console.log(err)
+      setWarming(err.message)
     })
     
   }

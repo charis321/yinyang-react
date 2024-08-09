@@ -8,6 +8,8 @@ import GuaMenuBar from './GuaMenuBar'
 import {defineYao}from'../GuaArea/Logic'
 import './index.css'
 import GuaDict from './GuaDict'
+import { handleUserHistory } from '../../plugin/webAPI'
+import { getUserId } from '../../plugin/authUtils'
 
 
 export default class GuaArea extends Component {  
@@ -219,7 +221,7 @@ export default class GuaArea extends Component {
 
     if(isNext) await this.next(target_stage_index)
     const {curr_stage_index, stageIndex} = this.state
-    if(target_stage_index!=-1){
+    if(target_stage_index!==-1){
       await this.stageController[stageIndex[target_stage_index]](data)
     }else{
       await this.stageController[stageIndex[curr_stage_index]](data)
@@ -239,7 +241,7 @@ export default class GuaArea extends Component {
       curr_stage_index++
     }
 
-    if(target_stage_index!=-1){
+    if(target_stage_index!==-1){
       curr_stage_index = target_stage_index
     }
     console.log("next",curr_stage_index)
@@ -263,11 +265,29 @@ export default class GuaArea extends Component {
     controllers['next-btn'] = bool
     this.setState({controllers})
   }
-  toggleGuaDict=()=>{
-    
+  
+  ///////////////////////////////////////////////  處理卜卦結果(history)
+  addNewHistory=(guaLite)=>{
+    const currTime =  new Date().toISOString()
+    const userId = getUserId()
+  
+    const history = {
+      userId,
+      "title": guaLite.title,
+      "yaosList":  guaLite.yaos_list,
+      "createTime": currTime
+    }
+   
+    console.log(history)
+
+    handleUserHistory("add", history).then((data)=>{
+      console.log(data)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
   }
-  updateUserHistory=()=>{
-  }
+
 
   componentDidMount(){
     this.initialStage();
@@ -310,7 +330,8 @@ export default class GuaArea extends Component {
         <GuaResultBoardcast yaos_list={this.state.yaos_list}
                             data={this.data}
                             setStage={this.setStage} 
-                            isBoardcastClosed={this.state.isBoardcastClosed}></GuaResultBoardcast>
+                            isBoardcastClosed={this.state.isBoardcastClosed}
+                            handleStoreHistory={this.addNewHistory}></GuaResultBoardcast>
         
         {/* <GuaDict data={this.data}></GuaDict> */}
         <GuaMenuBar data={this.data} 

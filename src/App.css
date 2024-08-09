@@ -41,19 +41,25 @@ h2{
 }
 
 
-.close-btn{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 10px;
-}
+/* button style */
 button.default{
   transition: transform 0.1s ease-in-out;
 }
 button.default:active{
   transform: scale(0.95);
 }
+.close-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+}
+.danger-btn{
+  border-radius: 1rem;
+  background-color: red;
+}
 
+/* button style */
 
 [hidden]{
   display: none!important;

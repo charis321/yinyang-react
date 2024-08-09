@@ -1,15 +1,16 @@
-import React, { useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState} from 'react'
 import Yao from '../../GuaArea/Gua/Yao'
 import { getZhouyiDOM, getJiaoDOM } from './descriptionDOM'
 import './index.css'
-// import {dragElement} from '../../../plugin/dragDom'
 //import {test_guaObj_random} from '../../GuaArea/test_gua_data'
-import {defineGua, defineAlterGua, descriptionGua} from '../../GuaArea/Logic.js'
+import {defineGua, defineAlterGua, descriptionGua, getGuaLite} from '../../GuaArea/Logic.js'
+import { authContent } from '../../../plugin/auth.js'
+
 
 export default function GuaResultBoardcast (props){
   const [isClosed, setIsClosed] = useState(true)
   const [mode, setMode] = useState("zhouyi")
-
+  const {user} = useContext(authContent)
   /* 
     mode: 1. zhouyi 朱熹解易 (default)
           2. jiao   焦式解易 
@@ -25,8 +26,17 @@ export default function GuaResultBoardcast (props){
   const handleSwitchMode=(mode)=>{
     return () => setMode(mode) 
   }
-  const handleKeepResult=(isKeeping)=>{
+  const handleKeepResult=(isKeeping, guaObj={})=>{
     return () => {
+      
+      if(isKeeping){
+        const {handleStoreHistory, yaos_list} = props
+        
+        let guaLite = getGuaLite(yaos_list)
+        console.log("guaLite",guaLite)
+
+        handleStoreHistory(guaLite)
+      }
       setIsClosed(true)
       props.setStage(false, 0)
     }
@@ -76,6 +86,7 @@ export default function GuaResultBoardcast (props){
   
   let title = ''
   
+
   const gua = defineGua(yaos_list)
   const alter_gua = defineAlterGua(yaos_list)
   const gua_content= createGuaContent(yaos_list)
@@ -112,8 +123,8 @@ export default function GuaResultBoardcast (props){
               {describe_content}   
         </div>
         <div className='restore-result' style={{display: isFulled?"flex":"none"}}>
-        <button className='keep-result' onClick={handleKeepResult(true)}>重新開始</button>
-          {/* <button className='drop-result' onClick={handleKeepResult(false)}>捨棄</button> */}
+        <button className='keep-result' onClick={handleKeepResult(true)}>保留結果</button>
+          <button className='drop-result' onClick={handleKeepResult(false)}>捨棄</button>
         </div>
         
         <button className='show-btn' onClick={handleToggle}></button>

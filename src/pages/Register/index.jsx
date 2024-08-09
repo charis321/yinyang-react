@@ -1,7 +1,7 @@
 import React, { useState, useReducer} from 'react'
 import {Link} from "react-router-dom"
 import Header from '../../Compoments/Header'
-import {reguser} from '../../plugin/webAPI.js'
+import {reguser, logIn} from '../../plugin/webAPI.js'
 // import { setAuthToken } from '../../plugin/authUtils.js'
 // import { AuthContext } from "../../contexts";
 import './index.css'
@@ -59,6 +59,7 @@ export default function Register(props){
           setWarming(data.msg)
         }else{
           setWarming(data.msg)
+          
         }
       })
       .catch((err)=>{
@@ -71,6 +72,7 @@ export default function Register(props){
     }
   }
   const isInputVaild = ()=>{
+    if(password!==passwordR) return false
     return true
   } 
 

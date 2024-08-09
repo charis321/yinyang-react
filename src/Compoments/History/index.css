@@ -1,0 +1,44 @@
+.history-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    
+}
+.history-item{
+    position: relative;
+    width: 80%;
+    height: 10vh;
+    background-image: url('../../../public/images/table_bg.avif');
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+    margin: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+   
+    animation: fadeInRow 0.2s ;
+}
+.history-item .danger-btn{
+    position: absolute;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    color: aliceblue;
+}
+.history-item .history-title{ 
+    text-align: center;
+    flex: 1;
+}
+.history-item .history-time{
+    flex: 2;
+}
+@keyframes fadeInRow {
+    0%{
+        transform: rotateX(-10px);
+    }
+    100%{
+        transform: rotateX(0px);
+    }
+}

@@ -1,3 +1,5 @@
+import {nanoid} from 'nanoid'
+
 export const getZhouyiDOM=(gua, alter_gua, data, description)=>{
     let content;
     switch(description.type){
@@ -39,14 +41,14 @@ export const getZhouyiDOM=(gua, alter_gua, data, description)=>{
                         <strong className='gua-describe-title'>{content[0].title}</strong>
                         {   
                             content[0].content.map(content_text=>{
-                                return <p>{content_text}</p>
+                                return <p key={nanoid()}>{content_text}</p>
                             })
                         }
                         <hr/>
                         <strong className='gua-describe-title'>{content[1].title}</strong>
                         {
                             content[1].content.map(content_text=>{
-                                return <p>{content_text}</p>
+                                return <p key={nanoid()}>{content_text}</p>
                             })
                         }
                     </div>
@@ -58,7 +60,7 @@ export const getZhouyiDOM=(gua, alter_gua, data, description)=>{
                         <strong className='gua-describe-title'>{content.title}</strong>
                         {
                             content.content.map(content_text=>{
-                                return <p>{content_text}</p>
+                                return <p key={nanoid()}>{content_text}</p>
                         })
                         }
                     </div>

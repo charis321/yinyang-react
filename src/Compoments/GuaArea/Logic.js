@@ -1,8 +1,11 @@
 import {gua_data_set} from './data'
 
 export const defineYao=(n)=>{
-    if(n<6||n>9)
-        return -1
+    // n為 字串或整數 [6-9] 
+  
+    if(typeof n==="string")n = parseInt(n)
+    if(n<6||n>9) return -1
+
     const nameIndex = {
         6:"陽爻之變爻",
         7:"陽爻",
@@ -35,6 +38,54 @@ export const defineGua=(yaos_list)=>{
 
     return result
 }
+/*
+  guaLite: gua儲存在資料庫的形式，包含最低程度的訊息，降低體積
+  - title
+  - yaos_list
+*/
+export const getGuaLite=(yaos_list)=>{
+  const gua = defineGua(yaos_list)
+  const alter_gua = defineAlterGua(yaos_list)
+  const title = gua.name===alter_gua.name?`${gua.name}`:`${gua.name}之${alter_gua.name}`
+
+  const yaos_list_str = yaos_list.map(yaoObj => yaoObj.n).join('')
+  const guaLite = {
+    title,
+    yaos_list: yaos_list_str,
+  }
+  
+  return guaLite
+}
+export const getGuaLiteByStr=(yaos_list_str)=>{
+  let yaos_array = yaos_list_str.split('') 
+  let yaos_list = yaos_array.map((yaos_n)=>{
+    let yaoObj = defineYao(yaos_n)
+    return yaoObj
+  })
+
+
+  const gua = defineGua(yaos_list)
+  const alter_gua = defineAlterGua(yaos_list)
+  const title = gua.name===alter_gua.name?`${gua.name}`:`${gua.name}之${alter_gua.name}`
+
+
+  const guaLite = {
+    title,
+    yaos_list: yaos_list_str,
+  }
+  
+  return guaLite
+}
+
+/*
+  1.history:
+  - historyId   
+  - userId        
+  - createTime 
+  - title            卦的名子
+  - yaosList        以純數字字串表示的'爻'陣列, ex: "677967"
+  
+*/
 export const defineAlterGua=(yaos_list)=>{
     if(yaos_list.length!==6)return -1
       
@@ -99,6 +150,9 @@ export const descriptionGua=(guaObj)=>{
   
     return final_desciption
 }
+
+
+
 export const desciptionGua_logic_set = [
   {
     type: 0,
@@ -180,6 +234,3 @@ export const desciptionGua_logic_set = [
     },
   },
 ];
-const defineAction = ()=>{
-    
-}
