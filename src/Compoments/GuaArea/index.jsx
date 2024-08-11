@@ -279,6 +279,7 @@ export default class GuaArea extends Component {
       "create_time": currTime
     }
     let history = getHistoryAuth()
+    console.log(history,"addHistory")
     setHistoryAuth([...history, new_history])
     
 

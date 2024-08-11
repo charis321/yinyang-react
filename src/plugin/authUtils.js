@@ -35,7 +35,8 @@ export const setHistoryAuth = (historys)=>{
   localStorage.setItem("user_history", JSON.stringify(historys))
 }
 export const getHistoryAuth = ()=>{
-  return JSON.parse(localStorage.getItem("user_history"))
+  const localHistory = JSON.parse(localStorage.getItem("user_history"))
+  return localHistory? localHistory: []
 }
 
 export const resetAuth = () => {
