@@ -4,13 +4,16 @@ import { getZhouyiDOM, getJiaoDOM } from './descriptionDOM'
 import './index.css'
 //import {test_guaObj_random} from '../../GuaArea/test_gua_data'
 import {defineGua, defineAlterGua, descriptionGua, getGuaLite} from '../../GuaArea/Logic.js'
-import { authContent } from '../../../plugin/auth.js'
+import {useUser} from "../../../plugin/useUserData.js"
+// import { authContent } from '../../../plugin/auth.js'
 
 
 export default function GuaResultBoardcast (props){
   const [isClosed, setIsClosed] = useState(true)
   const [mode, setMode] = useState("zhouyi")
-  const {user} = useContext(authContent)
+  // const [user] = useUser()
+  // const {user} = useContext(authContent)
+
   /* 
     mode: 1. zhouyi 朱熹解易 (default)
           2. jiao   焦式解易 

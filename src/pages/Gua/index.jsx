@@ -14,7 +14,7 @@ export default function Gua() {
 
 
   return (
-    <div className='gua-container'>
+    <div>
       <Header></Header>
       <main>
         {

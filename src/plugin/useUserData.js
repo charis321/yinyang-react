@@ -1,29 +1,65 @@
-import { useState,useContext } from 'react'
-import {getUser, getUserHistory} from 'webAPI.js'
-import { authContent } from './auth'
-const user = getUser() 
+import { useState, useEffect } from 'react'
+import {setUserAuth ,getUserAuth, getHistoryAuth,setHistoryAuth} from './authUtils'
 
-export const useUserHistory = ()=>{
-    
-    const [userHistory, setUserHistory] = useState(user.history)
 
-    return [userHistory, setUserHistory]
+const MAX_LOCAL_HISTORY = 10;
+
+const UNAUTH_USER = {
+    "user_id"   : "-1",
+    "username"  : "遊客",
+    "token"     : "",
+    "status"    : "1",
 }
 
-// export const useUserHistory = async()=>{
-//     const { user } = useContext(authContent)
-//     getUserHistory(user).then((data)=>{
-//         if(data===200){
-//             console.log(data.data)
-//         }else{
-//             console.log(data.msg)
-//         }
-//     })
-//     .catch(err => {
-//         console.log(err)
-//     })
+export const useUser = ()=>{
+    const [user, setUser] = useState(UNAUTH_USER)
+   
+    useEffect(()=>{
+        const localUser = getUserAuth()
 
-//     const [userHistory, setUserHistory] = useState()
+        setUser(localUser)
+        setUserAuth(localUser)
+    },[]) 
 
-//     return {userHistory, setUserHistory}
-// }
+    const clearUser = ()=>{setUserAuth(UNAUTH_USER)}
+    return [user, setUser, clearUser]
+}
+
+export const useHistory = ()=>{ 
+    const [history, setHistory] = useState([]) 
+   
+    useEffect(()=>{
+        const localHistory = getHistoryAuth()
+
+        setHistory(localHistory)
+        setHistoryAuth(localHistory)
+    },[])
+
+
+    return [history, setHistory]
+
+
+
+    // handleUserHistory("list", data).then((data)=>{
+    //     if(data.code===200){
+    //       const history = data.data
+    //       console.log(history)
+    //       setUserHistory(history)
+          
+    //     }else{
+    //       console.log(data)
+    //     }
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    //     if(err.code==="ERR_NETWORK"){
+    //       setMessage("目前處於離線狀態")
+    //       setUserHistory(testHistory)
+    //     }
+       
+    // })
+
+    // const [userHistory, setUserHistory] = useState()
+
+    // return {userHistory, setUserHistory}
+}

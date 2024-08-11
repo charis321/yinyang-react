@@ -9,7 +9,7 @@ import {defineYao}from'../GuaArea/Logic'
 import './index.css'
 import GuaDict from './GuaDict'
 import { handleUserHistory } from '../../plugin/webAPI'
-import { getUserId } from '../../plugin/authUtils'
+import { getUserId, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
 
 
 export default class GuaArea extends Component {  
@@ -269,23 +269,25 @@ export default class GuaArea extends Component {
   ///////////////////////////////////////////////  處理卜卦結果(history)
   addNewHistory=(guaLite)=>{
     const currTime =  new Date().toISOString()
-    const userId = getUserId()
-  
-    const history = {
-      userId,
+    const user_id = getUserId()
+    // const history_id = get
+    console.log(user_id)
+    const  new_history = {
+      user_id,
       "title": guaLite.title,
-      "yaosList":  guaLite.yaos_list,
-      "createTime": currTime
+      "yaos_list":  guaLite.yaos_list,
+      "create_time": currTime
     }
-   
-    console.log(history)
+    let history = getHistoryAuth()
+    setHistoryAuth([...history, new_history])
+    
 
-    handleUserHistory("add", history).then((data)=>{
-      console.log(data)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+    // handleUserHistory("add", history).then((data)=>{
+    //   console.log(data)
+    // })
+    // .catch(err=>{
+    //   console.log(err)
+    // })
   }
 
 

@@ -1,18 +1,29 @@
 import React, { Fragment, useContext } from 'react'
-import {Link} from "react-router-dom"
-import {authContent} from "../../../plugin/auth"
-import { resetAuth } from '../../../plugin/authUtils'
+import {Link, useNavigate} from "react-router-dom"
+import { useUser} from "../../../plugin/useUserData"
+// import {authContent} from "../../../plugin/auth"
+import { resetAuth, setUserAuth } from '../../../plugin/authUtils'
 import './index.css'
-import { useDevice, useScreenOrientation } from '../../../plugin/useRWD'
+// import { useDevice, useScreenOrientation } from '../../../plugin/useRWD'
 // import useRWD from '../../../useRWD'
 export default function NavBar() {
-  const {user, setUser} = useContext(authContent) 
+  // const {user, setUser} = useContext(authContent) 
+  const [ user, clearUser ] = useUser()
+  // const [localUser, setLocalUser] = useState(user)
+  const navigate = useNavigate() 
+
 
   const handleLogout = (e)=>{
-    console.log("Log out", user)
-    setUser("遊客")
-    resetAuth()
+    // clearUser()
+    setUserAuth({
+      "user_id"   : -1,
+      "username"  : "遊客",
+      "token"     : "",
+      "status"    : 1,
+    })
     window.alert(`登出成功!`)
+    navigate("/")
+    // console.log("Log out", user)
   }
 
   return (
@@ -21,10 +32,10 @@ export default function NavBar() {
         <li><Link to="/about">關於周易</Link></li>
         <li><Link to="/gua">算卦</Link></li>
         <li><Link to="/history">歷史紀錄</Link></li>
+        <li>身分: { user.username }</li>
         { 
-          user!=="遊客"?
+          parseInt(user.user_id)!==-1?
           <Fragment>
-            <li>身分: { user }</li>
             <li className='logout' onClick={handleLogout}>登出</li>
           </Fragment>
           

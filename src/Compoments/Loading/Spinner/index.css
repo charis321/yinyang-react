@@ -1,0 +1,13 @@
+.loading{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid#828282;
+    border-bottom-color: transparent;
+    animation: spinning 2s infinite;
+}
+@keyframes spinning {
+    100%{
+        transform: rotateZ(360deg);
+    }
+}

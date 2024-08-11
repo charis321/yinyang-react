@@ -1,7 +1,7 @@
 
 import {Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { authContent } from './plugin/auth';
+// import { authContent } from './plugin/auth';
 
 
 
@@ -14,11 +14,11 @@ import History from './pages/History';
 import { useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState("遊客")
+  // const [user, setUser] = useState("遊客")
 
   return (
     <div className="app">
-      <authContent.Provider value={{user, setUser}}>
+      {/* <authContent.Provider value={{user, setUser}}> */}
         <Routes>
           <Route path='/' element={<Navigate to="home"/>}/>
           <Route path="home"  element={<Home/>}/>
@@ -28,7 +28,7 @@ function App() {
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
         </Routes>
-      </authContent.Provider>
+      {/* </authContent.Provider> */}
       
     </div>
   );

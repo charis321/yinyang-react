@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import { useNavigate} from "react-router-dom";
 import Header from '../../Compoments/Header'
-import {setAuthToken, setUserInfo} from '../../plugin/authUtils'
+// import {useUser} from '../../plugin/useUserData'
 import {logIn} from '../../plugin/webAPI'
-import {authContent} from '../../plugin/auth'
+
 import './index.css'
+import { setUserAuth } from '../../plugin/authUtils';
 
 export default function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [warming, setWarming]  = useState("")
 
-  const {setUser} = useContext(authContent)
+
   const navigate = useNavigate() 
   
   const handleChange = (input_type)=>{
@@ -30,16 +31,16 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username,password)
-    logIn(username, password).then(data=>{
-      if(data.code===400){
-        setWarming(data.msg)
+    logIn(username, password).then(res=>{
+      if(res.code===400){
+        setWarming(res.msg)
       }else{
-        
-        setWarming(data.msg)
-        console.log(data.data)
-        setUserInfo(data.data)
-        setUser(data.data.username)
-        setAuthToken(data.data.token)
+
+        const userData ={"status": 1,...res.data}
+
+        setWarming(res.msg)
+        setUserAuth(userData)
+
         window.alert(`登入成功! ${username},歡迎回來`)
         navigate('/home');
       }

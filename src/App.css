@@ -14,13 +14,13 @@ html,body{
   padding: 0;
 }
 .app{
-  /* width: 100vw;
-  height: 100vh; */
+  width: 100vw;
+  height: 100vh;
   position: relative;
   background-image: url('../public/images/bg_2.avif');
   background-size: cover;
   background-repeat: no-repeat;
-  /* overflow-y: hidden; */
+  overflow-y: hidden;
 }
 
 h1,h2,ul,li{
@@ -42,6 +42,9 @@ h2{
 
 
 /* button style */
+button{
+  cursor: pointer;
+}
 button.default{
   transition: transform 0.1s ease-in-out;
 }
@@ -56,7 +59,12 @@ button.default:active{
 }
 .danger-btn{
   border-radius: 1rem;
-  background-color: red;
+  background-color: #ff0000;
+
+}
+.danger-btn:hover{
+  transform: translateY(5px);
+
 }
 
 /* button style */
