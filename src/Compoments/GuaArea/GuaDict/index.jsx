@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {gua_data_set, half_gua_set} from '../data'
+import axios from 'axios'
 import './index.css'
 export default function GuaDict (props){
     
@@ -7,6 +8,7 @@ export default function GuaDict (props){
     const [isShowing,setIsShowing ] = useState(false)
     const [nowShowing,setNowShowing ] = useState("")
     const [gallery,setGallery] = useState([])
+    // const [data, setData] = useState()
 
     useEffect(()=>{
         setGallery(createGuaGallery)
@@ -36,7 +38,17 @@ export default function GuaDict (props){
     //     }
         
     // }
-    
+    // const loadData = (dataName, dataPath)=>{
+    //     axios.get(`./${dataPath}`).then(response=>{
+    //         const new_data = {
+    //             dataName: response.data
+    //         }
+
+    //         console.log(new_data)
+    //     }).catch(error=>{
+    //       console.log(error);
+    //     });
+    //   }
     
     function createGuaGallery(){
         let new_dataset = [{name:'',index:10000,icon:''},...half_gua_set]
@@ -123,8 +135,7 @@ export default function GuaDict (props){
                 </div>
                 {/* <button className='close-btn' onClick={this.handleToggle}>X</button> */} 
                 <div className="bg-mark"></div>
-            </div>
-           
+            </div>   
         </div>
     )
 }

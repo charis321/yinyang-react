@@ -88,8 +88,9 @@ export default function History() {
           </aside>
           <div className="history-frame"> 
             {
-              history===null?
-              <EmtryHistory></EmtryHistory>:
+              history.length === 0 ?
+              <EmtryHistory></EmtryHistory>
+              :
               <HistoryList historys={history}
                            deleteHistory={deleteHistory}></HistoryList>
             }

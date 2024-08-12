@@ -174,11 +174,12 @@
     font-size: 2rem;
     background: none;
     border: none;
-    
+    transition: 0.2s all linear;
 }
 
-.restore-result button:active{
+.restore-result button:hover{
     background: rgba(0, 0, 0 ,0.3);
+    color: #fff;
 }
 
 

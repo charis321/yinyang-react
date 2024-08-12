@@ -46,10 +46,14 @@ button{
   cursor: pointer;
 }
 button.default{
+  color: #000;
   transition: transform 0.1s ease-in-out;
 }
-button.default:active{
+button.default:hover,
+button.default:active
+{
   transform: scale(0.95);
+  color: #ff0000;
 }
 .close-btn{
   position: absolute;
