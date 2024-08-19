@@ -106,13 +106,10 @@ export default function History() {
     console.log('delete')
   }
   const handleTouch = (start_e)=>{
-    start_e.preventDefault()
     let startY = start_e.touches[0].screenY
     frame_ref.current.addEventListener("touchmove",(end_e)=>{
-      end_e.preventDefault()
       let endY = end_e.touches[0].screenY
-
-      frame_ref.current.scrollTop+=(endY - startY)
+      frame_ref.current.scrollTop-=(endY - startY)
       frame_ref.current.onTouchMove = null
     })    
   }
