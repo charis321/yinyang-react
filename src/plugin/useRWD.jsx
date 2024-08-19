@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 
+
+/*
+    device:=>
+      1. PC:            > 1024
+      2. tablet:    576 ~ 1024
+      3. mobile:    576 <
+*/
 export const useDevice = ()=>{
     const [device, setDevice] = useState("mobile")
     const handleRWD = ()=>{
@@ -13,7 +20,6 @@ export const useDevice = ()=>{
         setDevice("mobile");
       }
     }
-    
     useEffect(()=>{ 
         window.addEventListener('resize',handleRWD);
         handleRWD()
@@ -21,7 +27,7 @@ export const useDevice = ()=>{
             window.removeEventListener('resize',handleRWD);
         })
     },[]);
-    // console.log(device)
+
     return device;
 }
 

@@ -128,7 +128,7 @@ export default class GuaMainArea extends Component {
     }
 
     new_state.signs = new_signs
-    console.log(new_state)
+    // console.log(new_state)
     this.setState(new_state,()=>{
       console.log('sort')
     })

@@ -8,22 +8,22 @@ export default function Header() {
     const device = useDevice()
     const orientation = useScreenOrientation()
     const [isClosed, setIsclosed] = useState(true)
-   
+    console.log(orientation)
     useEffect(()=>{
-        setIsclosed(device==="mobile")
-    },[device])
+        setIsclosed(device!=="PC")
+    },[device, orientation])
 
     const handleToggle = ()=>{
         setIsclosed(!isClosed)
     }
 
     return (
-        <header>
+        <header className={ orientation==='portrait-primary'||device==="PC"?"":"collapsed"}>
             <Link className='logo' to="../Home"></Link>
             {
                 isClosed?"":<NavBar></NavBar>
             }
-            <div className='nav-btn' onClick={handleToggle} style={{display: device==="mobile"?"block":"none"}}></div>
+            <div className='nav-btn' onClick={handleToggle} style={{display: device==="PC"?"none":"block"}}></div>
         </header>
     )
 }

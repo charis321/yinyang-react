@@ -10,6 +10,7 @@ import './index.css'
 import GuaDict from './GuaDict'
 import { handleUserHistory } from '../../plugin/webAPI'
 import { getUserId, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
+import { nanoid } from 'nanoid'
 
 
 export default class GuaArea extends Component {  
@@ -270,9 +271,10 @@ export default class GuaArea extends Component {
   addNewHistory=(guaLite)=>{
     const currTime =  new Date().toISOString()
     const user_id = getUserId()
-    // const history_id = get
+    const history_id = nanoid()
     console.log(user_id)
     const  new_history = {
+      history_id,
       user_id,
       "title": guaLite.title,
       "yaos_list":  guaLite.yaos_list,

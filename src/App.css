@@ -9,6 +9,8 @@
   user-select: none;
   -webkit-user-select: none;
 }
+
+
 html,body{
   margin: 0;
   padding: 0;
@@ -44,6 +46,7 @@ h2{
 /* button style */
 button{
   cursor: pointer;
+  /* background-color: #FFD700; */
 }
 button.default{
   color: #000;

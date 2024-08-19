@@ -7,9 +7,7 @@ import './index.css'
 // import { useDevice, useScreenOrientation } from '../../../plugin/useRWD'
 // import useRWD from '../../../useRWD'
 export default function NavBar() {
-  // const {user, setUser} = useContext(authContent) 
   const [ user, clearUser ] = useUser()
-  // const [localUser, setLocalUser] = useState(user)
   const navigate = useNavigate() 
 
 
