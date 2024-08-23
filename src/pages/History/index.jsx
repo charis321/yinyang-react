@@ -118,7 +118,8 @@ export default function History() {
       let dy = endY - startY
       frame_ref.current.scrollTop-= dy
       i++
-      // console.log("touch move", i ,dy)
+      startY = endY
+      console.log("touch move", i ,dy)
     }
     function end(){
       i = 0
