@@ -1,23 +1,25 @@
 import {useState, useEffect } from 'react'
 import axios from 'axios'
 import Header from '../../Compoments/Header'
-import GuaDict from '../../Compoments/GuaArea/GuaDict'
+import {GuaDictAlpha, GuaDictBeta} from '../../Compoments/GuaArea/GuaDictBeta'
 import './index.css'
+import GuaDict from '../../Compoments/GuaArea/GuaDict'
 
-const DATA = {}
-const loadData = (dataName, dataPath)=>{
+// let DATA = {}
+// const loadData = (dataName, dataPath)=>{
 
-  if(DATA[dataName]) return
+  
+//   if(DATA[dataName]) return
 
-  axios.get(`./${dataPath}`).then(res=>{
-      DATA[dataName] = res.data
-  }).catch(err=>{
-    console.log(err);
-  });
-}
+//   axios.get(`./${dataPath}`).then(res=>{
+//     DATA[dataName] = res.data
+//   }).catch(err=>{
+//     console.log(err);
+//   });
+// }
 
-loadData('jiao_gua','jiao_gua.json')
-loadData("zhouyi_gua",'zhouyi_gua_2.json')
+// loadData('jiao_gua','jiao_gua.json')
+// loadData("zhouyi_gua",'zhouyi_gua_2.json')
 
 
 
@@ -26,10 +28,12 @@ export default function About(props){
   //   console.log("useEffect")
   // },[])
   return (
-    <div className='page-container'>
+    <div className='about-container'>
       <Header></Header>
       <main>
-        <GuaDict data={DATA}></GuaDict>
+        <GuaDict data={props.data}></GuaDict>
+        {/* <GuaDictBeta data={props.data}></GuaDictBeta> */}
+        {/* <GuaDictAlpha data={DATA}></GuaDictAlpha> */}
       </main>
       <footer></footer>
     </div>

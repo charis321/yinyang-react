@@ -28,6 +28,7 @@ export default function History() {
     }
   */
   useEffect(()=>{  
+    console.log(frame_ref.current.ontouchmove)
     // initialHistory() 
     // handleUserHistory("list", {user_id}).then((data)=>{
     //     if(data.code===200){
@@ -106,14 +107,44 @@ export default function History() {
     console.log('delete')
   }
   const handleTouch = (start_e)=>{
+    console.log("touch start")
     let startY = start_e.touches[0].screenY
-    frame_ref.current.addEventListener("touchmove",(end_e)=>{
-      let endY = end_e.touches[0].screenY
-      frame_ref.current.scrollTop-=(endY - startY)
-      frame_ref.current.onTouchMove = null
-    })    
-  }
+    let i = 0
+    frame_ref.current.ontouchmove = move
+    frame_ref.current.ontouchend  = end
 
+    function move(end_e){
+      let endY = end_e.touches[0].screenY
+      let dy = endY - startY
+      frame_ref.current.scrollTop-= dy
+      i++
+      // console.log("touch move", i ,dy)
+    }
+    function end(){
+      i = 0
+      frame_ref.current.ontouchmove = null
+      frame_ref.current.ontouchend = null
+      console.log("touch end")
+    }
+    // console.log("touch",i)
+    // frame_ref.current.addEventListener("touchmove",(end_e)=>{
+    //   let endY = end_e.touches[0].screenY
+    //   let dy = endY - startY
+    //   frame_ref.current.scrollTop-= dy
+    //   i++
+      
+    //   // console.log("touch move", i ,frame_ref.current.scrollTop, dy)
+    // })  
+    // console.log(frame_ref.current.onTouchMove)  
+    // frame_ref.current.addEventListener("touchend",(end_e)=>{
+    //   console.log("touch end")
+    //   i = 0
+    //   // frame_ref.current.onTouchMove = null
+    //   frame_ref.current.onTouchEnd = null
+    //   console.log(frame_ref.current.onTouchMove)
+    // })  
+  }
+ 
   return (
     <div className='history-container'>
         <Header></Header>

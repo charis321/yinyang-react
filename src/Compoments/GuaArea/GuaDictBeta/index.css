@@ -1,0 +1,58 @@
+.gua-dict-beta-container{
+    width: 100%;
+    /* height: 100%; */
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dict-box{
+    position: relative;
+    width: 90vw;
+    height: 90vw;
+    background-color: #eee;
+    border-radius: 50%;
+    
+}
+.dict-item{
+    position: absolute; 
+    top: calc( 50% - 1.5rem);
+    width: 3rem;
+    height: 3rem;
+    transform-origin: 45vw;
+    border-left: 2px solid #ddd ;
+    font-size: 1.5rem;
+    transition: 0.2s all linear;
+}
+.dict-item:hover{
+    background: #f7fba8;
+}
+/* .dict-item p{
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: bold;   
+} */
+.tri{
+    width: 0;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+
+    border-top: 40vh solid #f00;
+}
+.gua-dict-beta-container .mode-btn{
+    position: fixed;
+    bottom: 10vh;
+    left: 0;
+    padding: 10px 5px;
+}
+@keyframes fade {
+    0%{
+        opacity: 0;
+
+    }
+    100%{
+        opacity: 1;
+
+    }
+}

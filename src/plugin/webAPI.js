@@ -37,22 +37,6 @@ export const logIn = async(username, password)=>{
     })
     .then(res => {return res.data})
 }
-// export const getUserHistory = async(username)=>{
-//     const token = getAuthToken()
-//     console.log(token)
-//     const data = JSON.stringify({
-//         "username": username,
-//     })
-
-//     return axios.post(BASE_URL+"/api/user/history", data,{
-//         headers: {
-//             Authorization: token,
-//         }
-//     })
-//     .then(res => {return res.data})
-// };
-
-
 export const handleUserHistory = async(action, data={})=>{    
     const token = getAuthToken()
     console.log(token)
@@ -65,6 +49,13 @@ export const handleUserHistory = async(action, data={})=>{
     .then(res => {return res.data})
 }
 
+export const loadData = async(dataPath)=>{
+    return axios.get(`${process.env.PUBLIC_URL}/${dataPath}`)
+    .then(res=>{return res.data})
+    .catch(err=>{
+      console.log(err);
+    });
+}
 
 
 
