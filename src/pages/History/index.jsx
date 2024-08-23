@@ -108,13 +108,13 @@ export default function History() {
   }
   const handleTouch = (start_e)=>{
     console.log("touch start")
-    let startY = start_e.touches[0].screenY
+    let startY = start_e.touches[0].clientY
     let i = 0
     frame_ref.current.ontouchmove = move
     frame_ref.current.ontouchend  = end
 
     function move(end_e){
-      let endY = end_e.touches[0].screenY
+      let endY = end_e.touches[0].clientY
       let dy = endY - startY
       frame_ref.current.scrollTop-= dy
       i++
