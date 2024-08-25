@@ -5,4 +5,17 @@
 .about-container main{
     height: calc(100% - 50px);
     overflow: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.about-topic-block{
+    width: 30%;
+    height: 80%;
+    background-color: bisque;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.3);
 }

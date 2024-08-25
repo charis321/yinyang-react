@@ -57,13 +57,8 @@ export const getGuaLite=(yaos_list)=>{
   return guaLite
 }
 export const getGuaLiteByStr=(yaos_list_str)=>{
-  let yaos_array = yaos_list_str.split('') 
-  let yaos_list = yaos_array.map((yaos_n)=>{
-    let yaoObj = defineYao(yaos_n)
-    return yaoObj
-  })
-
-
+  
+  const yaos_list = getYaosListByStr(yaos_list_str)
   const gua = defineGua(yaos_list)
   const alter_gua = defineAlterGua(yaos_list)
   const title = gua.name===alter_gua.name?`${gua.name}`:`${gua.name}之${alter_gua.name}`
@@ -150,8 +145,15 @@ export const descriptionGua=(guaObj)=>{
   
     return final_desciption
 }
+export const getYaosListByStr=(yaos_list_str)=>{
+  let yaos_array = yaos_list_str.split('')
 
-
+  let yaos_list = yaos_array.map((yaos_n)=>{
+    let yaoObj = defineYao(yaos_n)
+    return yaoObj
+  })
+  return yaos_list
+}
 
 export const desciptionGua_logic_set = [
   {

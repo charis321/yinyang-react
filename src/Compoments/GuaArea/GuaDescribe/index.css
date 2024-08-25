@@ -1,4 +1,9 @@
-.gua-result-boardcast-container:has(.result-boardcast.fulled:not(.closed))::before{
+.gua-describe-container{
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+.gua-describe-container::before{
     content: '';
     position: fixed;
     width: 100vw;
@@ -29,7 +34,7 @@
 }
 
 
-.result-boardcast.fulled:not(.closed){
+.result-boardcast:not(.closed){
     position: fixed;
     width: 80%;
     height: 80%;
@@ -51,7 +56,7 @@
 .result-boardcast.closed{
     left: -100%;
 }
-.result-boardcast.fulled.closed{
+.result-boardcast.closed{
     transition: none;
 }
 
@@ -161,25 +166,6 @@
 .scroll-block::-webkit-scrollbar-track {
     box-shadow: transparent;
     display: none;
-}
-
-.restore-result{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.restore-result button{
-    padding: 0.5rem 1rem;
-    margin: 1rem;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    transition: 0.2s all linear;
-}
-
-.restore-result button:hover{
-    background: rgba(0, 0, 0 ,0.3);
-    color: #fff;
 }
 
 

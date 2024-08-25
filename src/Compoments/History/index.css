@@ -1,46 +1,61 @@
 .history-list{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     flex: 1;    
+    transition: 0.2s all ease-in-out;
 }
 .history-item{
     position: relative;
     width: 80%;
+    min-width: 300px;
     height: 10vh;
     background-image: url('../../../public/images/table_bg.avif');
     box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
-    margin: 1%;
+    margin: 1% 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     transition: 0.2s all ease-in-out;
-    /* animation: fadeInRow 0.2s linear; */
+    /* animation: fadeIn 0.5s linear; */
 }
-.history-item:hover{
+/* .history-item:hover{
     transform: translateX(10px);
     cursor: pointer;
-}
+} */
 .history-item.closing{
     margin: 0;
     animation: fadeOut 0.5s forwards;
 }
 
-.history-item .danger-btn{
+
+/* .history-item .danger-btn{
     position: absolute;
     right: 1rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: none;
     color: aliceblue;
-}
+} */
 .history-item .history-title{ 
     text-align: center;
-    flex: 1;
+    flex: 2;
 }
 .history-item .history-time{
     flex: 2;
+}
+.history-item .history-btn{
+    display: flex;
+    flex: 2;
+}
+
+.history-item button{
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    color: aliceblue;
+    margin: 0 0.25rem;
 }
 @keyframes fadeInRow {
     0%{

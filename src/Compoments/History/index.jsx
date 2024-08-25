@@ -1,34 +1,25 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, Fragment} from 'react'
 import {nanoid} from 'nanoid'
 import './index.css'
 import { handleUserHistory } from '../../plugin/webAPI'
 
 
-function HistoryList(props) {
-  // const [list] = useRef()
-  // useEffect(()=>{
-    
-  // },[])
-  const handleTouch = (e)=>{
-    
-  }
-  const handleScroll = (e)=>{
-    console.log(e)
-  }
-
+export const HistoryList = (props)=>{
   return (
-    <ul className='history-list' onTouchMove={handleTouch} onScroll={handleScroll}>
-        {
-            props.historys.map(historyObj=>{
-                return <HistoryItem {...historyObj} key={nanoid()} deleteHistory={props.deleteHistory}></HistoryItem>
-            })
+    <ul className='history-list'>
+        {  
+          props.historys.map(historyObj=>{
+              return <HistoryItem history={historyObj} key={nanoid()}
+                                  showHistory = {props.showHistory} 
+                                  deleteHistory={props.deleteHistory}></HistoryItem>
+          })
         }
     </ul>
   )  
 }
 
 function HistoryItem(props) {
-  const {history_id, title, yaos_list, create_time} = props
+  const {history_id, title, yaos_list, create_time} = props.history
   const [isClosed, setIsclosed] = useState(false)
   const handleDelete = ()=>{
     setIsclosed(true)
@@ -38,7 +29,10 @@ function HistoryItem(props) {
     
   }
   const create_time_local = new Date(create_time)
-
+  const handleShowHistory = ()=>{
+    const {showHistory} = props
+    showHistory(props.history)
+  }
 
   return (
     <li className={'history-item'+(isClosed?" closing":"")}> 
@@ -47,9 +41,18 @@ function HistoryItem(props) {
           <p>{create_time_local.toLocaleDateString()}</p>
           <p>{create_time_local.toLocaleTimeString()}</p>
         </div>
+        <div className='history-btn'>
+          <button className='primary-btn' onClick={handleShowHistory}>查看</button>
+          <button className='danger-btn' onClick={handleDelete}>刪除</button>
+        </div>
         
-        <button className='danger-btn' onClick={handleDelete}>刪除</button>
     </li>
   )
 }
-export default HistoryList
+
+
+export const EmtryHistory = ()=>{
+    return <Fragment>
+                <h1>無歷史紀錄</h1>
+            </Fragment>
+}

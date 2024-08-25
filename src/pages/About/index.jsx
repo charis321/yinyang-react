@@ -31,9 +31,18 @@ export default function About(props){
     <div className='about-container'>
       <Header></Header>
       <main>
-        <GuaDict data={props.data}></GuaDict>
+        {/* <GuaDict data={props.data}></GuaDict> */}
         {/* <GuaDictBeta data={props.data}></GuaDictBeta> */}
         {/* <GuaDictAlpha data={DATA}></GuaDictAlpha> */}
+        <article className='about-topic-block'>
+          <h2>何為六十四卦</h2>
+        </article>
+        <article className='about-topic-block'>
+          <h2>古人如何解卦</h2>
+        </article>
+        <article className='about-topic-block'>
+          <h2>卜卦的歷史</h2>
+        </article>
       </main>
       <footer></footer>
     </div>

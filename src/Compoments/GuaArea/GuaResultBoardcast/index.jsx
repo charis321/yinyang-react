@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useRef, useState} from 'react'
 import Yao from '../../GuaArea/Gua/Yao'
 import { getZhouyiDOM, getJiaoDOM } from './descriptionDOM'
 import './index.css'
-//import {test_guaObj_random} from '../../GuaArea/test_gua_data'
 import {defineGua, defineAlterGua, descriptionGua, getGuaLite} from '../../GuaArea/Logic.js'
 import {useUser} from "../../../plugin/useUserData.js"
-// import { authContent } from '../../../plugin/auth.js'
+import { resultProps } from 'element-plus'
+import handleScrollMobile from '../../../plugin/scrollDom.js'
 
+/* 
+    mode: 1. zhouyi 朱熹解易 (default)
+          2. jiao   焦式解易 
+*/  
 
 export default function GuaResultBoardcast (props){
   const [isClosed, setIsClosed] = useState(true)
   const [mode, setMode] = useState("zhouyi")
-  // const [user] = useUser()
-  // const {user} = useContext(authContent)
-
-  /* 
-    mode: 1. zhouyi 朱熹解易 (default)
-          2. jiao   焦式解易 
-  */            
+  const boardcast_ref = useRef()
+            
   
   useEffect(()=>{
     setIsClosed(props.isBoardcastClosed)
@@ -104,7 +103,10 @@ export default function GuaResultBoardcast (props){
   const className = "result-boardcast scroll-block" + (isFulled?" fulled":"") + (isClosed?" closed":"")  
   return (
     <div className='gua-result-boardcast-container'>
-      <div  className={className} onClick={isFulled?null:handleToggle}>
+      <div  className={className} 
+            onClick={isFulled?null:handleToggle} 
+            onTouchStart={handleScrollMobile(boardcast_ref.current)} 
+            ref={boardcast_ref}>
         <div >
           <h2 className='description-title'>{title}</h2>
           <div className='flex-row'>

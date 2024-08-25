@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {gua_data_set, half_gua_set} from '../data'
 import axios from 'axios'
 import './index.css'
+import handleScrollMobile from '../../../plugin/scrollDom'
 export default function GuaDict (props){
     
     const [isClosed,setIsClosed ] = useState(props.isClosed)
     const [isShowing,setIsShowing ] = useState(false)
     const [nowShowing,setNowShowing ] = useState("")
     const [gallery,setGallery] = useState([])
+    const gallery_ref = useRef()
     // const [data, setData] = useState()
 
     useEffect(()=>{
@@ -115,7 +117,7 @@ export default function GuaDict (props){
         <div className='gua-dict-container'>
             <div className='gua-dict-block' hidden={isClosed}>
                 <h2>六十四卦</h2>
-                <div className="gua-gallery" style={{display: isShowing?"none":"flex"}} >
+                <div className="gua-gallery" ref={gallery_ref} style={{display: isShowing?"none":"flex"}} onTouchStart={handleScrollMobile(gallery_ref.current)}>
                     {
                         gallery.map((dataObj,i)=>{
                             const {name, icon ,index} = dataObj

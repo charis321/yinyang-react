@@ -193,6 +193,7 @@ export default class GuaArea extends Component {
     this.sendNewBroadcast(this.state.stageText['finalStage'])
     // this.updateUserHistory()
     // // controller.changeBtn("next game");
+    console.log(this.state.yaos_list)
     const controllers = {
       "start-btn": false ,
       "next-btn" : false ,
@@ -252,6 +253,7 @@ export default class GuaArea extends Component {
   loadData = (dataName, dataPath)=>{
     axios.get(`./${dataPath}`).then(response=>{
       this.data[dataName] = response.data
+      // console.log("loadData",this.data)
     }).catch(error=>{
       console.log(error);
     });
