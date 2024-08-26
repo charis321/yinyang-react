@@ -37,6 +37,7 @@ export const logIn = async(username, password)=>{
     })
     .then(res => {return res.data})
 }
+
 export const handleUserHistory = async(action, data={})=>{    
     const token = getAuthToken()
     console.log(token)

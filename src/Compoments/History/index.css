@@ -7,7 +7,7 @@
 }
 .history-item{
     position: relative;
-    width: 80%;
+    width: 90%;
     min-width: 300px;
     height: 10vh;
     background-image: url('../../../public/images/table_bg.avif');
@@ -47,15 +47,17 @@
 }
 .history-item .history-btn{
     display: flex;
+    justify-content: center;
     flex: 2;
+   
 }
 
 .history-item button{
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.4rem;
     font-size: 1rem;
     border: none;
     color: aliceblue;
-    margin: 0 0.25rem;
+    /* margin: 0 0.25rem;  */
 }
 @keyframes fadeInRow {
     0%{
@@ -75,3 +77,10 @@
         height: 0;
     }
 }
+
+@media screen and (min-width: 798px) {
+    .history-item button{
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+} 

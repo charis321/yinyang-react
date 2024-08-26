@@ -4,10 +4,10 @@ import Header from '../../Compoments/Header'
 import GuaResultBoardcast from '../../Compoments/GuaArea/GuaResultBoardcast'
 import {HistoryList,EmtryHistory} from '../../Compoments/History'
 import {descriptionGua, getGuaLiteByStr, getYaosListByStr} from '../../Compoments/GuaArea/Logic'
-import { useHistory } from '../../plugin/useUserData'
+import { useHistory, useUser } from '../../plugin/useUserData'
 import {handleUserHistory} from '../../plugin/webAPI'
 import {getUserId, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
-import handleScrollMobile from '../../plugin/scrollDom'
+import setScrollMobile from '../../plugin/scrollDom'
 import './index.css'
 import { GuaDescribe } from '../../Compoments/GuaArea/GuaDescribe'
 // import Spinner from '../../Compoments/Loading/Spinner'
@@ -18,6 +18,7 @@ export default function History(props) {
   // const [localHistory, setLocalHistory] = useState([])
 
   const [history,setHistory] = useHistory() 
+  const [user] = useUser()
   const [targetHistory, setTargetHistory] = useState(false)
   const [message, setMessage] = useState("")
   const [isDescribeClosed , setIsDescribeClosed] = useState(true)
@@ -33,7 +34,9 @@ export default function History(props) {
       yaosList,
     }
   */
-  useEffect(()=>{  
+  useEffect(()=>{
+    setScrollMobile(frame_ref.current)
+    if(user.user_id==="-1") setMessage(" # 您現在是 <遊客> 身分")
     // initialHistory() 
     // handleUserHistory("list", {user_id}).then((data)=>{
     //     if(data.code===200){
@@ -127,10 +130,18 @@ export default function History(props) {
         <main>
           
           <aside>
-            <h1 className='history-msg'>{message}</h1>
-            <div>{`${history.length}/100`}</div>
-            <label>查詢</label>
-            <input type='date'></input>
+            <span style={{color: 'red'}} className='history-msg'>{message}</span>
+            <div>
+              <span style={{color: history.length > 90?"red":"#000"}}>{history.length}</span>
+              / 100
+            </div>
+            <form >
+              <label>查詢</label>
+              <input type='date'></input>
+              到
+              <input type='date'></input>
+            </form>
+            
             <button onClick={addHistory}>新增</button>
             {
               isDescribeClosed?null : <GuaDescribe  isClosed={isDescribeClosed} 
@@ -142,7 +153,7 @@ export default function History(props) {
           {/* <GuaResultBoardcast yaos_list={this.state.yaos_list}
                               data={this.data}
                               handleStoreHistory={this.addNewHistory}></GuaResultBoardcast> */}
-          <div className="history-frame" onTouchStart={handleScrollMobile(frame_ref.current)} ref={frame_ref} > 
+          <div className="history-frame scroll-block" ref={frame_ref} > 
             {
               history.length === 0 ?
               <EmtryHistory></EmtryHistory>

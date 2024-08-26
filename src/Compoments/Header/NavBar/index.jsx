@@ -43,6 +43,7 @@ export default function NavBar() {
             <li><Link to="/register">註冊</Link></li>
           </Fragment>
         }
+        <li><Link to="/intro">本站資訊</Link></li>
         
       </ul>
 

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Yao from '../../GuaArea/Gua/Yao';
 import { getZhouyiDOM, getJiaoDOM } from './descriptionDOM'
 import {defineGua, defineAlterGua, descriptionGua, getGuaLite, getYaosListByStr} from '../../GuaArea/Logic.js'
+import setScrollMobile from '../../../plugin/scrollDom.js'
+// import Glitch from '../../../plugin/cssFilter/glitch'
 import './index.css'
 /* 
     mode: 1. zhouyi 朱熹解易 (default)
@@ -9,8 +11,16 @@ import './index.css'
 */  
 
 export function GuaDescribe(props){
-  const [isClosed, setIsClosed] = useState(props.isClosed)
+  const [isClosed] = useState(props.isClosed)
   const [mode, setMode] = useState("zhouyi")
+  const boardcast_ref = useRef()
+
+  useEffect(()=>{
+    console.log("useEffect")
+    setScrollMobile(boardcast_ref.current)
+    
+  },[])
+  
  
   const handleToggle = ()=>{
     props.handleClosed(!isClosed)
@@ -64,7 +74,7 @@ export function GuaDescribe(props){
   const className = "result-boardcast scroll-block" + (isClosed?" closed":"")  
   return (
     <div className='gua-describe-container'>
-      <div className={className}>
+      <div className={className}  ref={boardcast_ref}>
         <h2 className='description-title'>{title}</h2>
         <div className='flex-row'>
             <div className='gua-block'>
@@ -77,15 +87,16 @@ export function GuaDescribe(props){
             </div>
         </div>
      
-      <div className='decription-mode'>
-          <button className='zhouyi-btn' onClick={handleSwitchMode("zhouyi")}>朱熹解易</button>
-          <button className='jiao-btn'  onClick={handleSwitchMode("jiao")}>焦式解易</button>
+      <div className='gua-description-mode'>
+          <button className={'zhouyi-btn'+ (mode==="zhouyi"?" active":null)} onClick={handleSwitchMode("zhouyi")}>朱熹解易</button>
+          <button className={'jiao-btn'+ (mode==="jiao"?" active":null)}  onClick={handleSwitchMode("jiao")}>焦式解易</button>
       </div>
       <div className='gua-description'>
           {describe_content}   
       </div>
       <button className='close-btn' onClick={handleToggle}>X</button> 
     </div>
+      {/* <Glitch></Glitch> */}
     </div>
   )
 }

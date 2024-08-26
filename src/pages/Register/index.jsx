@@ -1,8 +1,8 @@
 import React, { useState, useReducer} from 'react'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import Header from '../../Compoments/Header'
 import {reguser, logIn} from '../../plugin/webAPI.js'
-// import { setAuthToken } from '../../plugin/authUtils.js'
+import { setUserAuth } from '../../plugin/authUtils.js'
 // import { AuthContext } from "../../contexts";
 import './index.css'
 
@@ -15,6 +15,7 @@ export default function Register(props){
   const [warming, setWarming]  = useState("")
   const [showPassword, setShowPassword] = useState([false, false])
   const [, forceUpdate] = useReducer(x => x + 1, 0)
+  const navigate = useNavigate()
 
   // const {setUser} = useContext(AuthContext)
   
@@ -58,8 +59,24 @@ export default function Register(props){
         if(data.code===400){
           setWarming(data.msg)
         }else{
-          setWarming(data.msg)
-          
+          alert("註冊成功!")
+          logIn(username, password).then(res=>{
+            if(res.code===400){
+              setWarming(res.msg)
+            }else{
+      
+              const userData ={"status": 1,...res.data}
+      
+              setWarming(res.msg)
+              setUserAuth(userData)
+      
+              window.alert(`登入成功! ${username},歡迎回來`)
+              navigate('/home');
+            }
+          }).catch((err)=>{
+            console.log(err)
+            setWarming(err.message)
+          })
         }
       })
       .catch((err)=>{
@@ -68,6 +85,7 @@ export default function Register(props){
       })
      
     }else{
+      setWarming("fail")
       console.log("fail")
     }
   }

@@ -71,6 +71,9 @@ button.default:active
   background-position: center;
   color: transparent;
 }
+.close-btn:hover{
+  transform: scale(1.1);
+}
 .primary-btn{
   border-radius: 1rem;
   background-color: #a0e385;
@@ -87,6 +90,44 @@ button.default:active
 }
 
 /* button style */
+
+/* scroll style */
+
+.scroll-block{
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+}
+.scroll-block::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll-block::-webkit-scrollbar-button {
+  border-radius: 4px;
+  
+}
+
+.scroll-block::-webkit-scrollbar-track-piece {
+  background: transparent;
+  display: none;
+}
+
+.scroll-block::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #888;
+  border-bottom: 5px #aaa solid;
+  border-right: 3px #555 solid;
+  height: 10%;
+}
+.scroll-block::-webkit-scrollbar-track {
+  box-shadow: transparent;
+  display: none;
+}
+
+/* scroll style */
+
+
+
 
 [hidden]{
   display: none!important;

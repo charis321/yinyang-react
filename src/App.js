@@ -8,6 +8,8 @@ import Gua from './pages/Gua';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
+import IntroPage from './pages/Intro'
+import NotFoundPage from './pages/Error/404Page'
 import { useState } from 'react';
 import {loadData} from './plugin/webAPI'
 
@@ -33,6 +35,8 @@ function App() {
           <Route path="history" element={<History data={DATA}/>}/>
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
+          <Route path="intro" element={<IntroPage/>}/>
+          <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
         </Routes>
       {/* </authContent.Provider> */}
       
