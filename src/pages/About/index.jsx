@@ -41,7 +41,7 @@ export default function About(props){
           <h2>古人如何解卦</h2>
         </article>
         <article className='about-topic-block'>
-          <h2>卜卦的歷史</h2>
+          <h2>卜卦的方法</h2>
         </article>
       </main>
       <footer></footer>

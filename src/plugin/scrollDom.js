@@ -1,8 +1,8 @@
 
 const setScrollMobile = (elmnt)=>{
-  console.log("set")
+  // console.log("set")
   if(elmnt) elmnt.ontouchstart = scrollStart
-  // elmnt.ontouchstart = scrollStart
+
   function scrollStart(start_e){
     let startY = start_e.touches[0].clientY
     let i = 0
@@ -15,8 +15,6 @@ const setScrollMobile = (elmnt)=>{
       elmnt.scrollTop-= dy
       startY = endY
       
-    //   i++
-    //   console.log("touch move", i ,dy)
     }
     function end(){
       i = 0
