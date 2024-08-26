@@ -120,7 +120,7 @@ export default function GuaResultBoardcast (props){
             </div>
           </div>
         </div>
-        <div className='decription-mode' style={{display: isFulled?"block":"none"}}>
+        <div className='gua-description-mode' style={{display: isFulled?"block":"none"}}>
           <button className='zhouyi-btn' onClick={handleSwitchMode("zhouyi")}>朱熹解易</button>
           <button className='jiao-btn'  onClick={handleSwitchMode("jiao")}>焦式解易</button>
         </div>

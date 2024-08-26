@@ -124,8 +124,6 @@
 
 
 
-
-
 .gua-description{
     padding: 10px;
     justify-content: center;
@@ -166,6 +164,24 @@
     z-index: -1;
 } */
 
+.restore-result{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.restore-result button{
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    transition: 0.2s all linear;
+}
+
+.restore-result button:hover{
+    background: rgba(0, 0, 0 ,0.3);
+    color: #fff;
+}
 
 @media screen and (min-width: 768px) and (min-height: 768px) {
     .result-boardcast{
