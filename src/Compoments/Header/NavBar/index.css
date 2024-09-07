@@ -20,6 +20,7 @@
 .navbar-container li{
     width: 50vw;
     height: 50%;
+    /* font-size: 1.5rem; */
     font-size: 1.5rem;
     margin: 0.5rem ;
     padding: 0.1rem 0.5rem;
@@ -67,6 +68,8 @@
     .navbar-container li{
         width: auto;
         height: 50%;
+
+        font-size: 1.2rem;
         
         /* background-color: antiquewhite; */
         /* border-radius: 10px; */

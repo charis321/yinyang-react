@@ -53,6 +53,7 @@ header .nav-btn:active{
         justify-content: space-between;
         /* background-color: rgba(0, 0, 0, 0.3); */
         background: #eee;
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
         /* background-color: #555; */
     }
     header .logo{
