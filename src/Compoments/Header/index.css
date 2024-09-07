@@ -4,6 +4,7 @@ header{
     flex-direction: column;
     align-items: center; 
     background: #eee;
+    /* background: #111; */
     z-index: 1000;
     transition: all 0.5s ease-in-out;
 }
@@ -50,8 +51,9 @@ header .nav-btn:active{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        background-color: rgba(0, 0, 0, 0.3);
+        /* background-color: rgba(0, 0, 0, 0.3); */
         background: #eee;
+        /* background-color: #555; */
     }
     header .logo{
         display: flex;
