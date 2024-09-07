@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/yinyang-react/static/css/main.3fe9f79a.css",
+    "main.css": "/yinyang-react/static/css/main.7b6d5ae0.css",
     "main.js": "/yinyang-react/static/js/main.a4ffd75a.js",
     "static/media/gua_bg_1.jpeg": "/yinyang-react/static/media/gua_bg_1.59d889cfeef58c9b30aa.jpeg",
     "static/media/logo.png": "/yinyang-react/static/media/logo.02bc427e3f89479d3f55.png",
@@ -9,11 +9,11 @@
     "static/media/table_bg.avif": "/yinyang-react/static/media/table_bg.cca3a44687fc406c44b6.avif",
     "index.html": "/yinyang-react/index.html",
     "static/media/close.svg": "/yinyang-react/static/media/close.93c17426c13465a188bc.svg",
-    "main.3fe9f79a.css.map": "/yinyang-react/static/css/main.3fe9f79a.css.map",
+    "main.7b6d5ae0.css.map": "/yinyang-react/static/css/main.7b6d5ae0.css.map",
     "main.a4ffd75a.js.map": "/yinyang-react/static/js/main.a4ffd75a.js.map"
   },
   "entrypoints": [
-    "static/css/main.3fe9f79a.css",
+    "static/css/main.7b6d5ae0.css",
     "static/js/main.a4ffd75a.js"
   ]
 }
