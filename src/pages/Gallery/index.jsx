@@ -10,7 +10,6 @@ export default function GalleryPage(props){
     const contentRef = useRef()
 
     useEffect(()=>{
-    
         setScrollMobile(menuRef.current)
         setScrollMobile(contentRef.current)
     },[])
@@ -74,7 +73,7 @@ export default function GalleryPage(props){
                 <div className="gallery">
                     <div className="gallery-menu">
                         <div className="scroll-control left" onClick={handleScroll("left")}>
-                            <p>❰</p>
+                            <p>❰❰</p>
                         </div>
                         <div className="scroll-block xl" ref={menuRef}>
                             <ul>
@@ -91,7 +90,7 @@ export default function GalleryPage(props){
                             </ul>
                         </div>
                         <div className="scroll-control right" onClick={handleScroll("right")}>
-                            <p>❱</p>
+                            <p>❱❱</p>
                         </div>
                     </div>
                     <div className="gallery-content" style={{display: target?'flex':'none'}} ref={contentRef}>{target?createContent(target):null}</div>

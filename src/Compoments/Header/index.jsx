@@ -8,8 +8,8 @@ export default function Header() {
     const device = useDevice()
     const orientation = useScreenOrientation()
     const [isClosed, setIsclosed] = useState(true)
-    console.log(orientation)
-    useEffect(()=>{
+
+    useEffect(()=>{     
         setIsclosed(device!=="PC")
     },[device, orientation])
 

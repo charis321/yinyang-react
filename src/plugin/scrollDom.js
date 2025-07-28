@@ -19,10 +19,10 @@ const setScrollMobile = (elmnt)=>{
       let dx = endX - startX
       let dy = endY - startY
      
-      console.log("scrollLeft1", elmnt.scrollLeft, dx) 
+      // console.log("scrollLeft1", elmnt.scrollLeft, dx) 
       elmnt.scrollTop -= dy
       elmnt.scrollLeft-= dx
-      console.log("scrollLeft2", elmnt.scrollLeft, dx)
+      // console.log("scrollLeft2", elmnt.scrollLeft, dx)
 
       startX = endX
       startY = endY 

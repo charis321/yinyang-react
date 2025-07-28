@@ -26,15 +26,18 @@
 }
 .gallery-page-container .gallery .scroll-control{
     width: 5vw;
+    min-width: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow:  0 0 15px rgba(0,0,0,0.5)  ;
     transition: all 0.3s linear;
-    background-color: #aaa;
+    background-color: rgba(0,0, 0, 0.3);
+    
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
 }
 .gallery-page-container .gallery .scroll-control:hover{
-    background-color: rgba(0,0, 0, 0.3);
+    background-color: #aaa;
 }
 
 .gallery-page-container .gallery .scroll-control p{
@@ -61,9 +64,9 @@
     display: flex;
 }
 .gallery-page-container .gallery li{
-    width: 4vw;
+    width: 3rem;
     height: auto;
-    min-height: 20vh;
+    min-height: 8rem;
     writing-mode: vertical-lr ;  
     -webkit-writing-mode: vertical-lr;
     font-size: 1.5rem;
@@ -73,14 +76,15 @@
 .gallery-page-container .gallery li:hover,
 .gallery-page-container .gallery li.active
 {
-    width: 8vw;
+    width: 4rem;
     font-size: 2rem;
     color: bisque;
     background-color: #555;
 }
 .gallery-page-container .gallery .gallery-content{
     width: 100vw;
-    max-height: 70vh;
+    height: 100%;
+    max-height: 80vh;
     padding: 10px;
     flex: 3;
     background-color: #555;
