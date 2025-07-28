@@ -1,7 +1,7 @@
 
 
 import NavBar from '../../Compoments/Header/NavBar'
-import { useDevice } from '../../plugin/useRWD'
+import { useDevice } from '../../plugin/hooks/useRWD'
 import "./index.css" 
 export default function Home(){
     const device = useDevice()

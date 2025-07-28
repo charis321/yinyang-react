@@ -9,7 +9,7 @@ export const test_yaoObj = {
     place: ""
   }
 export const test_guaObj = {
-  yaos_list: [
+  yaosList: [
     {
         n: 6,
         name: "陰爻之變爻",
@@ -69,7 +69,7 @@ export const test_guaObj_random = (number)=>{
         result.push(yaoObj)
     }
     return {
-        yaos_list: result
+        yaosList: result
     }
 }
 

@@ -1,8 +1,7 @@
 import 'axios'
 import axios from 'axios'
-import { getAuthToken} from './authUtils'
-const BASE_URL = "http://127.0.0.1:8080"
-
+import { getAuthToken } from './authUtils'
+import { DB_BASE_URL } from '../configure'
 
 export const reguser = async(username, password)=>{
     const currTime =  new Date().toISOString()
@@ -15,7 +14,7 @@ export const reguser = async(username, password)=>{
     
     console.log(data)
 
-    return axios.post(BASE_URL+"/api/user/regist", data, {
+    return axios.post(DB_BASE_URL+"/api/user/regist", data, {
         headers: {
             "Content-Type": "application/json",
         },
@@ -29,7 +28,7 @@ export const logIn = async(username, password)=>{
         "password": password
     })
 
-    return axios.post(BASE_URL+"/api/user/login", data, {
+    return axios.post(DB_BASE_URL+"/api/user/login", data, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -40,8 +39,7 @@ export const logIn = async(username, password)=>{
 
 export const handleUserHistory = async(action, data={})=>{    
     const token = getAuthToken()
-    console.log(token)
-    return axios.post(BASE_URL+"/api/user/history/" + action, JSON.stringify(data),{
+    return axios.post(DB_BASE_URL+"/api/user/history/" + action, JSON.stringify(data),{
         headers: {
             "Content-Type": "application/json",
             "Authorization": token,

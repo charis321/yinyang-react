@@ -3,7 +3,7 @@ import GuaArea from '../../Compoments/GuaArea'
 import Header from '../../Compoments/Header'
 import './index.css'
 
-import { useScreenOrientation } from '../../plugin/useRWD'
+import { useScreenOrientation } from '../../plugin/hooks/useRWD'
 export default function Gua() {
   //screen.orientation.lock("landscape")
   const screenOrientation = useScreenOrientation()

@@ -19,20 +19,21 @@ export const HistoryList = (props)=>{
 }
 
 function HistoryItem(props) {
-  const {history_id, title, yaos_list, create_time} = props.history
+  const {historyId, title, yaosList, createTime} = props.history
   const [isClosed, setIsclosed] = useState(false)
   const handleDelete = ()=>{
     setIsclosed(true)
     setTimeout(()=>{
-      props.deleteHistory(history_id)
+      props.deleteHistory(historyId)
     }, 500)  
     
   }
-  const create_time_local = new Date(create_time)
+  const create_time_local = new Date(createTime)
   const handleShowHistory = ()=>{
     const {showHistory} = props
     showHistory(props.history)
   }
+
 
   return (
     <li className={'history-item'+(isClosed?" closing":"")}> 

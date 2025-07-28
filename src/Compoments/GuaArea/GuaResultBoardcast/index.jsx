@@ -3,9 +3,8 @@ import Yao from '../../GuaArea/Gua/Yao'
 import { getZhouyiDOM, getJiaoDOM } from './descriptionDOM'
 import './index.css'
 import {defineGua, defineAlterGua, descriptionGua, getGuaLite} from '../../GuaArea/Logic.js'
-import {useUser} from "../../../plugin/useUserData.js"
-import { resultProps } from 'element-plus'
-import handleScrollMobile from '../../../plugin/scrollDom.js'
+import {useUser} from "../../../plugin/hooks/useUserData.js"
+import setScrollMobile from '../../../plugin/scrollDom.js'
 
 /* 
     mode: 1. zhouyi 朱熹解易 (default)
@@ -17,6 +16,9 @@ export default function GuaResultBoardcast (props){
   const [mode, setMode] = useState("zhouyi")
   const boardcast_ref = useRef()
             
+   useEffect(()=>{
+    setScrollMobile(boardcast_ref.current)
+  },[])
   
   useEffect(()=>{
     setIsClosed(props.isBoardcastClosed)
@@ -32,9 +34,9 @@ export default function GuaResultBoardcast (props){
     return () => {
       
       if(isKeeping){
-        const {handleStoreHistory, yaos_list} = props
+        const {handleStoreHistory, yaosList} = props
         
-        let guaLite = getGuaLite(yaos_list)
+        let guaLite = getGuaLite(yaosList)
         console.log("guaLite",guaLite)
 
         handleStoreHistory(guaLite)
@@ -44,18 +46,18 @@ export default function GuaResultBoardcast (props){
     }
   }
 
-  const createGuaContent = (yaos_list)=>{
+  const createGuaContent = (yaosList)=>{
       const result = []
-      yaos_list.map((yaoObj, index)=>{
+      yaosList.map((yaoObj, index)=>{
           result[index] = <Yao yaoObj={yaoObj} key={index}></Yao>
        })
 
       return result
   } 
   
-  const getFinalDesciption = (yaos_list, mode)=>{
-      const gua = defineGua(yaos_list)
-      const alter_gua =defineAlterGua(yaos_list)
+  const getFinalDesciption = (yaosList, mode)=>{
+      const gua = defineGua(yaosList)
+      const alter_gua =defineAlterGua(yaosList)
       
       if(mode==="jiao"){
         const gua_data = data.jiao_gua
@@ -80,8 +82,8 @@ export default function GuaResultBoardcast (props){
   //    }
   //   
   
-  const {yaos_list, data} = props
-  const isFulled = (props.yaos_list.length===6)
+  const {yaosList, data} = props
+  const isFulled = (props.yaosList.length===6)
 
   let alter_gua_content=""
   let describe_content=""
@@ -89,14 +91,14 @@ export default function GuaResultBoardcast (props){
   let title = ''
   
 
-  const gua = defineGua(yaos_list)
-  const alter_gua = defineAlterGua(yaos_list)
-  const gua_content= createGuaContent(yaos_list)
+  const gua = defineGua(yaosList)
+  const alter_gua = defineAlterGua(yaosList)
+  const gua_content= createGuaContent(yaosList)
   const isAlterGuaDisplay = isFulled&&(gua.name!==alter_gua.name)
 
   if(isFulled){
-    alter_gua_content = createGuaContent(alter_gua.yaos_list)
-    describe_content = getFinalDesciption(yaos_list, mode) 
+    alter_gua_content = createGuaContent(alter_gua.yaosList)
+    describe_content = getFinalDesciption(yaosList, mode) 
 
     title =gua.name===alter_gua.name?`${gua.name} 卦`:`${gua.name}之${alter_gua.name} 卦`
   }
@@ -105,7 +107,6 @@ export default function GuaResultBoardcast (props){
     <div className='gua-result-boardcast-container'>
       <div  className={className} 
             onClick={isFulled?null:handleToggle} 
-            onTouchStart={handleScrollMobile(boardcast_ref.current)} 
             ref={boardcast_ref}>
         <div >
           <h2 className='description-title'>{title}</h2>

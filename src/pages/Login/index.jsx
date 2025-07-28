@@ -11,6 +11,7 @@ export default function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [warming, setWarming]  = useState("")
+  const [loading, setLoading] = useState(false)
 
 
   const navigate = useNavigate() 
@@ -30,23 +31,28 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username,password)
+    setLoading(true)
+    setWarming("")
     logIn(username, password).then(res=>{
       if(res.code===400){
         setWarming(res.msg)
       }else{
 
         const userData ={"status": 1,...res.data}
-
+        console.log(res.data,"data")
         setWarming(res.msg)
         setUserAuth(userData)
-
+        
         window.alert(`登入成功! ${username},歡迎回來`)
         navigate('/home');
       }
-    }).catch((err)=>{
+    })
+    .catch((err)=>{
       console.log(err)
-      setWarming(err.message)
+      setWarming("連線發生問題")
+    })
+    .finally(()=>{
+      setLoading(false)
     })
     
   }
@@ -62,7 +68,10 @@ export default function Login() {
             <input  type="text" placeholder='請輸入帳號' value={username} onChange={handleChange('username')} maxLength="20"/> 
             <label>密碼</label>
             <input type="password" placeholder='請輸入密碼' value={password} onChange={handleChange('password')} maxLength="20"/> 
-            <button className='default' type='submit'>登入</button>
+            <button className='default' type='submit'>
+              <span className='loading-icon' style={{display: loading?"inline-block":"none"}}></span>
+              登入
+            </button>
             <p>還沒有帳號?在此註冊</p>
           </form>
         </main>

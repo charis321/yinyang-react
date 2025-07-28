@@ -4,6 +4,7 @@ import Header from '../../Compoments/Header'
 import {GuaDictAlpha, GuaDictBeta} from '../../Compoments/GuaArea/GuaDictBeta'
 import './index.css'
 import GuaDict from '../../Compoments/GuaArea/GuaDict'
+import { Link } from 'react-router-dom'
 
 // let DATA = {}
 // const loadData = (dataName, dataPath)=>{
@@ -34,9 +35,13 @@ export default function About(props){
         {/* <GuaDict data={props.data}></GuaDict> */}
         {/* <GuaDictBeta data={props.data}></GuaDictBeta> */}
         {/* <GuaDictAlpha data={DATA}></GuaDictAlpha> */}
-        <article className='about-topic-block'>
-          <h2>何為六十四卦</h2>
+      
+        <article className='about-topic-block'>  
+          <Link to="gallery">
+            <h2>何為六十四卦</h2> 
+          </Link>
         </article>
+       
         <article className='about-topic-block'>
           <h2>古人如何解卦</h2>
         </article>

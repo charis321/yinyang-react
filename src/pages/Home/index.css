@@ -21,6 +21,9 @@
     margin-bottom: 1vh;
     animation: fadeInMid 0.5s;
 }
+.home-container .navbar-container li{
+    font-size: 1.2rem;
+}
 .home-container footer{
     position: absolute;
     bottom: 0;

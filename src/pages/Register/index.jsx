@@ -53,41 +53,41 @@ export default function Register(props){
     }
   }
   const handleSubmit = ()=>{
-    if(isInputVaild()){
-      reguser(username, password).then((data)=>{
-        console.log(data)
-        if(data.code===400){
-          setWarming(data.msg)
-        }else{
-          alert("註冊成功!")
-          logIn(username, password).then(res=>{
-            if(res.code===400){
-              setWarming(res.msg)
-            }else{
-      
-              const userData ={"status": 1,...res.data}
-      
-              setWarming(res.msg)
-              setUserAuth(userData)
-      
-              window.alert(`登入成功! ${username},歡迎回來`)
-              navigate('/home');
-            }
-          }).catch((err)=>{
-            console.log(err)
-            setWarming(err.message)
-          })
-        }
-      })
-      .catch((err)=>{
-        console.log(err)
-        setWarming(err.message)
-      })
-     
-    }else{
-      setWarming("fail")
-      console.log("fail")
+    if(!isInputVaild()){
+      return setWarming("密碼不符合規定")
     }
+
+    reguser(username, password).then((data)=>{
+      console.log(data)
+      if(data.code===400){
+        setWarming(data.msg)
+      }else{
+        alert("註冊成功!")
+        logIn(username, password).then(res=>{
+          if(res.code===400){
+            setWarming(res.msg)
+          }else{
+    
+            const userData ={"status": 1,...res.data}
+    
+            setWarming(res.msg)
+            setUserAuth(userData)
+    
+            window.alert(`登入成功! ${username},歡迎回來`)
+            navigate('/home');
+          }
+        }).catch((err)=>{
+          console.log(err)
+          setWarming(err.message)
+        })
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+      setWarming(err.message)
+    })
+     
+    
   }
   const isInputVaild = ()=>{
     if(password!==passwordR) return false

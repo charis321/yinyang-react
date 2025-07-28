@@ -4,7 +4,7 @@ import Header from '../../Compoments/Header'
 import GuaResultBoardcast from '../../Compoments/GuaArea/GuaResultBoardcast'
 import {HistoryList,EmtryHistory} from '../../Compoments/History'
 import {descriptionGua, getGuaLiteByStr, getYaosListByStr} from '../../Compoments/GuaArea/Logic'
-import { useHistory, useUser } from '../../plugin/useUserData'
+import { useHistory, useUser } from '../../plugin/hooks/useUserData'
 import {handleUserHistory} from '../../plugin/webAPI'
 import {getUserId, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
 import setScrollMobile from '../../plugin/scrollDom'
@@ -36,9 +36,30 @@ export default function History(props) {
   */
   useEffect(()=>{
     setScrollMobile(frame_ref.current)
-    if(user.user_id==="-1") setMessage(" # 您現在是 <遊客> 身分")
+    console.log("history", history)
+    console.log("user", user)
+   
+    if(user.userId!==-1){
+      handleUserHistory("list", {userId: user.userId}).then((data)=>{
+        if(data.code===200){
+            const history = data.data
+            console.log("get history succ", history)
+            setHistory(history)
+        }else{
+            console.log("get history fail", data)
+            setMessage(data.msg)
+        }
+      }) 
+      .catch(e=>{
+          console.log("Network problem", e)
+          setMessage(e.message)
+      })
+    }else{
+      setMessage(" # 您現在是 <遊客> 身分")
+    }
+    
     // initialHistory() 
-    // handleUserHistory("list", {user_id}).then((data)=>{
+    // handleUserHistory("list", {userId}).then((data)=>{
     //     if(data.code===200){
     //       const history = data.data
     //       console.log(history)
@@ -74,8 +95,8 @@ export default function History(props) {
   //   //   setUserHistory(testHistory)
   //   //   return
   //   // }
-  //   const user_id = getUserId()
-  //   if(user_id===-1) 
+  //   const userId = getUserId()
+  //   if(userId===-1) 
 
    
   // }
@@ -86,28 +107,6 @@ export default function History(props) {
   const selectHistory = ()=>{
     
   }
-
-  const addHistory = ()=>{
-    const guaLite = getGuaLiteByStr("699966")
-    const currTime =  new Date().toISOString()
-    const user_id = getUserId()
-    const history_id = nanoid()
-    
-    console.log(user_id)
-    const  new_history = {
-      history_id,
-      user_id,
-      "title": guaLite.title,
-      "yaos_list":  guaLite.yaos_list,
-      "create_time": currTime
-    }
-    let history = getHistoryAuth()
-    console.log(history,"addHistory")
-    setHistoryAuth([...history, new_history])
-    setHistory([...history, new_history])
-    
-  }
-
   const showHistory = (historyObj)=>{
     setTargetHistory(historyObj)
     setIsDescribeClosed(false)
@@ -116,13 +115,20 @@ export default function History(props) {
   const handleDescribe = (isClosed)=>{
     setIsDescribeClosed(isClosed)
   }
-  const deleteHistory = (history_id)=>{
-    const new_history = history.filter(historyObj=> historyObj.history_id !== history_id)
-    setHistoryAuth(new_history)
-    setHistory(new_history)
-    console.log(new_history)
-    console.log('delete')
-  }
+  const deleteHistory = (historyId)=>{
+    const new_history = history.filter(historyObj=> historyObj.historyId !== historyId)
+    
+    if(user.userId===-1){
+      setHistoryAuth(new_history)
+    }else{
+      handleUserHistory("delete",{historyId}).then((data)=>{
+        setHistoryAuth(new_history)
+      })
+      .catch(e=>{
+        window.alert("連線發生問題，請稍後再試") 
+      })
+    } 
+  } 
 
   return (
     <div className='history-container'>
@@ -141,8 +147,6 @@ export default function History(props) {
               到
               <input type='date'></input>
             </form>
-            
-            <button onClick={addHistory}>新增</button>
             {
               isDescribeClosed?null : <GuaDescribe  isClosed={isDescribeClosed} 
                                                     handleClosed= {handleDescribe}
@@ -150,9 +154,6 @@ export default function History(props) {
                                                     data={props.data}></GuaDescribe>
             }
           </aside>
-          {/* <GuaResultBoardcast yaos_list={this.state.yaos_list}
-                              data={this.data}
-                              handleStoreHistory={this.addNewHistory}></GuaResultBoardcast> */}
           <div className="history-frame scroll-block" ref={frame_ref} > 
             {
               history.length === 0 ?
@@ -162,9 +163,7 @@ export default function History(props) {
                             showHistory={showHistory}
                             deleteHistory={deleteHistory}></HistoryList>
             }
-          </div>
-          {/* <GuaResultBoardcast yaos_list={[]} data={props.data}></GuaResultBoardcast> */}
-          
+          </div>        
         </main>
     </div>
   )

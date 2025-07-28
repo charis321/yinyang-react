@@ -9,7 +9,7 @@ import {defineYao}from'../GuaArea/Logic'
 import './index.css'
 import GuaDict from './GuaDict'
 import { handleUserHistory } from '../../plugin/webAPI'
-import { getUserId, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
+import { getUserAuth, setHistoryAuth, getHistoryAuth} from '../../plugin/authUtils'
 import { nanoid } from 'nanoid'
 
 
@@ -18,10 +18,11 @@ export default class GuaArea extends Component {
     loop: 0,
     curr_stage_index: 0,
     curr_stage: "startStage",
-    yaos_list: [],
+    yaosList: [],
     broadcast_text: "",
     isBoardcastClosed: true,
     canNext: false,
+    showNewResultAnimate: 3000,
     stageIndex: [
       'initialStage',
       'startStage',
@@ -68,7 +69,7 @@ export default class GuaArea extends Component {
       curr_stage_index: 0,
       curr_stage: "initialtStage",
       broadcast_text: "請按【開始】",
-      yaos_list: [],
+      yaosList: [],
     }
     this.area['GuaMainArea'].resetSigns()
     this.setState(base_state)
@@ -164,25 +165,25 @@ export default class GuaArea extends Component {
     this.area["GuaMainArea"].modSigns();
     // controller.changeBtn("next");
   }
-  defineStage=(data)=>{
+  defineStage= async(data)=>{
     console.log("define")
     this.setState({curr_stage:"defineStage"})
     
     const result =  this.area["GuaMainArea"].defineSigns();
     const new_yao =  defineYao(result)
-    const new_yaos_list = [...this.state.yaos_list, new_yao]
+    const new_yaosList = [...this.state.yaosList, new_yao]
     this.sendNewBroadcast(`此為: ${new_yao.name}`)
 
-    if(this.state.yaos_list.length===6){
+    if(this.state.yaosList.length===6){
       console.log("isFull")
       const controllers = {
           "start-btn": false ,
           "next-btn" : false ,
           "result-btn": true
       }
-      this.setStage({controllers, yaos_list: new_yaos_list})
+      this.setStage({controllers, yaosList: new_yaosList})
     }else{
-      this.setState({yaos_list: new_yaos_list})
+      this.setState({yaosList: new_yaosList}, this.showNewResult)
     }
     
     // controller.changeBtn("next game");
@@ -193,7 +194,7 @@ export default class GuaArea extends Component {
     this.sendNewBroadcast(this.state.stageText['finalStage'])
     // this.updateUserHistory()
     // // controller.changeBtn("next game");
-    console.log(this.state.yaos_list)
+    console.log(this.state.yaosList)
     const controllers = {
       "start-btn": false ,
       "next-btn" : false ,
@@ -216,7 +217,7 @@ export default class GuaArea extends Component {
   /*setStage: 直接控制stage更換 using=> isNext: Boolean
             
     next: 決定下一個stage為何   using=>  curr_stage_index,
-                                        yaos_list
+                                        yaosList
   */
   setStage = async(isNext=true, target_stage_index=-1, data={})=>{
     // console.log(`current stage: ${this.state.curr_stage_index}, loop: ${this.state.loop}`)
@@ -231,12 +232,12 @@ export default class GuaArea extends Component {
     
   }
   next= async(target_stage_index)=>{
-    let {curr_stage_index, yaos_list, loop} = this.state
+    let {curr_stage_index, yaosList, loop} = this.state
     
    
-    if(yaos_list.length>=6 && curr_stage_index>=16) return this.initialState() 
+    if(yaosList.length>=6 && curr_stage_index>=16) return this.initialState() 
   
-    if((curr_stage_index+1) > 15 && yaos_list.length<6){
+    if((curr_stage_index+1) > 15 && yaosList.length<6){
       curr_stage_index = 1
       loop++  
     }else{
@@ -261,7 +262,7 @@ export default class GuaArea extends Component {
   getRandomGua=()=>{
     const randon_n = Array(6).fill(0).map(_=>{return defineYao(Math.floor(Math.random()*4)+6)})
     this.initialState()
-    this.setState({isBoardcastClosed: false, yaos_list: randon_n}, () => this.setStage(false, 16))
+    this.setState({isBoardcastClosed: false, yaosList: randon_n}, () => this.setStage(false, 16))
   }
   changeNextBtn=(bool)=>{
     const {controllers} = this.state
@@ -271,30 +272,42 @@ export default class GuaArea extends Component {
   
   ///////////////////////////////////////////////  處理卜卦結果(history)
   addNewHistory=(guaLite)=>{
+    const userId = getUserAuth().userId
     const currTime =  new Date().toISOString()
-    const user_id = getUserId()
-    const history_id = nanoid()
-    console.log(user_id)
-    const  new_history = {
-      history_id,
-      user_id,
-      "title": guaLite.title,
-      "yaos_list":  guaLite.yaos_list,
-      "create_time": currTime
-    }
-    let history = getHistoryAuth()
-    console.log(history,"addHistory")
-    setHistoryAuth([...history, new_history])
-    
+    const historys = getHistoryAuth()
 
-    // handleUserHistory("add", history).then((data)=>{
-    //   console.log(data)
-    // })
-    // .catch(err=>{
-    //   console.log(err)
-    // })
+    const new_history = {
+      userId,
+      "title": guaLite.title,
+      "yaosList":  guaLite.yaosList,
+      "createTime": currTime
+    }
+
+    console.log(new_history,"new")
+    if(userId===-1){
+      const historyId = nanoid()
+      new_history.historyId = historyId
+      setHistoryAuth([...historys, new_history])
+    }else{
+      handleUserHistory("add", new_history).then((data)=>{
+        console.log("新增成功",data) 
+      })
+      .catch(err=>{
+        console.log("新增失敗",err)
+      })
+      
+    }
   }
 
+  showNewResult = async()=>{
+    this.setState({isBoardcastClosed: false})
+    // ()=>{
+    //   setTimeout(()=>{
+    //     this.setState({isBoardcastClosed: true})
+    //   }, this.state.showNewResultAnimate)
+    // })
+
+  }
 
   componentDidMount(){
     this.initialStage();
@@ -334,7 +347,7 @@ export default class GuaArea extends Component {
                               handleArea={this.handleArea}
                               handleCanNext={this.handleCanNext}
                               setStage={this.setStage}></GuaProcessController>
-        <GuaResultBoardcast yaos_list={this.state.yaos_list}
+        <GuaResultBoardcast yaosList={this.state.yaosList}
                             data={this.data}
                             setStage={this.setStage} 
                             isBoardcastClosed={this.state.isBoardcastClosed}

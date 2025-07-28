@@ -23,17 +23,17 @@ export const defineYao=(n)=>{
     return yaoObj
 }
 
-export const defineGua=(yaos_list)=>{
-    if(yaos_list.length!==6)return -1
+export const defineGua=(yaosList)=>{
+    if(yaosList.length!==6)return -1
 
     let alter_yao = []     
     let index = 0
-    yaos_list.map((yaoObj,i)=>{
+    yaosList.map((yaoObj,i)=>{
         index+= (yaoObj.type?1:0) * (2**(5-i))
         if(yaoObj.isAlter) alter_yao.push(i)
     })
     const result = gua_data_set[index]
-    result['yaos_list'] = yaos_list 
+    result['yaosList'] = yaosList 
     result['alter_yao'] = alter_yao
 
     return result
@@ -41,32 +41,32 @@ export const defineGua=(yaos_list)=>{
 /*
   guaLite: gua儲存在資料庫的形式，包含最低程度的訊息，降低體積
   - title
-  - yaos_list
+  - yaosList
 */
-export const getGuaLite=(yaos_list)=>{
-  const gua = defineGua(yaos_list)
-  const alter_gua = defineAlterGua(yaos_list)
+export const getGuaLite=(yaosList)=>{
+  const gua = defineGua(yaosList)
+  const alter_gua = defineAlterGua(yaosList)
   const title = gua.name===alter_gua.name?`${gua.name}`:`${gua.name}之${alter_gua.name}`
 
-  const yaos_list_str = yaos_list.map(yaoObj => yaoObj.n).join('')
+  const yaosList_str = yaosList.map(yaoObj => yaoObj.n).join('')
   const guaLite = {
     title,
-    yaos_list: yaos_list_str,
+    yaosList: yaosList_str,
   }
   
   return guaLite
 }
-export const getGuaLiteByStr=(yaos_list_str)=>{
+export const getGuaLiteByStr=(yaosList_str)=>{
   
-  const yaos_list = getYaosListByStr(yaos_list_str)
-  const gua = defineGua(yaos_list)
-  const alter_gua = defineAlterGua(yaos_list)
+  const yaosList = getYaosListByStr(yaosList_str)
+  const gua = defineGua(yaosList)
+  const alter_gua = defineAlterGua(yaosList)
   const title = gua.name===alter_gua.name?`${gua.name}`:`${gua.name}之${alter_gua.name}`
 
 
   const guaLite = {
     title,
-    yaos_list: yaos_list_str,
+    yaosList: yaosList_str,
   }
   
   return guaLite
@@ -81,13 +81,13 @@ export const getGuaLiteByStr=(yaos_list_str)=>{
   - yaosList        以純數字字串表示的'爻'陣列, ex: "677967"
   
 */
-export const defineAlterGua=(yaos_list)=>{
-    if(yaos_list.length!==6)return -1
+export const defineAlterGua=(yaosList)=>{
+    if(yaosList.length!==6)return -1
       
     let normal_yao = []     
     let index = 0
-    let new_yaos_list = []
-    yaos_list.map((yaoObj,i)=>{
+    let new_yaosList = []
+    yaosList.map((yaoObj,i)=>{
         let new_yaoObj = {...yaoObj}
         new_yaoObj.type = yaoObj.isAlter?!yaoObj.type:yaoObj.type
         index+= (new_yaoObj.type?1:0) * (2**(5-i))
@@ -95,10 +95,10 @@ export const defineAlterGua=(yaos_list)=>{
         new_yaoObj.isAlter = false
         if(!yaoObj.isAlter) normal_yao.push(i)
         
-        new_yaos_list.push(new_yaoObj)
+        new_yaosList.push(new_yaoObj)
     })
     const result = gua_data_set[index]
-    result['yaos_list'] = new_yaos_list 
+    result['yaosList'] = new_yaosList 
     result['normal_yao'] = normal_yao
     return result
     
@@ -106,7 +106,7 @@ export const defineAlterGua=(yaos_list)=>{
 /*
     guaObj:
     props:{
-        yaos_list:[
+        yaosList:[
             yaoObj:{
                 
             }
@@ -116,7 +116,7 @@ export const defineAlterGua=(yaos_list)=>{
 /*
     descriptionGUa(guaObj): 
     輸入: guaObj=>{
-        yaos_list: yaoObj[]
+        yaosList: yaoObj[]
         data: gua_simple_data{} 
     }
     回傳: descriptionObj=>{
@@ -136,23 +136,23 @@ export const defineAlterGua=(yaos_list)=>{
     }
  */
 export const descriptionGua=(guaObj)=>{
-    const {yaos_list} = guaObj
+    const {yaosList} = guaObj
     let alter_n = 0
-    yaos_list.map(yaoObj=>{
+    yaosList.map(yaoObj=>{
         alter_n += yaoObj.isAlter?1:0
     })
     const final_desciption= desciptionGua_logic_set[alter_n];
   
     return final_desciption
 }
-export const getYaosListByStr=(yaos_list_str)=>{
-  let yaos_array = yaos_list_str.split('')
+export const getYaosListByStr=(yaosList_str)=>{
+  let yaos_array = yaosList_str.split('')
 
-  let yaos_list = yaos_array.map((yaos_n)=>{
+  let yaosList = yaos_array.map((yaos_n)=>{
     let yaoObj = defineYao(yaos_n)
     return yaoObj
   })
-  return yaos_list
+  return yaosList
 }
 
 export const desciptionGua_logic_set = [

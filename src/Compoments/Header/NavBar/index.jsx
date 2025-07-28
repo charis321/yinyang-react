@@ -1,23 +1,23 @@
 import React, { Fragment, useContext } from 'react'
 import {Link, useNavigate} from "react-router-dom"
-import { useUser} from "../../../plugin/useUserData"
+import { useUser} from "../../../plugin/hooks/useUserData"
 // import {authContent} from "../../../plugin/auth"
 import { resetAuth, setUserAuth } from '../../../plugin/authUtils'
 import './index.css'
 // import { useDevice, useScreenOrientation } from '../../../plugin/useRWD'
 // import useRWD from '../../../useRWD'
 export default function NavBar() {
-  const [ user, clearUser ] = useUser()
+  const [ user, setUser] = useUser()
   const navigate = useNavigate() 
 
 
   const handleLogout = (e)=>{
-    // clearUser()
     setUserAuth({
-      "user_id"   : -1,
+      "userId"   : -1,
       "username"  : "遊客",
       "token"     : "",
-      "status"    : 1,
+      "status"    : "1",
+      "userHistory": "[]"
     })
     window.alert(`登出成功!`)
     navigate("/")
@@ -32,7 +32,7 @@ export default function NavBar() {
         <li><Link to="/history">歷史紀錄</Link></li>
         <li>身分: { user.username }</li>
         { 
-          parseInt(user.user_id)!==-1?
+          user.userId!==-1?
           <Fragment>
             <li className='logout' onClick={handleLogout}>登出</li>
           </Fragment>

@@ -28,9 +28,9 @@ export function GuaDescribe(props){
   const handleSwitchMode=(mode)=>{
     return () => setMode(mode) 
   }
-  const getFinalDesciption = (yaos_list, mode, data)=>{
-    const gua = defineGua(yaos_list)
-    const alter_gua =defineAlterGua(yaos_list)
+  const getFinalDesciption = (yaosList, mode, data)=>{
+    const gua = defineGua(yaosList)
+    const alter_gua =defineAlterGua(yaosList)
     
     if(mode==="jiao"){
       const gua_data = data.jiao_gua
@@ -43,31 +43,31 @@ export function GuaDescribe(props){
       return getZhouyiDOM(gua, alter_gua, gua_data, description)
   }
 }
-  const createGuaPattern = (yaos_list)=>{
+  const createGuaPattern = (yaosList)=>{
     const result = []
-    yaos_list.map((yaoObj, index)=>{
+    yaosList.map((yaoObj, index)=>{
         result[index] = <Yao yaoObj={yaoObj} key={index}></Yao>
      })
     return result
 } 
 
   const {history, data} = props
-  let {yaos_list} = history 
+  let {yaosList} = history 
   
-  yaos_list = getYaosListByStr(yaos_list)
+  yaosList = getYaosListByStr(yaosList)
 
   let alter_gua_content=""
   let describe_content=""
   let title = ''
   
-  const gua = defineGua(yaos_list)
-  const alter_gua = defineAlterGua(yaos_list)
-  const gua_content= createGuaPattern(yaos_list)
+  const gua = defineGua(yaosList)
+  const alter_gua = defineAlterGua(yaosList)
+  const gua_content= createGuaPattern(yaosList)
   const isAlterGuaDisplay = (gua.name!==alter_gua.name)
 
 
-  alter_gua_content = createGuaPattern(alter_gua.yaos_list)
-  describe_content = getFinalDesciption(yaos_list, mode, data) 
+  alter_gua_content = createGuaPattern(alter_gua.yaosList)
+  describe_content = getFinalDesciption(yaosList, mode, data) 
 
   title =gua.name===alter_gua.name?`${gua.name} 卦`:`${gua.name}之${alter_gua.name} 卦`
 
@@ -80,6 +80,7 @@ export function GuaDescribe(props){
             <div className='gua-block'>
                 <h2 className='gua-label'>{gua.name}</h2>
                 {gua_content}
+                <div className='gua-brush'></div>
             </div>
             <div className='gua-block' style={{display: isAlterGuaDisplay?"flex":"none"}}>
                 <h2 className='gua-label'>{alter_gua.name}</h2>

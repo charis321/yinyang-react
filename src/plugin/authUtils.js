@@ -1,9 +1,10 @@
 const TOKEN_NAME = "token";
 const UNAUTH_USER = {
-  "user_id"   : "-1",
+  "userId"   :  -1,
   "username"  : "遊客",
   "token"     : "",
   "status"    : "1",
+  "userHistory": "[]"
 }
 
 export const setUserAuth = (userData)=>{
@@ -13,11 +14,12 @@ export const setUserAuth = (userData)=>{
 }
 export const getUserAuth = ()=>{
   
-  return localStorage.getItem("user_id")?{
-    "user_id":  localStorage.getItem("user_id"),
+  return localStorage.getItem("userId")?{
+    "userId":  parseInt(localStorage.getItem("userId")),
     "username": localStorage.getItem("username"),
     "token":    localStorage.getItem("token"),
     "status":   localStorage.getItem("status"),
+    "userHistory":   localStorage.getItem("userHistory"),
   }
   : UNAUTH_USER
 }
@@ -29,13 +31,13 @@ export const getAuthToken = ()=>{
 }
 
 export const getUserId = ()=>{
-  return parseInt(localStorage.getItem("user_id"))
+  return parseInt(localStorage.getItem("userId"))
 }
 export const setHistoryAuth = (historys)=>{ 
-  localStorage.setItem("user_history", JSON.stringify(historys))
+  localStorage.setItem("userHistory", JSON.stringify(historys))
 }
 export const getHistoryAuth = ()=>{
-  const localHistory = JSON.parse(localStorage.getItem("user_history"))
+  const localHistory = JSON.parse(localStorage.getItem("userHistory"))
   return localHistory? localHistory: []
 }
 

@@ -68,11 +68,10 @@
 }
 .login button{
     width: 100%;
-    font-size: 1.5rem;
     margin-top: 3rem;
     padding: 0.5rem 0;
     border: 0;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
-    
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3); 
+    font-size: 1.5rem;
 }

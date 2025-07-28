@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
-import {useDevice, useScreenOrientation} from "../../plugin/useRWD"
+import {useDevice, useScreenOrientation} from "../../plugin/hooks/useRWD"
 import './index.css'
 
 export default function Header() { 
