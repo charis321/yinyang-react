@@ -72,6 +72,7 @@
     font-size: 1.5rem;
     transition: all 0.3s linear;
     cursor: pointer;
+    user-select: none;
 }
 .gallery-page-container .gallery li:hover,
 .gallery-page-container .gallery li.active
