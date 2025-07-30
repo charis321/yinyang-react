@@ -19,7 +19,7 @@ html,body{
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url('../public/images/bg_2.avif');
+  background-image: url('/images/bg_2.avif');
   background-size: cover;
   background-repeat: no-repeat;
   overflow-y: hidden;
@@ -65,7 +65,7 @@ button.default:active
   padding: 10px;
   background-color: transparent;
   border: none;
-  background-image: url('/./public/images/icons/close.svg');
+  background-image: url('/images/icons/close.svg');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

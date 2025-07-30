@@ -67,7 +67,7 @@
     left: -20px;
     top: calc(50% - 10px);
 
-    background-image: url('../../../public/images/icons/arrow.png');
+    background-image: url('/images/icons/arrow.png');
     background-repeat: no-repeat;
     background-size: cover;
     animation: shiftRow 2s infinite;

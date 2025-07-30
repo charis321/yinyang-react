@@ -49,7 +49,7 @@ export const handleUserHistory = async(action, data={})=>{
 }
 
 export const loadData = async(dataPath)=>{
-    return axios.get(`${process.env.PUBLIC_URL}/${dataPath}`)
+    return axios.get(`${import.meta.env.BASE_URL}${dataPath}`)
     .then(res=>{return res.data})
     .catch(err=>{
       console.log(err);

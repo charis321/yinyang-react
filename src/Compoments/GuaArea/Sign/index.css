@@ -4,7 +4,7 @@
     
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("../../../../public/images/sign_beta_2.png");
+    background-image: url("/images/sign_beta_2.png");
     
 
     -webkit-filter: drop-shadow(1px 1px 3px #000);
