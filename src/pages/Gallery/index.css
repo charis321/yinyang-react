@@ -94,6 +94,11 @@
     overflow-y: auto;
     transition: all 0.3s ease-in-out;
 }
+.gallery-page-container .gallery .gallery-content h1{
+    font-size: 3rem;
+}
+
+
 
 @media  screen and (max-width: 768px){
     .gallery-page-container main{

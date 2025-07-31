@@ -6,24 +6,6 @@ import './index.css'
 import GuaDict from '../../Compoments/GuaArea/GuaDict'
 import { Link } from 'react-router-dom'
 
-// let DATA = {}
-// const loadData = (dataName, dataPath)=>{
-
-  
-//   if(DATA[dataName]) return
-
-//   axios.get(`./${dataPath}`).then(res=>{
-//     DATA[dataName] = res.data
-//   }).catch(err=>{
-//     console.log(err);
-//   });
-// }
-
-// loadData('jiao_gua','jiao_gua.json')
-// loadData("zhouyi_gua",'zhouyi_gua_2.json')
-
-
-
 export default function About(props){
   // useEffect(()=>{
   //   console.log("useEffect")
@@ -36,17 +18,28 @@ export default function About(props){
         {/* <GuaDictBeta data={props.data}></GuaDictBeta> */}
         {/* <GuaDictAlpha data={DATA}></GuaDictAlpha> */}
       
-        <article className='about-topic-block'>  
+        <article className='about-topic'>
           <Link to="gallery">
-            <h2>何為六十四卦</h2> 
+            <div className='about-topic-content'>
+              <h2>何為六十四卦</h2> 
+            </div>
           </Link>
         </article>
        
-        <article className='about-topic-block'>
-          <h2>古人如何解卦</h2>
+        <article className='about-topic'>
+          <Link to="gallery">
+            <div className='about-topic-content'>
+              <h2>古人如何解卦</h2>
+            </div>
+          </Link>
         </article>
-        <article className='about-topic-block'>
-          <h2>卜卦的方法</h2>
+
+        <article className='about-topic'>
+          <Link to="gallery">
+            <div className='about-topic-content'>
+               <h2>卜卦的方法</h2>
+            </div>
+          </Link>
         </article>
       </main>
       <footer></footer>

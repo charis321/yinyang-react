@@ -18,10 +18,11 @@
 }
 
 .navbar-container li{
-    width: 50vw;
+    width: 80vw;
     height: 50%;
+    max-width: 400px;
     /* font-size: 1.5rem; */
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin: 0.5rem ;
     padding: 0.1rem 0.5rem;
     display: flex;
@@ -30,13 +31,12 @@
     
     border-radius: 10px;
     box-shadow: 1px 1px 5px 1px rgba(0,0,0, 0.3);
-    text-align: center;
     background-color: antiquewhite;
     /* background: url('/public/images/print.png'); */
     /* background-position: center;
     background-size: cover;*/
     /* background-repeat: round; */
-
+    text-align: center;
     color: #000;    
     text-decoration: none;
     animation: fadeInLeft 0.5s;
@@ -45,18 +45,9 @@
     cursor: pointer;
 }
 
-@keyframes fadeInLeft{
-    0%{
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    100%{
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}
 
-@media screen and (min-width: 1024px){
+/*  PC  */
+@media screen and (min-width: 1024px),(max-height: 480px){
     .navbar-container{
         flex-direction: row;
         justify-content: flex-end;
@@ -71,7 +62,20 @@
 
         font-size: 1.2rem;
         
+        
         /* background-color: antiquewhite; */
         /* border-radius: 10px; */
+    }
+}
+
+
+@keyframes fadeInLeft{
+    0%{
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0px);
     }
 }
