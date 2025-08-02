@@ -1,4 +1,4 @@
-export const gua_data_set = [
+export const gua_64_set = [
   {
     icon: "䷁",
     name: "坤",
@@ -1279,45 +1279,61 @@ export const gua_index_set = [
   "夬",
   "乾",
 ];
-export const half_gua_set = [
-    {
+export const gua_8_set = [
+    { 
+        index: 0,
         icon: "☷",
         name: "坤",
-        index: 100
+        code: "000",
+        phenomenon: "地"
     }, 
-    {
+    {   
+        index: 1,
         icon: "☶",
         name: "艮",
-        index: 101
+        code: "001",
+        phenomenon: "山"
     }, 
     {
+        index: 2,
         icon: "☵",
         name: "坎",
-        index: 102
+        code: "010",
+        phenomenon: "水"
     }, 
-    {
+    { 
+        index: 3,
         icon: "☴",
         name: "巽",
-        index: 103
+        code: "011",
+        phenomenon: "風"
     }, 
     {
+        index: 4,
         icon: "☳",
         name: "震",
-        index: 104
+        code: "100",
+        phenomenon: "雷"
     }, 
     {
+        index: 5,
         icon: "☲",
         name: "離",
-        index: 105
+        code: "101",
+        phenomenon: "火"
     }, 
     {
+        index: 6,
         icon: "☱",
         name: "兌",
-        index: 106
+        code: "110",
+        phenomenon: "澤"
     }, 
     {
+        index: 7,
         icon: "☰",
         name: "乾",
-        index: 107
+        code: "111",
+        phenomenone: "天"
     } 
 ]

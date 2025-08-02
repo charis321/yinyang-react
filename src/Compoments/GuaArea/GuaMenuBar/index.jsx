@@ -24,7 +24,7 @@ export default function GuaMenuBar (props){
                     <button   className='gua-menu-item' onClick={props.handleRandom}>隨機</button>
                 </li>
                 <li>
-                    <button   className='gua-menu-item' onClick={handleToggle} >#</button>
+                    <button   className='gua-menu-item' onClick={handleToggle} ><p>❰❰</p></button>
                 </li>
                 
             </ul>

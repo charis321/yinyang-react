@@ -134,8 +134,8 @@ button.default:active
 }
 .scroll-block::-webkit-scrollbar-track {
   box-shadow: transparent;
+  position: relative;
   display: none;
-  /* background-color: rgba(0, 0, 0, 0.3); */
 }
 
 

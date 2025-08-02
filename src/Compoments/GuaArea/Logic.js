@@ -1,4 +1,4 @@
-import {gua_data_set} from './data'
+import {gua_64_set} from './data.js'
 
 export const defineYao=(n)=>{
     // n為 字串或整數 [6-9] 
@@ -32,7 +32,7 @@ export const defineGua=(yaosList)=>{
         index+= (yaoObj.type?1:0) * (2**(5-i))
         if(yaoObj.isAlter) alter_yao.push(i)
     })
-    const result = gua_data_set[index]
+    const result = gua_64_set[index]
     result['yaosList'] = yaosList 
     result['alter_yao'] = alter_yao
 
@@ -97,7 +97,7 @@ export const defineAlterGua=(yaosList)=>{
         
         new_yaosList.push(new_yaoObj)
     })
-    const result = gua_data_set[index]
+    const result = gua_64_set[index]
     result['yaosList'] = new_yaosList 
     result['normal_yao'] = normal_yao
     return result

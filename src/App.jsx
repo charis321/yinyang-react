@@ -22,11 +22,15 @@ function App() {
   useEffect(()=>{
     preload()
   },[])
+  useEffect(()=>{
+    console.log("guaData", guaData)
+  },[guaData])
 
   const preload = async()=>{
     let data = {}
+    data['gua_8'] = await loadData('gua.json').then((data)=>{return data["gua_8"]})
     data['jiao_gua'] = await loadData('jiao_gua.json').then((data)=>{return data})
-    data['zhouyi_gua'] = await loadData('zhouyi_gua_2.json').then((data)=>{return data})
+    data['zhouyi_gua'] = await loadData('zhouyi_gua_3.json').then((data)=>{return data})
     setGuaData(data)
   }
 

@@ -358,6 +358,7 @@ export default class GuaArea extends Component {
                     toggleGuaDict={this.toggleGuaDict}
                     initialStage={this.initialStage}
                     handleRandom={this.getRandomGua}></GuaMenuBar>
+        
       </div>
       
     )

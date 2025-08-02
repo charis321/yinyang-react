@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import {gua_data_set, half_gua_set} from '../data'
+// import { gua_64_set, gua_8_set} from '../data'
 import axios from 'axios'
 import './index.css'
 export function GuaDictBeta (props){

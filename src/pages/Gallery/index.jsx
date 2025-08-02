@@ -5,36 +5,62 @@ import setScrollMobile from "../../plugin/scrollDom"
 
 export default function GalleryPage(props){
     const [target, setTarget] = useState(null)
+    const [fontSize, setFontSize] = useState("small")
     const { data } = props
     const menuRef = useRef()
     const contentRef = useRef()
 
+    const fontSizeMap = {
+        "big": "1.5rem",
+        "medium": "1.2rem",
+        "small": "1rem"
+    }
+
     useEffect(()=>{
         setScrollMobile(menuRef.current)
         setScrollMobile(contentRef.current)
+        console.log(data)
     },[])
   
     if(!data.zhouyi_gua) data.zhouyi_gua = []
 
     let data_sorted = Array(64)
     for(let [_, guaObj] of Object.entries(data.zhouyi_gua)){
-        data_sorted[guaObj["index"]-1] = guaObj
+        data_sorted[guaObj["index"]] = guaObj
     }
+    
 
-    const handleChange = (target_name)=>{
-        return ()=>{
-            setTarget(target_name)
-        }
-    }
+    const handleTargetChange = (target_name)=>{return () => setTarget(target_name)}
+    const handleFontChange = (size) => {return () => setFontSize(size)}
+
     const createContent = (target)=>{
         const guaObj = data.zhouyi_gua[target]
+        const bottom_gua = data.gua_8[Math.floor(guaObj.index/8)]
+        const top_gua = data.gua_8[guaObj.index%8]
         return (
-            <div>
-                <h1>{guaObj['icon'] + guaObj['name']}</h1>
+            <div className="gallery-content-main">
+                <div className="gallery-content-header">
+                    <h1>{guaObj['icon'] + guaObj['name']}</h1>
+                    <h2>{top_gua.index==bottom_gua.index?
+                        `${guaObj['name']}為${top_gua.phenomenon}`
+                        :
+                        `${top_gua.phenomenon + bottom_gua.phenomenon}卦`}</h2>
+                </div>
+                <span>上卦: {top_gua.icon + top_gua.name}</span>
+                <br></br>
+                <span>下卦: {bottom_gua.icon + bottom_gua.name} </span>
+                <hr></hr>
+                <br/>
                 <strong>{guaObj['gua_explain'].title}</strong>
+                <br/>
+                <br/> 
                 {   
                     guaObj['gua_explain'].content.map((explain,i)=>{
-                            return  <p key={i}>{explain}</p>           
+                            return  <div key={i}>
+                                        <p>{explain}</p>  
+                                        <br></br>
+                                    </div> 
+                                     
                     }) 
                 }
                 {  
@@ -42,10 +68,12 @@ export default function GalleryPage(props){
                         return (<div key={i}>
                                     <strong>{obj.title}</strong>
                                     <p>{obj.content}</p>
+                                    <br></br>
                                 </div>
                             )
                     })
                 }
+                <hr/>
             </div>  
         )
     }
@@ -72,15 +100,15 @@ export default function GalleryPage(props){
             <main>
                 <div className="gallery">
                     <div className="gallery-menu">
-                        <div className="scroll-control left" onClick={handleScroll("left")}>
+                        <div className="gallery-menu-control left" onClick={handleScroll("left")}>
                             <p>❰❰</p>
                         </div>
-                        <div className="scroll-block xl" ref={menuRef}>
+                        <div className="gallery-menu-main scroll-block xl" ref={menuRef}>
                             <ul>
                             {   
                                 data_sorted.map(guaObj=>{
                                     return <li  className={"gallery-menu-item"+(target===guaObj.name?" active":"")} 
-                                                onClick={handleChange(guaObj.name)}
+                                                onClick={handleTargetChange(guaObj.name)}
                                                 key={guaObj.index}>
                                                 {guaObj.icon+" "+guaObj.name}
                                             </li>
@@ -89,11 +117,24 @@ export default function GalleryPage(props){
                             } 
                             </ul>
                         </div>
-                        <div className="scroll-control right" onClick={handleScroll("right")}>
+                        <div className="gallery-menu-control right" onClick={handleScroll("right")}>
                             <p>❱❱</p>
                         </div>
                     </div>
-                    <div className="gallery-content" style={{display: target?'flex':'none'}} ref={contentRef}>{target?createContent(target):null}</div>
+                    <div className="gallery-content" 
+                        style={{ fontSize: fontSizeMap[fontSize],
+                                 display: target?'flex':'none'}} 
+                        ref={contentRef}>
+
+                        { target?createContent(target):null }
+                        
+                        <div className="gallery-font-control" >
+                            <h2>字體大小: </h2>
+                            <button onClick={handleFontChange("big")}>大</button>
+                            <button onClick={handleFontChange("medium")}>中</button>
+                            <button onClick={handleFontChange("small")}>小</button>
+                        </div>
+                    </div>
                 </div>            
             </main>
         </div>

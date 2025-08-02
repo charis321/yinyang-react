@@ -21,13 +21,21 @@ export default function About(props){
         <article className='about-topic'>
           <Link to="gallery">
             <div className='about-topic-content'>
+              <h2>卦象</h2> 
+            </div>
+          </Link>
+        </article>
+
+        <article className='about-topic'>
+          <Link to="gallery">
+            <div className='about-topic-content'>
               <h2>何為六十四卦</h2> 
             </div>
           </Link>
         </article>
        
         <article className='about-topic'>
-          <Link to="gallery">
+          <Link to="/">
             <div className='about-topic-content'>
               <h2>古人如何解卦</h2>
             </div>
@@ -35,7 +43,7 @@ export default function About(props){
         </article>
 
         <article className='about-topic'>
-          <Link to="gallery">
+          <Link to="/">
             <div className='about-topic-content'>
                <h2>卜卦的方法</h2>
             </div>

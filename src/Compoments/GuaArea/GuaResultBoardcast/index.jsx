@@ -5,6 +5,7 @@ import './index.css'
 import {defineGua, defineAlterGua, descriptionGua, getGuaLite} from '../../GuaArea/Logic.js'
 import {useUser} from "../../../plugin/hooks/useUserData.js"
 import setScrollMobile from '../../../plugin/scrollDom.js'
+import { GuaResultHint } from '../GuaHint/index.jsx'
 
 /* 
     mode: 1. zhouyi 朱熹解易 (default)
@@ -119,6 +120,11 @@ export default function GuaResultBoardcast (props){
               <h2 className='gua-label'>{alter_gua.name}</h2>
               {alter_gua_content}  
             </div>
+            <div className='gua-yao-title'>
+              <p>九三</p>
+              <p>九二</p>
+              <p>初六</p>
+            </div>
           </div>
         </div>
         <div className='gua-description-mode' style={{display: isFulled?"block":"none"}}>
@@ -136,6 +142,7 @@ export default function GuaResultBoardcast (props){
         <button className='show-btn' onClick={handleToggle}></button>
         <button className='close-btn' onClick={handleToggle} style={{display: isFulled?"block":"none"}}>X</button>
       </div>
+      <GuaResultHint pos={{top: "50%", left: "5%"}}/>
     </div>
     
   )

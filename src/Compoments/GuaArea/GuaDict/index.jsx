@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import {gua_data_set, half_gua_set} from '../data'
+import {gua_64_set, gua_8_set} from '../data'
 
 import setScrollMobile  from '../../../plugin/scrollDom'
 import './index.css'
@@ -54,14 +54,14 @@ export default function GuaDict (props){
     //   }
     
     function createGuaGallery(){
-        let new_dataset = [{name:'',index:10000,icon:''},...half_gua_set]
+        let new_dataset = [{name:'',index:10000,icon:''},...gua_8_set]
         for(let i=0;i<8;i++){
             let tmp = []
             for(let j=0;j<9;j++){
                 if(j===0){
-                    tmp[j] = half_gua_set[i]
+                    tmp[j] = gua_8_set[i]
                 }else{
-                    tmp[j] = gua_data_set[i*8 + j - 1]
+                    tmp[j] = gua_64_set[i*8 + j - 1]
                 }    
             }
             new_dataset = [...new_dataset, ...tmp]        

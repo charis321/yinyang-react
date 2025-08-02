@@ -6,6 +6,7 @@ const setScrollMobile = (elmnt)=>{
   function scrollStart(start_e){
     let startX = start_e.touches[0].clientX
     let startY = start_e.touches[0].clientY
+    let isMove = false
     
     elmnt.addEventListener('touchmove', move, { passive: false })
     elmnt.addEventListener('touchend', end)
@@ -13,7 +14,8 @@ const setScrollMobile = (elmnt)=>{
     // elmnt.ontouchend  = end
 
     function move(end_e){
-      
+      if(isMove) return
+      isMove = true 
       let endX = end_e.touches[0].clientX
       let endY = end_e.touches[0].clientY
       let dx = endX - startX
@@ -25,7 +27,8 @@ const setScrollMobile = (elmnt)=>{
       // console.log("scrollLeft2", elmnt.scrollLeft, dx)
 
       startX = endX
-      startY = endY 
+      startY = endY
+      isMove = false 
     }
     function end(){
 

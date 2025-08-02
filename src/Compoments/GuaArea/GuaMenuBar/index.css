@@ -43,3 +43,10 @@
     transform: translateX(-100%);
     
 }
+.gua-menu-bar ul li:last-child .gua-menu-item p{
+    transition: all 0.3s ease-in-out;
+}
+.gua-menu-bar.closed ul li:last-child .gua-menu-item p{
+    left: 50px;
+    transform: rotateY(-180deg);
+}

@@ -23,7 +23,7 @@ export default function Yao(props){
 
     return (
         <div className={classes}>
-            <span className='yao_n'>{n}</span>
+            <span className='yao-n'>{n}</span>
         </div>
     )
   
