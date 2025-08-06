@@ -105,7 +105,7 @@ export default function GuaGallery(props){
                   <ul>
                   {   
                       data_sorted.map(guaObj=>{
-                          return <li  className={"gallery-menu-item"+(target===guaObj.name?" active":"")} 
+                          return <li  className={"gallery-menu-item"+(target===guaObj.name?" active":"")}
                                       onClick={handleTargetChange(guaObj.name)}
                                       key={guaObj.index}>
                                       {guaObj.icon+" "+guaObj.name}
@@ -127,7 +127,7 @@ export default function GuaGallery(props){
               { target?createContent(target):null }
               
               <div className="gallery-font-control" >
-                  <h2>字體大小: </h2>
+                  <h2>字體大小:</h2>
                   {/* <input type="select"></input>
                   <button onClick={handleFontChange("big")}>大</button>
                   <button onClick={handleFontChange("medium")}>中</button>

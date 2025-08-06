@@ -5,7 +5,7 @@ header{
     align-items: center; 
     background: #eee;
     /* background: #111; */
-    z-index: 1000;
+    z-index: var(--z-index-nav);
     transition: all 0.5s ease-in-out;
 }
 header .logo{
@@ -24,22 +24,32 @@ header.collapsed .logo{
     display: none;
 }
 
-header .nav-btn{
+header .nav-icon{
     width: 40px;
     height: 40px;
     position: absolute;
     top: 0;
     right: 0;
     margin: 5px;
+    
+    z-index: 100;
+}
+header .nav-icon-btn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
     background-image: url('/images/icons/menu-bar.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
-    z-index: 100;
+}
+header.collapsed .nav-icon:not(.closed){
+    position: relative;
 }
 
-header .nav-btn:active{
+header .nav-icon-btn:active{
     transform: scale(90%);
 }
 @media screen and (max-height: 350px){ 

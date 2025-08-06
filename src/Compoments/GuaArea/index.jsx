@@ -16,6 +16,7 @@ import { nanoid } from 'nanoid'
 export default class GuaArea extends Component {  
   state={
     loop: 0,
+    turn: 0,
     curr_stage_index: 0,
     curr_stage: "startStage",
     yaosList: [],
@@ -24,18 +25,18 @@ export default class GuaArea extends Component {
     canNext: false,
     showNewResultAnimate: 3000,
     stageIndex: [
-      'initialStage',
+      'initialStage', //[turn 1] 0
       'startStage',
-      'tianStage',
-      'splitStage', //[turn 1]
+      'tianStage', 
+      'splitStage',   //[turn 2] 3
       'choseStage', 
       'divideStage',
       'modStage',
-      'splitStage', //[turn 2]
+      'splitStage',   //[turn 2] 7
       'choseStage',
       'divideStage',
       'modStage',
-      'splitStage', //[turn 3]
+      'splitStage',   //[turn 4] 11
       'choseStage',
       'divideStage',
       'modStage',
@@ -44,10 +45,10 @@ export default class GuaArea extends Component {
     ],
     stageText:{
       "initialStage":"請按【開始】",
-      "startStage":"準備五十支籌策\n 【大衍之數五十，其用四十有九】---《繫辭》",
+      "startStage":"準備五十支籌策\n【大衍之數五十，其用四十有九】---《繫辭》",
       "tianStage": "放一支籌策到上方\n【大衍之數五十，其用四十有九】---《繫辭》",
-      "splitStage":"將籌策分成兩堆\n 【分而為二以象兩】---《繫辭》",
-      "choseStage":"選擇一邊, 移開一支籌策\n 【掛一以象三】---《繫辭》",
+      "splitStage":"將籌策分成兩堆\n【分而為二以象兩】---《繫辭》",
+      "choseStage":"選擇一邊, 移開一支籌策\n【掛一以象三】---《繫辭》",
       "divideStage":"以四為單位分為一小堆，最後剩下的餘數拿出來\n【揲之以四以象四時，歸奇於扐以象閏】---《繫辭》",
       "modStage":"以四為單位分為一小堆，最後剩下的餘數拿出來\n【揲之以四以象四時，歸奇於扐以象閏】---《繫辭》",
       "defineStage": "此為--------",
@@ -66,8 +67,9 @@ export default class GuaArea extends Component {
   initialState=async()=>{
     const base_state = {
       loop: 0,
+      turn: 0,
       curr_stage_index: 0,
-      curr_stage: "initialtStage",
+      curr_stage: "initialStage",
       broadcast_text: "請按【開始】",
       yaosList: [],
     }
@@ -100,7 +102,7 @@ export default class GuaArea extends Component {
   }
   startStage = async(data)=>{
     console.log("start")
-    this.setState({curr_stage:"startStage"})
+    this.setState({curr_stage:"startStage", turn: 0})
     this.sendNewBroadcast(this.state.stageText['startStage'])
     //console.log(0,this.area["GuaMainArea"].state.signs)
     await this.area["GuaMainArea"].resetSigns()
@@ -119,14 +121,14 @@ export default class GuaArea extends Component {
   }
   tianStage = async(data)=>{
     console.log("tian")
-    this.setState({curr_stage:"tianStage",})
+    this.setState({curr_stage:"tianStage"})
     this.sendNewBroadcast(this.state.stageText['tianStage'])
     this.setState({
       controllers:{
         "start-btn": false ,
         "next-btn" : false ,
         "result-btn": false,
-      }
+      },
    })
     await this.area["GuaMainArea"].tianSigns()
     // await this.area["GuaMainArea"].moveSigns([1], "tian");
@@ -135,9 +137,9 @@ export default class GuaArea extends Component {
   }
   splitStage = async(data)=>{
     console.log("split")
-    this.setState({curr_stage:"splitStage"})
+    this.setState({curr_stage:"splitStage", turn: this.state.turn + 1})
     this.sendNewBroadcast(this.state.stageText['splitStage'])
-    
+    await this.area["GuaMainArea"].banishSigns();  
     await this.area["GuaMainArea"].splitSigns();  
     // controller.changeBtn("next");
   }
@@ -168,12 +170,12 @@ export default class GuaArea extends Component {
   defineStage= async(data)=>{
     console.log("define")
     this.setState({curr_stage:"defineStage"})
-    
+    await this.area["GuaMainArea"].banishSigns();  
     const result =  this.area["GuaMainArea"].defineSigns();
     const new_yao =  defineYao(result)
     const new_yaosList = [...this.state.yaosList, new_yao]
     this.sendNewBroadcast(`此為: ${new_yao.name}`)
-
+    
     if(this.state.yaosList.length===6){
       console.log("isFull")
       const controllers = {
@@ -181,7 +183,7 @@ export default class GuaArea extends Component {
           "next-btn" : false ,
           "result-btn": true
       }
-      this.setStage({controllers, yaosList: new_yaosList})
+      this.setStage({controllers, yaosList: new_yaosList}, this.showNewResult)
     }else{
       this.setState({yaosList: new_yaosList}, this.showNewResult)
     }
@@ -300,6 +302,7 @@ export default class GuaArea extends Component {
   }
 
   showNewResult = async()=>{
+    console.log("show")
     this.setState({isBoardcastClosed: false})
     // ()=>{
     //   setTimeout(()=>{
@@ -323,17 +326,31 @@ export default class GuaArea extends Component {
 
   render() {
     const chinese_number = ["零","壹","貳","參","肆","伍","陸","柒","捌","玖"]
-    const turn = Math.max(Math.floor(this.state.curr_stage_index/4), 0)
+    const yao_index = ["初爻","二爻","三爻","四爻","五爻","上爻"]
+
+    const process_name = {
+      "splitStage":"分二",
+      "choseStage":"掛一",
+      "divideStage":"揲四",
+      "modStage":"歸奇"
+    }
+    // const turn_index = [0, 3, 7, 11]
+    // const turn = Math.max(Math.floor(this.state.curr_stage_index/4)+1, 0)
 
     return (
       <div className='gua-container'>
         <div className="gua-broadcast" >
           <div className='gua-broadcast-text'>
-            <h1>{this.state.broadcast_text}</h1>
+            <h1>{process_name[this.state.curr_stage]||null}</h1>
+            <h2>{this.state.broadcast_text}</h2>
           </div>
           <div className="gua-state-info">
-            <h1>{"進行次數: "+ this.state.loop}</h1>
-            <h1>{chinese_number[turn]+"巡"}</h1>
+            <h1>{`${yao_index[this.state.loop]} (${this.state.loop + 1}/6)`}</h1>
+            <h1>{`${chinese_number[this.state.turn]}變 (${this.state.turn}/3)`}</h1>
+            {/* <p>分二</p>
+            <p>掛一</p>
+            <p>揲四</p>
+            <p>歸奇</p> */}
           </div>
         </div>
         

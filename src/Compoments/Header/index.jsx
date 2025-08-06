@@ -23,7 +23,11 @@ export default function Header() {
             {
                 isClosed?"":<NavBar></NavBar>
             }
-            <div className='nav-btn' onClick={handleToggle} style={{display: device==="PC"?"none":"block"}}></div>
+            <div className={`nav-icon ${isClosed?"closed":""}`} 
+                 onClick={handleToggle} 
+                 style={{display: device==="PC"?"none":"block"}}>
+                <div className='nav-icon-btn' onClick={handleToggle}></div>
+            </div>
         </header>
     )
 }

@@ -41,9 +41,6 @@
     text-decoration: none;
     animation: fadeInLeft 0.5s;
 }
-.navbar-container li.index{
-   /* font-size: 1.5rem; */
-}
 .navbar-container li.logout{
     cursor: pointer;
 }
@@ -70,13 +67,7 @@
         /* border-radius: 10px; */
     }
 }
-@media  screen and (max-width: 1024px){
-    .navbar-container{
-        margin-right: 40px;
-    }
-}
-    
-
+  
 
 @keyframes fadeInLeft{
     0%{

@@ -51,6 +51,12 @@ h2{
   justify-content: center;
   align-items: center;
 }
+.flex-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 
 /* button style */
@@ -202,3 +208,21 @@ span.loading-icon{
   }
 }
 
+@keyframes fade{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}

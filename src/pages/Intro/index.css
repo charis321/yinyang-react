@@ -1,6 +1,52 @@
+.intro-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.intro-container main{
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.link-container{
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
 .site-qrcode{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-image: url("/images/qrcode.png");
     background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: 10px double #333;
+    border-radius: 10px;
+}
+.site-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+footer{
+    width: 100%;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media  screen and (max-width: 760px) {
+    .link-container{
+        flex-direction: column;
+    }
+
 }

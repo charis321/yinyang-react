@@ -29,7 +29,7 @@ export default function About(props){
         <article className='about-topic'>
           <Link to="/index/gallery">
             <div className='about-topic-content'>
-              <h2>何為六十四卦</h2> 
+              <h2>《易經六十四卦》</h2> 
             </div>
           </Link>
         </article>

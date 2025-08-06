@@ -23,6 +23,7 @@ export default function GuaResultBoardcast (props){
   
   useEffect(()=>{
     setIsClosed(props.isBoardcastClosed)
+    console.log("toggle result", isClosed)
   },[props.isBoardcastClosed])
 
   const handleToggle = ()=>{  

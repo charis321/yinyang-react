@@ -20,9 +20,9 @@ export default class GuaMainArea extends Component {
     placeIndex: {
       tian  : [50, 10, 50 , 20],
       main  : [50, 50, 100, 25],
-      left  : [20, 40, 50 , 25],
-      right : [80, 40, 50 , 25],
-      banish: [90, 80, 50 , 40]
+      left  : [20, 45, 50 , 25],
+      right : [80, 45, 50 , 25],
+      banish: [10, 80, 50 , 40]
     },
     touchIndex: {
       tian:  {place: "tian"  , touchable:false, isTouched:false},
@@ -194,6 +194,13 @@ export default class GuaMainArea extends Component {
       this.setState({isDragging: true})
     })
 
+  }
+  banishSigns = ()=>{
+    let new_signs = []
+    this.state.signs.map(signObj=>{
+      if(signObj.place!=="banish") new_signs.push(signObj)
+    })
+    this.setState({signs: new_signs})
   }
   divideSigns = (data)=>{
     let new_signs = [...this.state.signs]

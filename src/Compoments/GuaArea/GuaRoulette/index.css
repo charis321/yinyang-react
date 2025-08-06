@@ -50,15 +50,25 @@
     left: 0px;
     width: 600px;
     height: 600px;
-    background: #ffd257;
+    /* background: #ffd257; */
     /* background-image: url("/images/bagua_bg.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center; */
 }
 .gua-roulette-loop{
+    
     transition: all 0.5s linear;
     /* animation: spin 20s linear infinite; */
+}
+.gua-roulette-loop::before{
+    content: '';
+    position: absolute;
+    top: -300px;
+    left: -300px;
+    width: 600px;
+    height: 600px;
+    background: #ddd;
 }
 .gua_roulette_item{
     width: 50px;
@@ -71,7 +81,7 @@
     /* background-color:  #fdf6e3; */
     border-radius: 50%;
     /* border: 1px solid #000; */
-    filter: drop-shadow(0 0 2px yellow);
+    /* filter: drop-shadow(0 0 2px yellow); */
 }
 .gua_roulette_item h1{
     font-size: 3rem;

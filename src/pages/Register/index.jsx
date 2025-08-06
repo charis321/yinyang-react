@@ -117,7 +117,7 @@ export default function Register(props){
                     onClick={handleShowPasseord("password")} 
                     style={{backgroundColor: showPassword[0]?"rgba(0, 0, 0, 0.5)":"rgba(255, 255, 255, 0.5)"}}
                     tabIndex = "-1">
-              <img alt='查看密碼' src={"/images/icons/eye.svg"} />
+              <img alt='查看密碼' src={`${import.meta.env.BASE_URL}/images/icons/eye.svg`} />
             </button>
           </label>
           
@@ -133,7 +133,7 @@ export default function Register(props){
                     onClick={handleShowPasseord("passwordR")}
                     style={{backgroundColor: showPassword[1]?"rgba(0, 0, 0, 0.5)":"rgba(255, 255, 255, 0.5)"}}
                     tabIndex = "-1">
-              <img alt='查看密碼' src={"/images/icons/eye.svg"} />
+              <img alt='查看密碼' src={`${import.meta.env.BASE_URL}/images/icons/eye.svg`} />
             </button>
           </label>
          

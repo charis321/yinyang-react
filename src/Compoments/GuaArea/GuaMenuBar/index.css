@@ -5,7 +5,7 @@
     width: 320px; */
     position: fixed;
     bottom: 5%;
-    left: 2%;
+    right: 2%;
     padding: 5px;
     border: 2px double #999;
     border-radius: 50px;
@@ -25,13 +25,13 @@
     box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.3);
     padding: 0.2em 0.4em;
 }
-.gua-menu-bar ul li:first-child .gua-menu-item{
-    border-radius: 50px 0 0 50px;
-}
 .gua-menu-bar ul li:last-child .gua-menu-item{
-    width: 50px;
-    margin-left: 10px;
     border-radius: 0 50px 50px 0;
+}
+.gua-menu-bar ul li:first-child .gua-menu-item{
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 50px 0 0 50px;
 }
 
 .gua-menu-item:active{
@@ -39,14 +39,14 @@
 }
 
 .gua-menu-bar.closed{
-    left: 50px;
-    transform: translateX(-100%);
+    right: 50px;
+    transform: translateX(100%);
     
 }
-.gua-menu-bar ul li:last-child .gua-menu-item p{
+.gua-menu-bar ul li:first-child .gua-menu-item p{
     transition: all 0.3s ease-in-out;
 }
-.gua-menu-bar.closed ul li:last-child .gua-menu-item p{
+.gua-menu-bar.closed ul li:first-child .gua-menu-item p{
     left: 50px;
     transform: rotateY(-180deg);
 }

@@ -36,35 +36,41 @@
 .gua-broadcast {
     width: 80%;
     /* height: 20%; */
+    margin-top: 0.5rem;
     position: relative;
     display: flex;
     justify-content: space-between;
    
 }
 .gua-broadcast-text{
+    height: 3rem;
+    position: relative;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     
 }
 .gua-broadcast-text h1{
+    font-size: 3rem;
+    height: fit-content;
+    
+    border-right: 5px double #000;
+    margin-right: 0.2rem;
+    padding-right: 0.5rem;
+    writing-mode: vertical-lr ;  
+    -webkit-writing-mode: vertical-lr;
     animation: fadeIn 0.5s;
 }
-@keyframes fadeIn{
-    0%{
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    100%{
-        opacity: 1;
-        transform: translateX(0px);
-    }
+.gua-broadcast-text h2{
+    font-size: 1.2rem;
+    animation: fadeIn 0.5s;
 }
+
 .gua-broadcast-text::before{
     content: "";
     position: absolute;
     width: 20px;
     height: 20px;
-    left: -20px;
+    left: -25px;
     top: calc(50% - 10px);
 
     background-image: url('/images/icons/arrow.png');
