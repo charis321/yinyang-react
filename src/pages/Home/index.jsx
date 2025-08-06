@@ -13,7 +13,7 @@ export default function Home(){
                 <NavBar></NavBar>
             </main>
             <footer>
-                <p>ver.0.0.1</p> 
+                <p>ver.0.0.2 Beta</p> 
             </footer>
         </div>
     )

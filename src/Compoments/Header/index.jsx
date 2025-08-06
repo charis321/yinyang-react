@@ -18,7 +18,7 @@ export default function Header() {
     }
 
     return (
-        <header className={ orientation==='portrait-primary'||device==="PC"?"":"collapsed"}>
+        <header className={ (orientation==='portrait-primary'||device==="PC"||device==="tablet")?"":"collapsed"}>
             <Link className='logo' to="../Home"></Link>
             {
                 isClosed?"":<NavBar></NavBar>

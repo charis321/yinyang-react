@@ -28,6 +28,7 @@ export default function NavBar() {
       <ul className='navbar-container'>
         <li><Link to="/home">首頁</Link></li>
         <li><Link to="/about">關於周易</Link></li>
+        <li className='index'><Link to="/index">☯</Link></li>
         <li><Link to="/gua">算卦</Link></li>
         <li><Link to="/history">歷史紀錄</Link></li>
         <li>身分: { user.username }</li>

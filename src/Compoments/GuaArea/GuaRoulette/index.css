@@ -1,0 +1,86 @@
+.gua-roulette-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+.gua-roulette-container .gua-test-range{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+
+
+.gua-roulette{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+
+
+/* .gua-roulette::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url('/images/yin_yang_raw.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+} */
+.gua-roulette-content{
+    width: 50%;
+    height: 100%;
+
+}
+.gua-roulette-wheel{
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+.gua-roulette-wheel::before{
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 600px;
+    height: 600px;
+    background: #ffd257;
+    /* background-image: url("/images/bagua_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; */
+}
+.gua-roulette-loop{
+    transition: all 0.5s linear;
+    /* animation: spin 20s linear infinite; */
+}
+.gua_roulette_item{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    color: #333;
+    font-size: 2rem;
+    text-align: center;
+    transform-origin: center;
+    /* background-color:  #fdf6e3; */
+    border-radius: 50%;
+    /* border: 1px solid #000; */
+    filter: drop-shadow(0 0 2px yellow);
+}
+.gua_roulette_item h1{
+    font-size: 3rem;
+}
+@keyframes spin{
+    0%{
+        transform: rotateZ(0);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}

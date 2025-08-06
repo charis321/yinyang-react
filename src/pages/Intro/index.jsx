@@ -12,8 +12,10 @@ export default function IntroPage(){
                 <h3>本站網址:</h3>
                 <a href="https://charis321.github.io/yinyang-react" target="_blank"  rel="noreferrer noopener">
                 https://charis321.github.io/yinyang-react/</a>
-                <span className="loading-icon"></span>
-                kjdsalfjdaskjfkjl
+                <div className="flex">
+                    <h1>===持續更新中===</h1>
+                </div>
+                
             </main>
         </div>
     )

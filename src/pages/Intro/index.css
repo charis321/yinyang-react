@@ -1,6 +1,6 @@
 .site-qrcode{
     width: 100px;
     height: 100px;
-    background-image: url("../../../public/images/qrcode.png");
+    background-image: url("/images/qrcode.png");
     background-repeat: no-repeat;
 }

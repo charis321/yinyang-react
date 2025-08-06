@@ -41,6 +41,9 @@
     text-decoration: none;
     animation: fadeInLeft 0.5s;
 }
+.navbar-container li.index{
+   /* font-size: 1.5rem; */
+}
 .navbar-container li.logout{
     cursor: pointer;
 }
@@ -54,7 +57,7 @@
         position: relative;
         top: 0;
         background-color: transparent;
-        margin-right: 0;
+        
     }
     .navbar-container li{
         width: auto;
@@ -67,6 +70,12 @@
         /* border-radius: 10px; */
     }
 }
+@media  screen and (max-width: 1024px){
+    .navbar-container{
+        margin-right: 40px;
+    }
+}
+    
 
 
 @keyframes fadeInLeft{
@@ -77,5 +86,13 @@
     100%{
         opacity: 1;
         transform: translateX(0px);
+    }
+}
+@keyframes spin{
+    0%{
+        transform: rotateZ(0);
+    }
+    100%{
+        transform: rotateZ(360deg);
     }
 }

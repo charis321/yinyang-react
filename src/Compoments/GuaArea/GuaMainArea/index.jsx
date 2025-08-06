@@ -36,7 +36,7 @@ export default class GuaMainArea extends Component {
       
   }
   componentDidMount(){
-    const { handleArea} = this.props
+    const { handleArea } = this.props
     handleArea(this, "GuaMainArea")
   }
   ////////////////////////////////////        sign manger

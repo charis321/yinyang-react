@@ -31,6 +31,9 @@ export default class Sign extends Component {
     
   // }
   handleClick=(e)=>{  
+     if (!e.isPrimary) return;
+    // if(dragging) return
+    // this.setState({dragging : true})
     e.target.releasePointerCapture(e.pointerId) 
     if(this.props.isSpliting&&this.state.sign.place==="main"){
       this.props.setSpliter(this.state.sign.localIndex)

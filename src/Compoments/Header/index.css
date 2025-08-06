@@ -1,7 +1,7 @@
 header{
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center; 
     background: #eee;
     /* background: #111; */
@@ -16,6 +16,9 @@ header .logo{
     background-repeat: no-repeat;
     background-position: center;
     margin-left: 1%;
+}
+header.collapsed{
+    position: fixed;
 }
 header.collapsed .logo{
     display: none;
@@ -44,12 +47,11 @@ header .nav-btn:active{
         display: none;
     } */
 }
-@media screen and (max-height: 768px){
+@media screen and (max-height: 480px){
     header{
         width: 100%;
         height: auto;
-        display: flex;
-        flex-direction: row;
+
         justify-content: space-between;
         /* background-color: rgba(0, 0, 0, 0.3); */
         background: #eee;
